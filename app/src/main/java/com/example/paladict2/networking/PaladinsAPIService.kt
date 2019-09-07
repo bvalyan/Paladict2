@@ -24,6 +24,13 @@ interface PaladinsAPIService {
         @Path("date") date : String
     ) : Deferred<Session>
 
+    @GET("getchampionsjson/{dev_id}/{signature}/{date}")
+    fun getChampions(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String
+    ) : Deferred<Session>
+
 
 
     companion object {
