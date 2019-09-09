@@ -1,6 +1,7 @@
 package com.example.paladict2.networking
 
 import com.example.paladict2.Constants
+import com.example.paladict2.model.Champion
 import com.example.paladict2.model.Session
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -24,12 +25,14 @@ interface PaladinsAPIService {
         @Path("date") date : String
     ) : Deferred<Session>
 
-    @GET("getchampionsjson/{dev_id}/{signature}/{date}")
+    @GET("getchampionsjson/{dev_id}/{signature}/{session}/{date}/{langCode}")
     fun getChampions(
         @Path("dev_id") devID : String,
         @Path("signature") signature : String,
-        @Path("date") date : String
-    ) : Deferred<Session>
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("langCode") langCode : String
+    ) : Deferred<MutableList<Champion>>
 
 
 

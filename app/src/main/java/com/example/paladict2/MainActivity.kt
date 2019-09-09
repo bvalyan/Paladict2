@@ -1,36 +1,45 @@
 package com.example.paladict2
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.paladict2.model.Session
+import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
+import com.example.paladict2.model.Champion
+import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.viewmodel.MainViewModel
+import com.example.paladict2.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     var mainViewModel: MainViewModel? = null
     val SHARED_PREF_NAME = "paladict_prefs"
-    var sharedPreferences: SharedPreferences? = null
+    private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        createAPISession()
-    }
-
-    private fun createAPISession() {
-        mainViewModel!!.session.observe(this, Observer {
-            obtainedSession -> saveSession(obtainedSession)
-        })
-    }
-
-    private fun saveSession(obtainedSession: Session?) {
         sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
-        val editor = sharedPreferences!!.edit()
-        editor.putString(Constants.PALADINS_PC_SESSION_ID, obtainedSession!!.sessionID)
-        editor.apply()
+        if (SessionManager.isSessionValid(sharedPreferences!!)) {
+            setUpViewModel()
+        } else {
+            SessionManager.createAndSaveSession(sharedPreferences!!, this, true)
+        }
+    }
+
+    private fun setUpMainScreen(obtainedChampions: List<Champion>?) {
+        Log.d("MAINSCREEN", obtainedChampions?.size.toString())
+    }
+
+    fun setUpViewModel() {
+        val sessionID = sharedPreferences!!.getString(PALADINS_SESSION_ID, "") as String
+        mainViewModel = ViewModelProviders.of(this, MainViewModelFactory(sessionID))
+            .get(MainViewModel::class.java)
+        mainViewModel!!.champions.observe(this, Observer { obtainedChampions ->
+            setUpMainScreen(obtainedChampions)
+        })
     }
 }
