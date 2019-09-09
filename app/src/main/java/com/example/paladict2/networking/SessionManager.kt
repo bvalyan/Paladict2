@@ -20,8 +20,7 @@ class SessionManager {
 
         fun createAndSaveSession(
             prefs: SharedPreferences,
-            currentActivity: AppCompatActivity,
-            isMainScreen: Boolean
+            currentActivity: AppCompatActivity
         ) {
             val sessionRepository = SessionRepository()
             val session = sessionRepository.getMutableLiveData()
@@ -32,7 +31,7 @@ class SessionManager {
                     editor.putLong(PALADINS_SESSION_TIME, System.currentTimeMillis())
                     editor.apply()
                     val mainActivity = currentActivity as MainActivity
-                    if (isMainScreen) mainActivity.setUpViewModel()
+                    mainActivity.setUpViewModel()
                 }
 
             })
