@@ -15,8 +15,8 @@ class Constants {
         val ADMOB_TEST_BANNER = "ca-app-pub-3940256099942544/6300978111"
         val ADMOB_LIVE_BANNER = "ca-app-pub-6213612804571704/7460459994"
 
-        val PALADINS_PC_SESSION_ID = "session_id"
-        val PALADINS_PC_SESSION_TIME = "session_time"
+        val PALADINS_SESSION_ID = "session_id"
+        val PALADINS_SESSION_TIME = "session_time"
 
         val PALADINS_XBOX_SESSION_ID = "xbox_session_id"
         val PALADINS_XBOX_SESSION_TIME = "xbox_session_time"

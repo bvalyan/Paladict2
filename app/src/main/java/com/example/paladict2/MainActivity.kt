@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
+import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
 import com.example.paladict2.model.Session
 import com.example.paladict2.viewmodel.MainViewModel
+import com.example.paladict2.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,20 +20,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        createAPISession()
+        sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
+        var sessionTime = sharedPreferences?.getLong(PALADINS_SESSION_TIME, 0)
+        var sessionID = sharedPreferences?.getString(PALADINS_SESSION_ID, "")
+        mainViewModel = ViewModelProviders.of(this, MainViewModelFactory(sessionID!!)).get(MainViewModel::class.java)
+        if (Utils.isAPISessionExpired(sessionTime as Long, sessionID)) {
+            createAPISession()
+        } else fetchChampions()
+
+
+    }
+
+    private fun fetchChampions() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun createAPISession() {
-        mainViewModel!!.session.observe(this, Observer {
-            obtainedSession -> saveSession(obtainedSession)
+        mainViewModel!!.session.observe(this, Observer { obtainedSession ->
+            saveSession(obtainedSession)
+            fetchChampions()
         })
     }
 
     private fun saveSession(obtainedSession: Session?) {
-        sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
         val editor = sharedPreferences!!.edit()
-        editor.putString(Constants.PALADINS_PC_SESSION_ID, obtainedSession!!.sessionID)
+        editor.putString(PALADINS_SESSION_ID, obtainedSession!!.sessionID)
+        editor.putLong(PALADINS_SESSION_TIME, System.currentTimeMillis())
         editor.apply()
     }
 }

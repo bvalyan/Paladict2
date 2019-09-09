@@ -15,6 +15,8 @@ import java.util.TimeZone;
 
 public class Utils {
 
+    static long tokenExpirationTime = 900000;
+
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
@@ -69,5 +71,13 @@ public class Utils {
             dialog.setMessage(message);
         }
         return dialog;
+    }
+
+    public static boolean isAPISessionExpired(long tokenCreationTime, String sessionID) {
+        if(sessionID.equals("") ||System.currentTimeMillis() > tokenCreationTime + tokenExpirationTime) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
