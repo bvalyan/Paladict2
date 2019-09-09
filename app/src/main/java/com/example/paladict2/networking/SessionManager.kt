@@ -14,7 +14,7 @@ class SessionManager {
 
         fun isSessionValid(prefs: SharedPreferences): Boolean {
             val obtainedSessionTime = prefs.getLong(PALADINS_SESSION_TIME, 0)
-            return !(obtainedSessionTime > System.currentTimeMillis() + 900000 || obtainedSessionTime == 0.toLong())
+            return !(System.currentTimeMillis() > obtainedSessionTime + 900000 || obtainedSessionTime == 0.toLong())
         }
 
 

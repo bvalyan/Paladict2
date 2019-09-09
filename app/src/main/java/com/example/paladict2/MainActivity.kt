@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.SessionManager
+import com.example.paladict2.view.HomeScreenFragment
 import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMainScreen(obtainedChampions: List<Champion>?) {
         Log.d("MAINSCREEN", obtainedChampions?.size.toString())
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.activity_fragment, HomeScreenFragment.newInstance())
+            .commit()
     }
 
     fun setUpViewModel() {
