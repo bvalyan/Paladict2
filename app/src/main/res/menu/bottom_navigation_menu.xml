@@ -2,24 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/players_menu_item"
-        app:showAsAction="always"
-        android:icon="@drawable/player_search_icon"
-        android:title="@string/players_menu_title" />
-    <item
-        android:id="@+id/champions_menu_item"
-        app:showAsAction="always"
-        android:icon="@drawable/champion_icon"
-        android:title="@string/champions_menu_item" />
-    <item
-        android:id="@+id/items_menu_item"
-        app:showAsAction="always"
-        android:icon="@drawable/items_icon"
-        android:title="@string/items_menu_title" />
-    <item
-        android:id="@+id/news_menu_item"
-        android:icon="@drawable/news_icon"
-        app:showAsAction="always"
-        android:title="@string/news_menu_title" />
+
 </menu>

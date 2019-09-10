@@ -6,4 +6,6 @@
     <string name="champions_menu_item">Champions</string>
     <string name="items_menu_title">Items</string>
     <string name="news_menu_title">News</string>
+    <string name="close_text">Close</string>
+    <string name="learn_more_text">Learn More</string>
 </resources>

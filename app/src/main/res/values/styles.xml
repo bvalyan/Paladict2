@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,11 +14,41 @@
     </style>
 
     <style name="TextPrimaryTitleStyle">
-        <item name="android:textColor">@color/textColorPrimary</item>
-        <item name="android:textSize">@dimen/textSizeLarge</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizexLarge</item>
+        <item name="android:fontFamily">sans-serif-black</item>
     </style>
 
+
+    <style name="TextPrimaryBoldStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+
+    <style name="PageOneTabStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/PageOneTabTextStyle</item>
+    </style>
+
+    <style name="PageOneTabTextStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="PageTwoTabStyle" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/PageTwoTabTextStyle</item>
+    </style>
+
+    <style name="PageTwoTabTextStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColorPageTwo</item>
+    </style>
+
+
     <dimen name="textSizeNormal">12sp</dimen>
-    <dimen name="textSizeLarge">32</dimen>
+    <dimen name="textSizeButton">18sp</dimen>
+    <dimen name="textSizeLarge">24sp</dimen>
+    <dimen name="textSizexLarge">32sp</dimen>
+
+
 </resources>

@@ -9,7 +9,51 @@
         android:id="@+id/main_menu_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        >
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/main_tabs"
+            android:background="@color/colorPrimaryDark"
+            app:tabTextColor="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" >
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/main_fab_sheet"
+        android:visibility="invisible"
+        app:layout_behavior="com.google.android.material.transformation.FabTransformationSheetBehavior"
+        android:background="@color/colorAccent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fab_close_btn"
+            android:layout_margin="@dimen/margin_normal"
+            android:layout_width="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSizeLarge"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/close_text"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:gravity="center"
+            />
+
+
+    </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/main_app_bar"
@@ -19,7 +63,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:menu="@menu/bottom_navigation_menu"
-        app:fabAlignmentMode="end"
+        app:fabAlignmentMode="center"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -27,6 +71,6 @@
         app:layout_anchor="@id/main_app_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/paladins_icon"/>
+        android:src="@drawable/menu_paladins_icon"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

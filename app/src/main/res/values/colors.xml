@@ -5,4 +5,11 @@
     <color name="colorAccent">#6FFFB0</color>
     <color name="textColorPrimary">#98FFDC</color>
     <color name="white">#ffffff</color>
+    <color name="menuPageOneColor">#023832</color>
+    <color name="menuPageTwoColor">#3A2574</color>
+    <color name="textColorPageTwo">#D3D9FD</color>
+    <color name="menuPageThreeColor">#A80039</color>
+    <color name="textColorPageThree">#FFA2BD</color>
+    <color name="menuPageFourColor">#00597E</color>
+    <color name="textColorPageFour">#8FDAFF</color>
 </resources>
