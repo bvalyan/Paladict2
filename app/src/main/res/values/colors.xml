@@ -12,4 +12,6 @@
     <color name="textColorPageThree">#FFA2BD</color>
     <color name="menuPageFourColor">#00597E</color>
     <color name="textColorPageFour">#8FDAFF</color>
+    <color name="linkBlue">#007BFF</color>
+    <color name="transparent_div_gray">#79808080</color>
 </resources>
