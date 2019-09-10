@@ -3,10 +3,12 @@ package com.example.paladict2.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
+import com.example.paladict2.Utils
 import com.example.paladict2.model.Champion
+import com.example.paladict2.model.Session
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
-import java.lang.Exception
+import retrofit2.HttpException
 
 class ChampionRepository {
 
@@ -19,20 +21,27 @@ class ChampionRepository {
         PaladinsAPIService.createCorService()
     }
 
-    fun getMutableLiveData(date: String, signature: String, sessionID: String): MutableLiveData<List<Champion>> {
+    fun getMutableLiveData(session : String) : MutableLiveData<List<Champion>> {
         coroutineScope.launch {
-            val request = thisApiCorService.getChampions(Constants.PALADINS_DEV_ID, signature, date, sessionID, "1")
+            val request = thisApiCorService.getChampions(
+                Constants.PALADINS_DEV_ID,
+                Utils.createSignature("getchampions"),
+                Utils.getDate(),
+                session,
+                "1"
+            )
             withContext(Dispatchers.Main) {
                 try {
                     val response = request.await()
-                    if(response != null){
-                        champions = response as MutableList<Champion>
-                    }
-                } catch ( e : Exception){
+                    val mChampions = response
+                    champions = mChampions
+                    mutableLiveData.value = champions
+                } catch (e: HttpException){
                     Log.d("", "")
                 }
             }
         }
         return mutableLiveData
     }
+
 }

@@ -32,7 +32,7 @@ interface PaladinsAPIService {
         @Path("date") date : String,
         @Path("session") session : String,
         @Path("langCode") langCode : String
-    ) : Deferred<List<Champion>>
+    ) : Deferred<MutableList<Champion>>
 
 
 
@@ -49,6 +49,8 @@ interface PaladinsAPIService {
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(logging)
                 .build()
+
+
 
             return Retrofit.Builder()
                 .baseUrl(Constants.PALADINS_API_URI)
