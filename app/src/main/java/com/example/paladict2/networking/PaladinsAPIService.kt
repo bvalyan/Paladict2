@@ -41,7 +41,7 @@ interface PaladinsAPIService {
 
             val logging = HttpLoggingInterceptor()
 // set your desired log level
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+            logging.level = HttpLoggingInterceptor.Level.BODY
 
             val okHttpClient = OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.MINUTES)
@@ -49,8 +49,6 @@ interface PaladinsAPIService {
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .addInterceptor(logging)
                 .build()
-
-
 
             return Retrofit.Builder()
                 .baseUrl(Constants.PALADINS_API_URI)

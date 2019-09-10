@@ -36,6 +36,7 @@ class HomeScreenFragment : Fragment() {
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             var allChampions = mainViewModel.champions.value
+
         }
 
 
