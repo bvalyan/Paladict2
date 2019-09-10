@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        initializeNavDrawer()
         sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
         if (SessionManager.isSessionValid(sharedPreferences!!)) {
             setUpViewModel()
@@ -36,45 +34,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeNavDrawer() {
-        // Initialize the action bar drawer toggle instance
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this,
-            drawer_layout,
-            toolbar,
-            R.string.drawer_open,
-            R.string.drawer_close
-        ){
-            override fun onDrawerClosed(view: View){
-                super.onDrawerClosed(view)
-                //toast("Drawer closed")
-            }
-
-            override fun onDrawerOpened(drawerView: View){
-                super.onDrawerOpened(drawerView)
-                //toast("Drawer opened")
-            }
-        }
-        drawerToggle.isDrawerIndicatorEnabled = true
-        drawerToggle.isDrawerSlideAnimationEnabled = true
-        drawer_layout.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
-
-        navigationView.setNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.item_1 -> Log.d("","")
-            }
-            drawer_layout.closeDrawer(GravityCompat.START)
-            true
-        }
-    }
-
     private fun setUpMainScreen(obtainedChampions: List<Champion>?) {
         Log.d("MAINSCREEN", obtainedChampions?.size.toString())
-        supportFragmentManager
+        loadViewPagerMenu()
+        /*supportFragmentManager
             .beginTransaction()
             .add(R.id.activity_fragment, HomeScreenFragment.newInstance())
             .commit()
+         */
+    }
+
+    private fun loadViewPagerMenu() {
+
     }
 
     fun setUpViewModel() {

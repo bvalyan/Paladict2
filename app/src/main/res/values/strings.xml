@@ -2,4 +2,8 @@
     <string name="app_name">Paladict 2</string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer closed</string>
+    <string name="players_menu_title">Players</string>
+    <string name="champions_menu_item">Champions</string>
+    <string name="items_menu_title">Items</string>
+    <string name="news_menu_title">News</string>
 </resources>
