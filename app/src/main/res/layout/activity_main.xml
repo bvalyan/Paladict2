@@ -13,7 +13,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs"
             android:background="@color/colorPrimaryDark"
-            app:tabTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top" >
@@ -35,7 +35,8 @@
             android:layout_margin="@dimen/margin_normal"
             android:layout_width="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/textSizeLarge"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -60,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:menu="@menu/bottom_navigation_menu"
         app:fabAlignmentMode="center"

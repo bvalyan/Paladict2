@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#303030</color>
-    <color name="colorAccent">#6FFFB0</color>
+    <color name="colorAccent">#13A856</color>
     <color name="textColorPrimary">#98FFDC</color>
     <color name="white">#ffffff</color>
-    <color name="menuPageOneColor">#023832</color>
+    <color name="menuPageOneColor">#084422</color>
     <color name="menuPageTwoColor">#3A2574</color>
     <color name="textColorPageTwo">#D3D9FD</color>
     <color name="menuPageThreeColor">#A80039</color>

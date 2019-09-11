@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
    >
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         app:cardCornerRadius="5dp"
         app:cardBackgroundColor="@color/white"
-        app:cardElevation="6dp"
-        app:cardMaxElevation="10dp"
-        android:layout_margin="@dimen/margin_medium"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -26,7 +25,7 @@
             <ImageView
                 android:id="@+id/champion_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="175dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/yin_sample" />
