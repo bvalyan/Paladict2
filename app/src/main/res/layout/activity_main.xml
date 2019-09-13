@@ -5,53 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/main_menu_view_pager"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_tabs"
-            android:background="@color/colorPrimaryDark"
-            app:tabTextColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top" >
+        android:layout_height="match_parent" />
 
-        </com.google.android.material.tabs.TabLayout>
-
-    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.circularreveal.CircularRevealRelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/main_fab_sheet"
-        android:visibility="invisible"
-        app:layout_behavior="com.google.android.material.transformation.FabTransformationSheetBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorAccent"
-        android:layout_height="match_parent">
+        android:transitionName="@string/transition_circular_layout"
+        android:visibility="invisible"
+        app:layout_behavior="com.google.android.material.transformation.FabTransformationSheetBehavior">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fab_close_btn"
-            android:layout_margin="@dimen/margin_normal"
-            android:layout_width="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="@dimen/textSizeLarge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/margin_normal"
             android:text="@string/close_text"
-            />
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeLarge"
+            android:textStyle="bold" />
 
 
         <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
             android:gravity="center"
-            />
+            android:text="@string/app_name" />
 
 
     </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
@@ -61,17 +61,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:transitionName="@string/transition_bottom_bar"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:menu="@menu/bottom_navigation_menu"
         app:fabAlignmentMode="center"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:menu="@menu/bottom_navigation_menu"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/paladins_fab"
-        app:layout_anchor="@id/main_app_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/menu_paladins_icon"/>
+        android:src="@drawable/menu_paladins_icon"
+        android:transitionName="@string/transition_fab"
+        app:layout_anchor="@id/main_app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

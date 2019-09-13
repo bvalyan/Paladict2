@@ -3,14 +3,17 @@ package com.example.paladict2
 class Constants {
 
     companion object {
+
         @kotlin.jvm.JvmField
 
         //Access Constants
+        val PALADINS_SELECTED_CHAMPION = "selectedChampion"
         val REDIRECT_URI = "https://optimalotaku.com/paladict/"
         val RESPONSE_TYPE = "?response_type=code"
         const val PALADINS_API_URI = "http://api.paladins.com/paladinsapi.svc/"
         const val PALADINS_DEV_ID = "2568"
         const val PALADINS_AUTH_KEY = "660ACC8BED2044B986BE8329F8856B6B"
+        const val SHARED_PREF_NAME = "paladict_prefs"
         val ADMOB_KEY = "ca-app-pub-6213612804571704~5555108114"
         val ADMOB_TEST_BANNER = "ca-app-pub-3940256099942544/6300978111"
         val ADMOB_LIVE_BANNER = "ca-app-pub-6213612804571704/7460459994"

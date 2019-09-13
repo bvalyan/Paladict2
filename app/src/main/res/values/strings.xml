@@ -8,4 +8,19 @@
     <string name="news_menu_title">News</string>
     <string name="close_text">Close</string>
     <string name="learn_more_text">Learn More</string>
+    <string name="transition_fab">fab activity transition</string>
+    <string name="transition_bottom_bar">activity_transition_bottom_bar</string>
+    <string name="transition_circular_layout">activity circular layout transition</string>
+    <string name="champion_image_transition">activity champion image transition</string>
+    <string name="champion_name_transition">activity champion name transition</string>
+    <string name="champion_class_transition">activity champion class transition</string>
+    <string name="champion_det_frag_name">Champion Details</string>
+    <string name="transition_name_string">transitionName</string>
+    <string name="champion_image_trans_string">championImage</string>
+    <string name="champion_trans_item">champion transition item</string>
+    <string name="selected_champion_object">selectedChampion</string>
+    <string name="health_detail_title">HEALTH</string>
+    <string name="speed_detail_title">SPEED</string>
+    <string name="rotation_detail_title">ROTATION</string>
+    <string name="abilities_title_text">ABILITIES</string>
 </resources>

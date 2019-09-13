@@ -1,21 +1,35 @@
 package com.example.paladict2.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-@JsonClass(generateAdapter = true)
 data class Champion(
-
-    @Json(name = "Health")
+    @SerializedName("Health")
     var health: String? = null,
-    @Json(name = "Lore")
+    @SerializedName("Lore")
     var lore: String? = null,
-    @Json(name = "Name")
+    @SerializedName("Name")
     var name: String? = null,
-    @Json(name = "ChampionIcon_URL")
+    @SerializedName("Title")
+    var title: String? = null,
+    @SerializedName("ChampionIcon_URL")
     var iconURL: String? = null,
-    @Json(name = "OnFreeRotation")
+    @SerializedName("OnFreeWeeklyRotation")
     var isOnFreeRotation: String? = null,
-    @Json(name = "Roles")
-    var roles: String? = null
-)
+    @SerializedName("Roles")
+    var roles: String? = null,
+    @SerializedName("Speed")
+    var speed: String? = null,
+    @SerializedName("Ability_1")
+    var ability1: Ability? = null,
+    @SerializedName("Ability_2")
+    var ability2: Ability? = null,
+    @SerializedName("Ability_3")
+    var ability3: Ability? = null,
+    @SerializedName("Ability_4")
+    var ability4: Ability? = null,
+    @SerializedName("Ability_5")
+    var ability5: Ability? = null,
+    @SerializedName("latestChampion")
+    var latestChampion: String? = null
+) : Serializable

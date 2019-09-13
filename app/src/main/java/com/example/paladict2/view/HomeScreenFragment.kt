@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.paladict2.R
-import com.example.paladict2.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.home_screen_fragment.*
 
 class HomeScreenFragment : Fragment() {
 
     //2
     companion object {
-
-        fun newInstance(): HomeScreenFragment {
-
-            return HomeScreenFragment()
+        fun newInstance(title: String): Fragment {
+            val fragment = HomeScreenFragment()
+            val args = Bundle()
+            args.putString("title", title)
+            fragment.arguments = args
+            return fragment
         }
     }
 
@@ -30,16 +31,10 @@ class HomeScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var mainViewModel: MainViewModel
-
-        activity?.let {
-            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
-            var allChampions = mainViewModel.champions.value
-
-        }
-
-
+        val mainMenuViewPager = main_menu_viewpager
+        val mainPagerAdapter = MainMenuPagerAdapter(activity!!.supportFragmentManager)
+        mainMenuViewPager.adapter = mainPagerAdapter
+        main_tabs.setupWithViewPager(mainMenuViewPager)
     }
 
 }

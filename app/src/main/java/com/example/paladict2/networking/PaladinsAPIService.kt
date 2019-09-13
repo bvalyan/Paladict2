@@ -8,12 +8,10 @@ import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
-
-
 
 
 interface PaladinsAPIService {
@@ -52,7 +50,7 @@ interface PaladinsAPIService {
 
             return Retrofit.Builder()
                 .baseUrl(Constants.PALADINS_API_URI)
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build().create(PaladinsAPIService::class.java)

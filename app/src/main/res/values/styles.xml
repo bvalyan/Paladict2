@@ -44,6 +44,10 @@
         <item name="android:textColor">@color/textColorPageTwo</item>
     </style>
 
+    <style name="TextSubtitleStyle">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 
     <dimen name="textSizeNormal">12sp</dimen>
     <dimen name="textSizeButton">18sp</dimen>

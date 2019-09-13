@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
 import com.example.paladict2.Utils
 import com.example.paladict2.model.Champion
-import com.example.paladict2.model.Session
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
 import retrofit2.HttpException

@@ -1,12 +1,10 @@
 package com.example.paladict2.model
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Session (
 
-    @Json(name="session_id")
+    @SerializedName("session_id")
     var sessionID: String? = null
 )

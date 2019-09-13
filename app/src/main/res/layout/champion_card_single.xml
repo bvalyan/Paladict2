@@ -9,12 +9,9 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
-        app:cardCornerRadius="5dp"
         app:cardBackgroundColor="@color/white"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,27 +21,32 @@
 
             <ImageView
                 android:id="@+id/champion_image"
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:transitionName="@string/champion_image_transition"
+                android:layout_width="@dimen/champion_card_height"
+                android:layout_height="@dimen/champion_card_height"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:src="@drawable/yin_sample" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/champion_name"
-                android:fontFamily="sans-serif-condensed-medium"
+                android:transitionName="@string/champion_name_transition"
+                android:fontFamily="sans-serif-thin"
                 android:textSize="@dimen/textSizeLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
                 android:textColor="@color/menuPageOneColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/champion_image"
+                app:layout_constraintStart_toEndOf="@id/champion_image"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="YING" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/champion_class"
+                android:transitionName="@string/champion_class_transition"
                 style="@style/TextPrimaryStyle"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_small"
@@ -53,20 +55,12 @@
                 app:layout_constraintTop_toBottomOf="@id/champion_name"
                 tools:text="Support" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/div_height"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:background="@color/transparent_div_gray"
-                app:layout_constraintBottom_toTopOf="@id/learn_more_link"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/champion_class" />
 
-            <TextView
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/learn_more_link"
                 style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                android:fontFamily="sans-serif-light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"

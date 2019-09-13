@@ -2,34 +2,28 @@ package com.example.paladict2
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.viewpager.widget.ViewPager
-import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
-import com.example.paladict2.model.Champion
+import androidx.fragment.app.Fragment
+import androidx.transition.TransitionInflater
+import com.example.paladict2.Constants.Companion.SHARED_PREF_NAME
 import com.example.paladict2.networking.SessionManager
-import com.example.paladict2.view.MainMenuPagerAdapter
+import com.example.paladict2.view.HomeScreenFragment
+import com.example.paladict2.view.addFragment
 import com.example.paladict2.viewmodel.MainViewModel
-import com.example.paladict2.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var mainViewModel: MainViewModel? = null
-    val SHARED_PREF_NAME = "paladict_prefs"
     private var sharedPreferences: SharedPreferences? = null
-    private lateinit var mainMenuViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainMenuViewPager = main_menu_view_pager
         setUpFAB()
         sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
         if (SessionManager.isSessionValid(sharedPreferences!!)) {
-            setUpViewModel()
+            loadViewPagerMenu()
         } else {
             SessionManager.createAndSaveSession(sharedPreferences!!, this)
         }
@@ -42,23 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpMainScreen(obtainedChampions: List<Champion>?) {
-        Log.d("MAINSCREEN", obtainedChampions?.size.toString())
-        loadViewPagerMenu()
-    }
-
-    private fun loadViewPagerMenu() {
-        val mainPagerAdapter = MainMenuPagerAdapter(supportFragmentManager)
-        mainMenuViewPager.adapter = mainPagerAdapter
-        main_tabs.setupWithViewPager(mainMenuViewPager)
-    }
-
-    fun setUpViewModel() {
-        val sessionID = sharedPreferences!!.getString(PALADINS_SESSION_ID, "") as String
-        mainViewModel = ViewModelProviders.of(this, MainViewModelFactory(sessionID))
-            .get(MainViewModel::class.java)
-        mainViewModel!!.champions.observe(this, Observer { obtainedChampions ->
-            setUpMainScreen(obtainedChampions)
-        })
+    internal fun loadViewPagerMenu() {
+        addFragment(HomeScreenFragment.newInstance("Home"), R.id.fragment_container)
     }
 }

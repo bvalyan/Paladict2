@@ -9,13 +9,16 @@ import com.example.paladict2.view.inflate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.champion_card_single.view.*
 
-class PaladinsChampionRecyclerAdapter(allChampions: List<Champion>?) :
+class PaladinsChampionRecyclerAdapter(
+    private val allChampions: List<Champion>?,
+    val fragment: ChampionPageFragment
+) :
     RecyclerView.Adapter<PaladinsChampionRecyclerAdapter.ViewHolder>() {
 
-    val championList = allChampions
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindChampionCard(championList!![position])
+        holder.bindChampionCard(allChampions!![position], fragment)
     }
 
 
@@ -25,16 +28,22 @@ class PaladinsChampionRecyclerAdapter(allChampions: List<Champion>?) :
     }
 
     override fun getItemCount(): Int {
-        return championList?.size!!
+        return allChampions?.size!!
     }
 
     class ViewHolder(v : View) : RecyclerView.ViewHolder(v) {
         private var view : View = v
 
-        fun bindChampionCard(champion : Champion){
+        fun bindChampionCard(
+            champion: Champion,
+            fragment: ChampionPageFragment
+        ){
             view.champion_name.text = champion.name
             view.champion_class.text = champion.roles
             Picasso.get().load(champion.iconURL).into(view.champion_image)
+            view.learn_more_link.setOnClickListener {
+                fragment.openChampionDetailFragment(champion)
+            }
         }
     }
 
