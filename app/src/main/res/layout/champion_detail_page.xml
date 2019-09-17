@@ -163,7 +163,7 @@
                     android:id="@+id/rotation_status"
                     android:text="@{champViewModel.rotationText}"
                     tools:text="FREE"/>
-                
+
                 <View
                     android:id="@+id/champ_det_div_1"
                     android:layout_width="match_parent"
@@ -192,57 +192,63 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <androidx.recyclerview.widget.RecyclerView
                         app:layout_constraintTop_toTopOf="parent"
-                        app:imageUrl="@{champViewModel.ability1.iconImageURL}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_width="@dimen/champion_skill_size"
-                        android:layout_height="@dimen/champion_skill_size"
-                        android:scaleType="centerCrop"
-                        tools:src="@drawable/paladins_logo"
-                        android:id="@+id/ability1_image"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/champion_ability_1"
-                    android:layout_width="0dp"
-                    android:padding="@dimen/padding_small"
-                    android:textSize="@dimen/textSizeNormal"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/ability1_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/ability1_image"
-                    android:text="@{champViewModel.ability1.description}"
-                    android:layout_marginStart="@dimen/margin_small"
-                    tools:text="@android:string/VideoView_error_text_invalid_progressive_playback"
-                    />
-
-                    <ImageView
-                        android:layout_marginTop="@dimen/margin_normal"
-                        app:layout_constraintTop_toBottomOf="@id/champion_ability_1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:scaleType="centerCrop"
-                        app:imageUrl="@{champViewModel.ability2.iconImageURL}"
-                        android:layout_width="@dimen/champion_skill_size"
-                        android:layout_height="@dimen/champion_skill_size"
-                        android:id="@+id/ability2_image"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/champion_ability_2"
-                        android:layout_width="0dp"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_small"
-                        android:textSize="@dimen/textSizeNormal"
-                        app:layout_constraintTop_toTopOf="@id/ability2_image"
-                        app:layout_constraintBottom_toBottomOf="@id/ability2_image"
-                        app:layout_constraintStart_toEndOf="@id/ability2_image"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:text="@{champViewModel.ability2.description}"
-                        tools:text="Description 1"
-                        />
+                        android:id="@+id/champion_ability_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:layout_height="wrap_content"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/champ_det_div_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/div_height"
+                    app:layout_constraintTop_toBottomOf="@id/ability_container"
+                    android:background="@color/transparent_div_gray"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lore_title_view"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSizexLarge"
+                    android:fontFamily="sans-serif-thin"
+                    app:layout_constraintTop_toBottomOf="@id/champ_det_div_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/lore_title_text"/>
+
+                <TextView
+                    android:id="@+id/champion_title_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/lore_title_view"
+                    android:textAlignment="center"
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/textSizeLarge"
+                    tools:text="The Godslayer"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@{champViewModel.title}"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lore_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/margin_small_medium"
+                    android:textAlignment="center"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:textSize="@dimen/textSizeButton"
+                    android:text="@{champViewModel.lore}"
+                    app:layout_constraintTop_toBottomOf="@id/champion_title_view"
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

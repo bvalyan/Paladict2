@@ -23,4 +23,5 @@
     <string name="speed_detail_title">SPEED</string>
     <string name="rotation_detail_title">ROTATION</string>
     <string name="abilities_title_text">ABILITIES</string>
+    <string name="lore_title_text">LORE</string>
 </resources>

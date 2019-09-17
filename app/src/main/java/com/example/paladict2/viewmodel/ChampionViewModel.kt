@@ -24,6 +24,7 @@ class ChampionViewModel(var champion: Champion) : ViewModel(){
     var ability4 = champion.ability4
     var ability5 = champion.ability5
     var latestChampion = champion.latestChampion
+    var lore = champion.lore
 
     fun getRotationText(): String {
         return if(onRotation!!.toBoolean()){
