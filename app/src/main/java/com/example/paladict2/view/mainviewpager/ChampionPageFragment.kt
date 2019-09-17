@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paladict2.R
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
 import com.example.paladict2.view.addFragment
+import com.example.paladict2.view.addFragmentWithBackstack
 import com.example.paladict2.view.mainviewpager.champions.ChampionDetailFragment
 import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.MainViewModelFactory
@@ -63,7 +65,7 @@ class ChampionPageFragment : Fragment() {
 
     fun openChampionDetailFragment(champion: Champion) {
         val activity = activity as AppCompatActivity
-        activity.addFragment(
+        activity.addFragmentWithBackstack(
             ChampionDetailFragment.newInstance("Details", champion),
             R.id.fragment_container
         )

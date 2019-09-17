@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -14,13 +15,20 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
 }
 
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
-    beginTransaction().func().addToBackStack("added").commit()
+    beginTransaction().func().commit()
 }
 
 fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int){
     supportFragmentManager.inTransaction { add(frameId, fragment) }
 }
 
+fun AppCompatActivity.addFragmentWithBackstack(fragment: Fragment, frameId: Int){
+    supportFragmentManager.inTransactionWithBackstack { add(frameId, fragment) }
+}
+
+inline fun FragmentManager.inTransactionWithBackstack(func: FragmentTransaction.() -> FragmentTransaction) {
+    beginTransaction().func().addToBackStack("added").commit()
+}
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
     supportFragmentManager.inTransaction{replace(frameId, fragment)}

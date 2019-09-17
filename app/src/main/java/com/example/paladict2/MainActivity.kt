@@ -2,15 +2,11 @@ package com.example.paladict2
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.transition.TransitionInflater
 import com.example.paladict2.Constants.Companion.SHARED_PREF_NAME
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.view.HomeScreenFragment
 import com.example.paladict2.view.addFragment
-import com.example.paladict2.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
