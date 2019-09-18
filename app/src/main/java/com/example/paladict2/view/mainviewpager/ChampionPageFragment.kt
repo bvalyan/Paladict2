@@ -64,10 +64,7 @@ class ChampionPageFragment : Fragment() {
     }
 
     fun openChampionDetailFragment(champion: Champion) {
-        val activity = activity as AppCompatActivity
-        activity.addFragmentWithBackstack(
-            ChampionDetailFragment.newInstance("Details", champion),
-            R.id.fragment_container
-        )
+        val championDetail = ChampionPageFragmentDirections.actionChampionPageFragmentToChampionDetailFragment(champion)
+        findNavController().navigate(championDetail)
     }
 }

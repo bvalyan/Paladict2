@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSurface">@color/colorPrimaryDark</item>
     </style>
 
     <style name="TextPrimaryStyle">
@@ -53,6 +54,7 @@
     <dimen name="textSizeButton">18sp</dimen>
     <dimen name="textSizeLarge">24sp</dimen>
     <dimen name="textSizexLarge">32sp</dimen>
+    <dimen name="textSizexxLarge">48sp</dimen>
 
 
 </resources>

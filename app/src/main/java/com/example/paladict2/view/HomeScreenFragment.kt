@@ -29,12 +29,4 @@ class HomeScreenFragment : Fragment() {
         return inflater.inflate(R.layout.home_screen_fragment, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mainMenuViewPager = main_menu_viewpager
-        val mainPagerAdapter = MainMenuPagerAdapter(activity!!.supportFragmentManager)
-        mainMenuViewPager.adapter = mainPagerAdapter
-        main_tabs.setupWithViewPager(mainMenuViewPager)
-    }
-
 }

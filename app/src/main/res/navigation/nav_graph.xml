@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/championPageFragment">
+    app:startDestination="@id/homeScreenFragment">
 
     <fragment
         android:id="@+id/championPageFragment"
+        tools:layout="@layout/main_menu_champion_page"
         android:name="com.example.paladict2.view.mainviewpager.ChampionPageFragment"
         android:label="ChampionPageFragment">
         <action
@@ -17,9 +18,19 @@
     <fragment
         android:id="@+id/championDetailFragment"
         android:name="com.example.paladict2.view.mainviewpager.champions.ChampionDetailFragment"
+        tools:layout="@layout/champion_detail_page"
         android:label="ChampionDetailFragment" >
         <argument
             android:name="champion"
             app:argType="com.example.paladict2.model.Champion" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.example.paladict2.view.HomeScreenFragment"
+        tools:layout="@layout/home_screen_fragment"
+        android:label="HomeScreenFragment" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_championPageFragment"
+            app:destination="@id/championPageFragment" />
     </fragment>
 </navigation>
