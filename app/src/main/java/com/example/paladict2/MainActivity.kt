@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpFAB()
+        setupNavigation()
         sharedPreferences = this.getSharedPreferences(SHARED_PREF_NAME, 0)
         if (SessionManager.isSessionValid(sharedPreferences!!)) {
             loadViewPagerMenu()
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     internal fun loadViewPagerMenu() {
-        setupNavigation()
+
     }
 
     override fun onSupportNavigateUp() =

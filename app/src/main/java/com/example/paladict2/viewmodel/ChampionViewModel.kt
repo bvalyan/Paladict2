@@ -3,10 +3,10 @@ package com.example.paladict2.viewmodel
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.example.paladict2.model.Ability
 import com.example.paladict2.model.Champion
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
+import com.example.paladict2.view.BindableAdapter
 import com.squareup.picasso.Picasso
 
 
@@ -34,13 +34,32 @@ class ChampionViewModel(var champion: Champion) : ViewModel(){
         }
     }
 
+    fun getAbilities() : List<Ability> {
+        val abilityList = arrayListOf<Ability>()
+        abilityList.add(ability1!!)
+        abilityList.add(ability2!!)
+        abilityList.add(ability3!!)
+        abilityList.add(ability4!!)
+        abilityList.add(ability5!!)
+
+        return abilityList
+    }
+
     object DataBindingAdapter {
-        @BindingAdapter("bind:imageUrl")
+        @BindingAdapter("imageUrl")
         @JvmStatic
         fun loadImage(view: ImageView, imageURL: String) {
             Picasso.get()
                 .load(imageURL)
                 .into(view)
+        }
+
+        @BindingAdapter("data")
+        @JvmStatic
+        fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, data: T) {
+            if(recyclerView.adapter is BindableAdapter<*>) {
+                (recyclerView.adapter as BindableAdapter<T>).setData(data)
+            }
         }
     }
 
