@@ -13,8 +13,10 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="circular_photo_dimen">100dp</dimen>
     <dimen name="champion_card_height">150dp</dimen>
-    <dimen name="champion_skill_size">100dp</dimen>
+    <dimen name="champion_skill_size">90dp</dimen>
     <dimen name="champion_card_width">125dp</dimen>
     <dimen name="champion_det_card_height">215dp</dimen>
     <dimen name="ability_card_size">325dp</dimen>
+    <dimen name="margin_xsmall">4dp</dimen>
+    <dimen name="margin_xxlarge">50dp</dimen>
 </resources>

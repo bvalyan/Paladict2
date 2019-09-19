@@ -40,7 +40,7 @@ class PaladinsChampionRecyclerAdapter(
         ){
             view.champion_name.text = champion.name
             view.champion_class.text = champion.roles
-            Picasso.get().load(champion.iconURL).into(view.champion_image)
+            Picasso.get().load(champion.iconURL).into(view.champion_card_view)
             view.learn_more_link.setOnClickListener {
                 fragment.openChampionDetailFragment(champion)
             }

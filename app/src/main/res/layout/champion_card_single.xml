@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/champion_image"
+                android:id="@+id/champion_card_view"
                 android:transitionName="@string/champion_image_transition"
                 android:layout_width="@dimen/champion_card_height"
                 android:layout_height="@dimen/champion_card_height"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
                 android:textColor="@color/menuPageOneColor"
-                app:layout_constraintStart_toEndOf="@id/champion_image"
+                app:layout_constraintStart_toEndOf="@id/champion_card_view"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="YING" />
 
