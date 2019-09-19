@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -11,13 +13,19 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/colorPrimaryDark"
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_marginBottom="?actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#C8021409"
+        android:layout_height="wrap_content">
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/champion_image"
+            android:id="@+id/champion_card_view"
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/champion_det_card_height"
@@ -82,19 +90,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/margin_medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/champion_image">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#C8021409" />
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_marginBottom="?actionBarSize"
-                android:layout_height="match_parent">
+            app:layout_constraintTop_toBottomOf="@id/champion_card_view">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -187,7 +187,6 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/ability_container"
-                    android:background="#7E030F00"
                     android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintTop_toBottomOf="@id/abilities_title_view"
                     android:layout_width="match_parent"
@@ -195,8 +194,10 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         android:id="@+id/champion_ability_recycler"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         app:data="@{champViewModel.abilities}"
                         android:layout_marginBottom="@dimen/margin_normal"
                         android:layout_height="@dimen/ability_card_size"/>
@@ -234,7 +235,7 @@
                     android:textStyle="italic"
                     android:textSize="@dimen/textSizeLarge"
                     tools:text="The Godslayer"
-                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_xsmall"
                     android:text="@{champViewModel.title}"
                     />
 
@@ -243,10 +244,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="@dimen/margin_small_medium"
+                    android:layout_marginBottom="@dimen/margin_xxlarge"
                     android:textAlignment="center"
                     android:fontFamily="sans-serif-thin"
-                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_large"
                     android:textSize="@dimen/textSizeButton"
                     android:text="@{champViewModel.lore}"
                     app:layout_constraintTop_toBottomOf="@id/champion_title_view"
@@ -255,9 +256,9 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.core.widget.NestedScrollView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>
