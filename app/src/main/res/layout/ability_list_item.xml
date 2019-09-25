@@ -28,6 +28,9 @@
     <TextView
         android:id="@+id/skill_title_view"
         android:layout_width="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textSizexLarge"
@@ -35,7 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/skill_image_view"
-
         tools:text="REVOLVER"/>
 
 
@@ -48,8 +50,10 @@
         android:textSize="@dimen/textSizeNormal"
         app:layout_constraintTop_toBottomOf="@id/skill_title_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:padding="@dimen/margin_medium"
-
+        android:paddingTop="@dimen/margin_small"
+        android:paddingBottom="@dimen/margin_normal"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingEnd="@dimen/margin_medium"
         android:textAlignment="center"
         tools:text="A cursed six-shot semi-automatic revolver that deals 520 damage every 0.36s. Has a maximum Ammo count of 6 and is fully effective up to 50 units."
         />

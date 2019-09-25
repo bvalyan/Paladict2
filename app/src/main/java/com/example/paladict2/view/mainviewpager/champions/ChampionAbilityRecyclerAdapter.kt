@@ -39,6 +39,7 @@ class ChampionAbilityRecyclerAdapter : RecyclerView.Adapter<ChampionAbilityRecyc
         fun bind(ability: Ability){
             itemView.skill_description_view.text = ability.description
             itemView.skill_title_view.text = ability.summary
+            itemView.skill_title_view.isSelected = true
             Picasso.get().load(ability.iconImageURL).into(itemView.skill_image_view)
         }
 
