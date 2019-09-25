@@ -21,12 +21,6 @@ class Constants {
         val PALADINS_SESSION_ID = "session_id"
         val PALADINS_SESSION_TIME = "session_time"
 
-        val PALADINS_XBOX_SESSION_ID = "xbox_session_id"
-        val PALADINS_XBOX_SESSION_TIME = "xbox_session_time"
-
-        val PALADINS_PS4_SESSION_ID = "ps4_session_id"
-        val PALADINS_PS4_SESSION_TIME = "ps4_session_time"
-
         //Paladins Queues
 
         val PALADINS_ONSLAUGHT_QUEUE_ID = "452"
@@ -34,5 +28,12 @@ class Constants {
         val PALADINS_COMPETITIVE_QUEUE_ID = "428"
         val PALADINS_TEAM_DM_QUEUE_ID = "469"
         val PALADINS_CASUAL_QUEUE_ID = "424"
+
+        //Paladins Portals
+
+        const val PALADINS_PS4_PORTAL_ID = "9"
+        const val PALADINS_SWITCH_PORTAL_ID = "22"
+        const val PALADINS_PC_PORTAL_ID = "5"
+        const val PALADINS_XBOX_PORTAL_ID = "10"
     }
 }

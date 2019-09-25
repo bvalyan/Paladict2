@@ -20,7 +20,7 @@ class SessionRepository {
     private val coroutineScope = CoroutineScope(Dispatchers.IO + completableJob)
 
     private val thisApiCorService by lazy {
-        PaladinsAPIService.createCorService()
+        PaladinsAPIService.createCoreService()
     }
 
     fun getMutableLiveData() : MutableLiveData<Session> {

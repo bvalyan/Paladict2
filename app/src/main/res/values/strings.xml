@@ -30,4 +30,6 @@
     <string name="xbox">XBOX</string>
     <string name="nintendo_switch">Switch</string>
     <string name="pc">PC</string>
+    <string name="please_select_platform">Please Select a Platform!</string>
+    <string name="please_select_your_account">Please select your account.</string>
 </resources>

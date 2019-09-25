@@ -2,12 +2,13 @@ package com.example.paladict2.networking
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.paladict2.Constants
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
 import com.example.paladict2.MainActivity
+import com.example.paladict2.view.SessionCallback
 import com.example.paladict2.viewmodel.SessionRepository
 
 class SessionManager {
@@ -22,18 +23,18 @@ class SessionManager {
 
         fun createAndSaveSession(
             prefs: SharedPreferences,
-            currentActivity: AppCompatActivity
+            currentFragment: Fragment
         ) {
             val sessionRepository = SessionRepository()
             val session = sessionRepository.getMutableLiveData()
-            session.observe(currentActivity, Observer { obtainedSession ->
+            session.observe(currentFragment, Observer { obtainedSession ->
                 run {
                     val editor = prefs.edit()
                     editor.putString(PALADINS_SESSION_ID, obtainedSession.sessionID)
                     editor.putLong(PALADINS_SESSION_TIME, System.currentTimeMillis())
                     editor.apply()
-                    val mainActivity = currentActivity as MainActivity
-                    mainActivity.loadViewPagerMenu()
+                    val mainActivity = currentFragment as SessionCallback
+                    mainActivity.postSessionExecution()
                 }
             })
         }

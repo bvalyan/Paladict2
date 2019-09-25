@@ -2,6 +2,7 @@ package com.example.paladict2.networking
 
 import com.example.paladict2.Constants
 import com.example.paladict2.model.Champion
+import com.example.paladict2.model.Player
 import com.example.paladict2.model.Session
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -32,10 +33,29 @@ interface PaladinsAPIService {
         @Path("langCode") langCode : String
     ) : Deferred<MutableList<Champion>>
 
+    @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}/{portal_id}")
+    fun getplayer(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("player") player : String,
+        @Path("portal_id") portalID : String
+    ) : Deferred<Player>
+
+
+    @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
+    fun searchPlayers(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("player") player : String
+    ) : Deferred<MutableList<Player>>
 
 
     companion object {
-        fun createCorService(): PaladinsAPIService {
+        fun createCoreService(): PaladinsAPIService {
 
             val logging = HttpLoggingInterceptor()
 // set your desired log level

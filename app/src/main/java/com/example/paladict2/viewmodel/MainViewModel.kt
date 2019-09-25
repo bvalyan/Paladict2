@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel(session : String) : ViewModel() {
 
-    val championRepository = ChampionRepository()
+    private val championRepository = ChampionRepository()
     val champions = championRepository.getMutableLiveData(session)
 
 

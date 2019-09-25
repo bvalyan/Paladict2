@@ -1,8 +1,10 @@
 package com.example.paladict2.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.OneShotPreDrawListener.add
@@ -32,4 +34,8 @@ inline fun FragmentManager.inTransactionWithBackstack(func: FragmentTransaction.
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
     supportFragmentManager.inTransaction{replace(frameId, fragment)}
+}
+
+fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT): Toast {
+    return Toast.makeText(context, this.toString(), duration).apply { show() }
 }

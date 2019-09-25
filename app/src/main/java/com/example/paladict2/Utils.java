@@ -6,6 +6,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
+import com.example.paladict2.model.Platform;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -51,10 +53,6 @@ public class Utils {
         return GetMD5Hash(Constants.PALADINS_DEV_ID + endpoint + Constants.PALADINS_AUTH_KEY + getDate());
     }
 
-    public static String createSessionURL(){
-        String signature = createSignature("createsession");
-        return  Constants.PALADINS_API_URI + "createsessionjson/" + Constants.PALADINS_DEV_ID + "/" + signature + "/" + getDate();
-    }
 
     public static String getDate() {
         SimpleDateFormat dateFormatUTC = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -73,11 +71,5 @@ public class Utils {
         return dialog;
     }
 
-    public static boolean isAPISessionExpired(long tokenCreationTime, String sessionID) {
-        if(sessionID.equals("") ||System.currentTimeMillis() > tokenCreationTime + tokenExpirationTime) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 }

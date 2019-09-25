@@ -24,16 +24,6 @@ class ChampionPageFragment : Fragment() {
 
     private var allChampions = ArrayList<Champion>()
 
-    companion object {
-        fun newInstance(title: String): Fragment {
-            val fragment = ChampionPageFragment()
-            val args = Bundle()
-            args.putString("title", title)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/please_select_your_account"
+        android:layout_margin="@dimen/margin_medium"
+        android:textSize="@dimen/textSizeButton"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_result_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/player_search_ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_gravity="end|bottom"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        tools:text="OK"
+        />
+
+
+
+</LinearLayout>
