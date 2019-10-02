@@ -2,12 +2,11 @@ package com.example.paladict2.networking
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.paladict2.Constants
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
-import com.example.paladict2.MainActivity
 import com.example.paladict2.view.SessionCallback
 import com.example.paladict2.viewmodel.SessionRepository
 
@@ -23,18 +22,18 @@ class SessionManager {
 
         fun createAndSaveSession(
             prefs: SharedPreferences,
-            currentFragment: Fragment
+            lifeCycleOwner: LifecycleOwner,
+            sessionCallback: SessionCallback
         ) {
             val sessionRepository = SessionRepository()
             val session = sessionRepository.getMutableLiveData()
-            session.observe(currentFragment, Observer { obtainedSession ->
+            session.observe(lifeCycleOwner, Observer { obtainedSession ->
                 run {
                     val editor = prefs.edit()
                     editor.putString(PALADINS_SESSION_ID, obtainedSession.sessionID)
                     editor.putLong(PALADINS_SESSION_TIME, System.currentTimeMillis())
                     editor.apply()
-                    val mainActivity = currentFragment as SessionCallback
-                    mainActivity.postSessionExecution()
+                    sessionCallback.postSessionExecution()
                 }
             })
         }

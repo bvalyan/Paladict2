@@ -32,4 +32,5 @@
     <string name="pc">PC</string>
     <string name="please_select_platform">Please Select a Platform!</string>
     <string name="please_select_your_account">Please select your account.</string>
+    <string name="ok">OK</string>
 </resources>

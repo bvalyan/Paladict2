@@ -17,16 +17,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_result_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/player_search_ok_btn"
         android:layout_width="wrap_content"
+        android:enabled="false"
         android:layout_gravity="end|bottom"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        tools:text="OK"
+        android:text="@string/ok"
         />
 
 

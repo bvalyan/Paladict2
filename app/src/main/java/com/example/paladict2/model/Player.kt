@@ -14,14 +14,22 @@ data class Player (
     @SerializedName("MasteryLevel")
     var masteryLevel: Int? = null,
     @SerializedName("Region")
-    var region: String? = null
+    var region: String? = null,
+    @SerializedName("portal_id")
+    var platform: String? = null,
+    @SerializedName("player_id")
+    var playerID: String? = null,
+    var isChecked: Boolean? = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readParcelable(RankedStatus::class.java.classLoader),
         parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readString()
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -30,6 +38,9 @@ data class Player (
         parcel.writeParcelable(rankedInfo, flags)
         parcel.writeValue(masteryLevel)
         parcel.writeString(region)
+        parcel.writeString(platform)
+        parcel.writeString(playerID)
+        parcel.writeValue(isChecked)
     }
 
     override fun describeContents(): Int {

@@ -25,7 +25,7 @@ class PlayerSearchRepository {
         coroutineScope.launch {
             val request = thisApiCoreService.searchPlayers(
                 Constants.PALADINS_DEV_ID,
-                Utils.createSignature("getplayer"),
+                Utils.createSignature("searchplayers"),
                 Utils.getDate(),
                 session,
                 playerID

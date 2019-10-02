@@ -44,7 +44,7 @@ interface PaladinsAPIService {
     ) : Deferred<Player>
 
 
-    @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
+    @GET("searchplayersjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun searchPlayers(
         @Path("dev_id") devID : String,
         @Path("signature") signature : String,

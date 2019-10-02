@@ -1,5 +1,6 @@
 package com.example.paladict2
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -7,11 +8,19 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
+import com.example.paladict2.view.SessionCallback
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    SessionCallback {
+
+
+    override fun postSessionExecution() {
+        //
+    }
 
     private lateinit var navigationController: NavController
 
@@ -68,6 +77,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 findNavController(R.id.navigationHostFragment).navigate(championPage)
                 false
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences: SharedPreferences? =
+            getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+        if (!SessionManager.isSessionValid(sharedPreferences!!)) {
+            SessionManager.createAndSaveSession(sharedPreferences, this, this)
         }
     }
 }
