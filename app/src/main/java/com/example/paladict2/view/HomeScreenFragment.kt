@@ -74,18 +74,32 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                     R.id.pc -> platform = Platform.PC
                 }
 
+<<<<<<< HEAD
                 playerSearchViewModel = PlayerSearchViewModel(
                     retrieveSessionID(context!!)!!,
                     retrievePortalID(platform),
                     userName
                 )
+=======
+                playerSearchViewModel = ViewModelProviders.of(
+                    this,
+                    PlayerSearchViewModelFactory()
+                )
+                    .get(PlayerSearchViewModel::class.java)
 
+                val searchData = MergedPlayerSearchData()
+>>>>>>> c79cf97bc74a4386b5cc2b3fa210d10f554a40fa
+
+                searchData.playerName = userName
+                searchData.portalID = retrievePortalID(platform)
+                searchData.session = retrieveSessionID(context!!)!!
+
+                playerSearchViewModel.combinedPlayerSearchData.value = searchData
 
                 playerSearchViewModel.players.observe(this, Observer {
                     searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
                     renderSearchedOptions(searchedPlayers)
                 })
-
 
             }
         }
