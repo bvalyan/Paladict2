@@ -33,15 +33,14 @@ interface PaladinsAPIService {
         @Path("langCode") langCode : String
     ) : Deferred<MutableList<Champion>>
 
-    @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}/{portal_id}")
+    @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getplayer(
         @Path("dev_id") devID : String,
         @Path("signature") signature : String,
         @Path("date") date : String,
         @Path("session") session : String,
-        @Path("player") player : String,
-        @Path("portal_id") portalID : String
-    ) : Deferred<Player>
+        @Path("player") player : String
+    ) : Deferred<MutableList<Player>>
 
 
     @GET("searchplayersjson/{dev_id}/{signature}/{session}/{date}/{player}")

@@ -2,10 +2,11 @@ package com.example.paladict2.view
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,8 +21,7 @@ import com.example.paladict2.model.Platform
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
-import com.example.paladict2.viewmodel.PlayerSearchViewModel
-import com.example.paladict2.viewmodel.PlayerSearchViewModelFactory
+import com.example.paladict2.viewmodel.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import kotlinx.android.synthetic.main.player_search_dialog.view.*
@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.player_search_dialog.view.*
 class HomeScreenFragment : Fragment(), SessionCallback {
 
     private var sharedPreferences: SharedPreferences? = null
-    private var player = Player()
     private var searchedPlayers = listOf<Player>()
 
     override fun onCreateView(
@@ -52,7 +51,8 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
     private fun setupLogin() {
         toggle_button_group.addOnButtonCheckedListener { group, _, _ ->
-            login_btn.isEnabled = !user_name_input.text.isNullOrBlank() && group.checkedButtonIds.isNotEmpty()
+            login_btn.isEnabled =
+                !user_name_input.text.isNullOrBlank() && group.checkedButtonIds.isNotEmpty()
         }
 
         user_name_input.addTextChangedListener {
@@ -74,7 +74,11 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                     R.id.pc -> platform = Platform.PC
                 }
 
-             playerSearchViewModel = PlayerSearchViewModel(retrieveSessionID(context!!)!!, retrievePortalID(platform), userName)
+                playerSearchViewModel = PlayerSearchViewModel(
+                    retrieveSessionID(context!!)!!,
+                    retrievePortalID(platform),
+                    userName
+                )
 
 
                 playerSearchViewModel.players.observe(this, Observer {
@@ -94,11 +98,13 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
         builder.setView(dialogView)
 
+        val alertDialog = builder.create()
+
         val playerSearchResultAdapter =
             PlayerSearchResultAdapter(players) { item ->
-                enablePlayerSelectionBtn(
+                retrieveSelectedPlayerInfo(
                     item,
-                    dialogView
+                    alertDialog
                 )
             }
 
@@ -108,7 +114,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         dialogView.search_result_recycler.adapter = playerSearchResultAdapter
         dialogView.search_result_recycler.addItemDecoration(dividerItemDecoration)
 
-        val alertDialog = builder.create()
+
 
         alertDialog.show()
 
@@ -120,16 +126,30 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         setupLogin()
     }
 
-    private fun enablePlayerSelectionBtn(item: Any, dialogView: View) {
+    private fun retrieveSelectedPlayerInfo(
+        item: Any,
+        alertDialog: AlertDialog
+    ) {
         val selectedPlayer = item as Player
-        dialogView.player_search_ok_btn.isEnabled = true
-
-        dialogView.player_search_ok_btn.setOnClickListener {
-            Log.d(
-                "selectedPlayer",
-                selectedPlayer.name + selectedPlayer.level + selectedPlayer.region
+        alertDialog.dismiss()
+        //Create PlayerViewModel from here, have id
+        var selectedPlayerViewModel: PlayerViewModel
+        activity?.let {
+            selectedPlayerViewModel = ViewModelProviders.of(
+                this,
+                PlayerViewModelFactory(
+                    retrieveSessionID(context!!) as String,
+                    selectedPlayer.playerID!!
+                )
             )
+                .get(PlayerViewModel::class.java)
+
+            selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {
+                login_page_group.visibility = GONE
+            })
         }
+
+
     }
 
 }

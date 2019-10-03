@@ -21,20 +21,19 @@ class PlayerRepository {
         PaladinsAPIService.createCoreService()
     }
 
-    fun getMutableLiveData(session : String, portalID : String, playerID : String) : MutableLiveData<Player> {
+    fun getMutableLiveData(session : String, playerID : String) : MutableLiveData<Player> {
         coroutineScope.launch {
             val request = thisApiCoreService.getplayer(
                 Constants.PALADINS_DEV_ID,
                 Utils.createSignature("getplayer"),
                 Utils.getDate(),
                 session,
-                playerID,
-                portalID
+                playerID
             )
             withContext(Dispatchers.Main) {
                 try {
                     val response = request.await()
-                    player = response
+                    player = response[0]
                     mutableLiveData.value = player
                 } catch (e: HttpException){
                 Log.d("HTTP", "HTTP ERROR!")

@@ -94,4 +94,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/margin_small"/>
 
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/login_page_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,toggle_button_group,user_name_input"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

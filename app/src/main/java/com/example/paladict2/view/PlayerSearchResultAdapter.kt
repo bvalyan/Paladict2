@@ -2,7 +2,6 @@ package com.example.paladict2.view
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paladict2.R
 import com.example.paladict2.model.Player
@@ -39,25 +38,10 @@ class PlayerSearchResultAdapter(private var players: List<Player>, private val r
         ) {
             view.name_text_view.text = player.name
             view.player_platform.text = player.platform
-
-
-            view.select_player_radio_btn.isChecked = players[selectedPosition].isChecked!!
-
-            view.select_player_radio_btn.setOnClickListener {
-                for (player in players){
-                    player.isChecked = false
-                }
-
-                players[selectedPosition].isChecked = true
-                selectedButton = it as MaterialRadioButton
-                selectedButton.isChecked = true
-
-                if(it != selectedButton){
-                    selectedButton.isChecked = false
-                }
-
+            view.select_player_btn.setOnClickListener {
                 radioButtonClick(player)
             }
+
         }
 
         private fun notifyOKButton() {
