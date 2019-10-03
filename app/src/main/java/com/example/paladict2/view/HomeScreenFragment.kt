@@ -20,8 +20,7 @@ import com.example.paladict2.model.Platform
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
-import com.example.paladict2.viewmodel.PlayerSearchViewModel
-import com.example.paladict2.viewmodel.PlayerSearchViewModelFactory
+import com.example.paladict2.viewmodel.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import kotlinx.android.synthetic.main.player_search_dialog.view.*
@@ -74,14 +73,24 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                     R.id.pc -> platform = Platform.PC
                 }
 
-             playerSearchViewModel = PlayerSearchViewModel(retrieveSessionID(context!!)!!, retrievePortalID(platform), userName)
+                playerSearchViewModel = ViewModelProviders.of(
+                    this,
+                    PlayerSearchViewModelFactory()
+                )
+                    .get(PlayerSearchViewModel::class.java)
 
+                val searchData = MergedPlayerSearchData()
+
+                searchData.playerName = userName
+                searchData.portalID = retrievePortalID(platform)
+                searchData.session = retrieveSessionID(context!!)!!
+
+                playerSearchViewModel.combinedPlayerSearchData.value = searchData
 
                 playerSearchViewModel.players.observe(this, Observer {
                     searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
                     renderSearchedOptions(searchedPlayers)
                 })
-
 
             }
         }

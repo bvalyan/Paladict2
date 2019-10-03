@@ -1,15 +1,30 @@
 package com.example.paladict2.viewmodel
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.paladict2.model.Player
 
-class PlayerSearchViewModel(session : String, portalID : String, player : String) : ViewModel(){
+class PlayerSearchViewModel : ViewModel() {
 
     private val playerSearchRepository = PlayerSearchRepository()
-    val players = playerSearchRepository.getMutableLiveData(session, portalID, player)
+
+     val combinedPlayerSearchData: MutableLiveData<MergedPlayerSearchData> by lazy {
+        MutableLiveData<MergedPlayerSearchData>()
+    }
+
 
     override fun onCleared() {
         super.onCleared()
         playerSearchRepository.completableJob.cancel()
     }
 
+    val players: LiveData<List<Player>> = Transformations.switchMap(combinedPlayerSearchData) {
+        playerSearchRepository.getMutableLiveData(it.session, it.portalID, it.playerName)
+    }
+
+}
+
+class MergedPlayerSearchData {
+    var playerName = String()
+    var portalID = String()
+    var session = String()
 }
