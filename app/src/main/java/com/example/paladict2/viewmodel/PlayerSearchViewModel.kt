@@ -7,9 +7,7 @@ class PlayerSearchViewModel : ViewModel() {
 
     private val playerSearchRepository = PlayerSearchRepository()
 
-     val combinedPlayerSearchData: MutableLiveData<MergedPlayerSearchData> by lazy {
-        MutableLiveData<MergedPlayerSearchData>()
-    }
+    val combinedPlayerSearchData = MutableLiveData<MergedPlayerSearchData>()
 
 
     override fun onCleared() {
@@ -18,7 +16,7 @@ class PlayerSearchViewModel : ViewModel() {
     }
 
     val players: LiveData<List<Player>> = Transformations.switchMap(combinedPlayerSearchData) {
-        playerSearchRepository.getMutableLiveData(it.session, it.portalID, it.playerName)
+        playerSearchRepository.getMutableLiveData(it.session, it.playerName)
     }
 
 }

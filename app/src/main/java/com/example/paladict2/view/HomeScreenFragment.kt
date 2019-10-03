@@ -30,6 +30,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
     private var sharedPreferences: SharedPreferences? = null
     private var searchedPlayers = listOf<Player>()
+    private lateinit var playerSearchViewModel: PlayerSearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,17 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         } else {
             SessionManager.createAndSaveSession(sharedPreferences!!, this, this)
         }
+
+        playerSearchViewModel = ViewModelProviders.of(
+            this,
+            PlayerSearchViewModelFactory()
+        )
+            .get(PlayerSearchViewModel::class.java)
+
+        playerSearchViewModel.players.observe(this, Observer {
+            searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
+            renderSearchedOptions(searchedPlayers)
+        })
     }
 
     private fun setupLogin() {
@@ -60,10 +72,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                 !it.isNullOrBlank() && toggle_button_group.checkedButtonIds.isNotEmpty()
         }
 
-        var playerSearchViewModel: PlayerSearchViewModel
-
         login_btn.setOnClickListener {
-            activity?.let {
                 lateinit var platform: Platform
                 val userName: String = user_name_input.text.toString()
 
@@ -74,12 +83,6 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                     R.id.pc -> platform = Platform.PC
                 }
 
-                playerSearchViewModel = ViewModelProviders.of(
-                    this,
-                    PlayerSearchViewModelFactory()
-                )
-                    .get(PlayerSearchViewModel::class.java)
-
                 val searchData = MergedPlayerSearchData()
 
                 searchData.playerName = userName
@@ -87,15 +90,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                 searchData.session = retrieveSessionID(context!!)!!
 
                 playerSearchViewModel.combinedPlayerSearchData.value = searchData
-
-                playerSearchViewModel.players.observe(this, Observer {
-                    searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
-                    renderSearchedOptions(searchedPlayers)
-                })
-
             }
-        }
-
     }
 
     private fun renderSearchedOptions(players: List<Player>) {
@@ -119,8 +114,6 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         dialogView.search_result_recycler.layoutManager = LinearLayoutManager(context)
         dialogView.search_result_recycler.adapter = playerSearchResultAdapter
         dialogView.search_result_recycler.addItemDecoration(dividerItemDecoration)
-
-
 
         alertDialog.show()
 
