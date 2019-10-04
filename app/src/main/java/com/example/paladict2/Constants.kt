@@ -24,6 +24,7 @@ class Constants {
         val PLAYER_NAME = "player_name"
         val PLAYER_ID =  "player_id"
         val PLATFORM = "player_platform"
+        val ROLES = "Roles"
 
         //Paladins Queues
 
