@@ -3,7 +3,8 @@ package com.example.paladict2.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
-import com.example.paladict2.Utils
+import com.example.paladict2.utils.JavaUtils.createSignature
+import com.example.paladict2.utils.JavaUtils.getDate
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
@@ -21,12 +22,12 @@ class PlayerRepository {
         PaladinsAPIService.createCoreService()
     }
 
-    fun getMutableLiveData(session : String, playerID : String) : MutableLiveData<Player> {
+    fun getMutableLiveData(session: String, playerID: String): MutableLiveData<Player> {
         coroutineScope.launch {
             val request = thisApiCoreService.getplayer(
                 Constants.PALADINS_DEV_ID,
-                Utils.createSignature("getplayer"),
-                Utils.getDate(),
+                createSignature("getplayer"),
+                getDate(),
                 session,
                 playerID
             )
@@ -35,8 +36,8 @@ class PlayerRepository {
                     val response = request.await()
                     player = response[0]
                     mutableLiveData.value = player
-                } catch (e: HttpException){
-                Log.d("HTTP", "HTTP ERROR!")
+                } catch (e: HttpException) {
+                    Log.d("HTTP", "HTTP ERROR!")
                 }
             }
         }

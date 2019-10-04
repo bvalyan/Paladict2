@@ -22,7 +22,7 @@ class PlayerSearchResultAdapter(private var players: List<Player>, private val r
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindSearchResult(players[position], players, position, radioButtonClick)
+        holder.bindSearchResult(players[position], radioButtonClick)
     }
 
 
@@ -32,12 +32,10 @@ class PlayerSearchResultAdapter(private var players: List<Player>, private val r
 
         fun bindSearchResult(
             player: Player,
-            players: List<Player>,
-            selectedPosition: Int,
             radioButtonClick: (Any) -> Unit
         ) {
             view.name_text_view.text = player.name
-            view.player_platform.text = player.platform
+            view.player_platform.text = player.portalID
             view.select_player_btn.setOnClickListener {
                 radioButtonClick(player)
             }

@@ -3,7 +3,8 @@ package com.example.paladict2.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
-import com.example.paladict2.Utils
+import com.example.paladict2.utils.JavaUtils.createSignature
+import com.example.paladict2.utils.JavaUtils.getDate
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
@@ -25,8 +26,8 @@ class PlayerSearchRepository {
         coroutineScope.launch {
             val request = thisApiCoreService.searchPlayers(
                 Constants.PALADINS_DEV_ID,
-                Utils.createSignature("searchplayers"),
-                Utils.getDate(),
+                createSignature("searchplayers"),
+                getDate(),
                 session,
                 playerID
             )

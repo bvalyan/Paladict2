@@ -34,4 +34,7 @@
     <string name="please_select_your_account">Please select your account.</string>
     <string name="ok">OK</string>
     <string name="select">SELECT</string>
+    <string name="stats_title">STATS</string>
+    <string name="friends_title">FRIENDS</string>
+    <string name="matches_title">MATCHES</string>
 </resources>

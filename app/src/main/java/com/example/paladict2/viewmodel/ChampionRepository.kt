@@ -3,7 +3,8 @@ package com.example.paladict2.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
-import com.example.paladict2.Utils
+import com.example.paladict2.utils.JavaUtils.createSignature
+import com.example.paladict2.utils.JavaUtils.getDate
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
@@ -24,8 +25,8 @@ class ChampionRepository {
         coroutineScope.launch {
             val request = thisApiCorService.getChampions(
                 Constants.PALADINS_DEV_ID,
-                Utils.createSignature("getchampions"),
-                Utils.getDate(),
+                createSignature("getchampions"),
+                getDate(),
                 session,
                 "1"
             )

@@ -1,12 +1,10 @@
-package com.example.paladict2;
+package com.example.paladict2.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.text.TextUtils;
 
-import com.example.paladict2.model.Platform;
+import com.example.paladict2.Constants;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,14 +13,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 
-public class Utils {
-
-    static long tokenExpirationTime = 900000;
-
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
-    }
+public class JavaUtils {
 
     public static String GetMD5Hash(String s) {
         final String MD5 = "MD5";

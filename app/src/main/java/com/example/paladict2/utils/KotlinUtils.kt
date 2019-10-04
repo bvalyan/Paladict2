@@ -1,12 +1,13 @@
-package com.example.paladict2
+package com.example.paladict2.utils
 
+import com.example.paladict2.Constants
 import com.example.paladict2.model.Platform
 
 class KotlinUtils {
 
     companion object {
 
-        public fun retrievePortalID(platform: Platform): String {
+        fun retrievePortalID(platform: Platform): String {
             when (platform) {
                 Platform.PC -> return Constants.PALADINS_PC_PORTAL_ID
                 Platform.Xbox -> return Constants.PALADINS_XBOX_PORTAL_ID

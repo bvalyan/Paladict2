@@ -15,10 +15,14 @@ data class Player (
     var masteryLevel: Int? = null,
     @SerializedName("Region")
     var region: String? = null,
-    @SerializedName("portal_id")
+    @SerializedName("Platform")
     var platform: String? = null,
+    @SerializedName("portal_id")
+    var portalID: String? = null,
     @SerializedName("player_id")
     var playerID: String? = null,
+    @SerializedName("ActivePlayerId")
+    var activePlayerID: String? = null,
     var isChecked: Boolean? = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -26,6 +30,8 @@ data class Player (
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readParcelable(RankedStatus::class.java.classLoader),
         parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -39,7 +45,9 @@ data class Player (
         parcel.writeValue(masteryLevel)
         parcel.writeString(region)
         parcel.writeString(platform)
+        parcel.writeString(portalID)
         parcel.writeString(playerID)
+        parcel.writeString(activePlayerID)
         parcel.writeValue(isChecked)
     }
 

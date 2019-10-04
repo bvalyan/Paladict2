@@ -21,6 +21,10 @@ class Constants {
         val PALADINS_SESSION_ID = "session_id"
         val PALADINS_SESSION_TIME = "session_time"
 
+        val PLAYER_NAME = "player_name"
+        val PLAYER_ID =  "player_id"
+        val PLATFORM = "player_platform"
+
         //Paladins Queues
 
         val PALADINS_ONSLAUGHT_QUEUE_ID = "452"

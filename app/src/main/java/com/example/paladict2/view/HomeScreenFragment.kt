@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
@@ -15,8 +16,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paladict2.Constants
-import com.example.paladict2.KotlinUtils.Companion.retrievePortalID
+import com.example.paladict2.utils.KotlinUtils.Companion.retrievePortalID
 import com.example.paladict2.R
+import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.model.Platform
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.SessionManager
@@ -31,6 +33,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     private var sharedPreferences: SharedPreferences? = null
     private var searchedPlayers = listOf<Player>()
     private lateinit var playerSearchViewModel: PlayerSearchViewModel
+    private lateinit var selectedPlayerViewModel: PlayerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +46,6 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
-        if (SessionManager.isSessionValid(sharedPreferences!!)) {
-            setupLogin()
-        } else {
-            SessionManager.createAndSaveSession(sharedPreferences!!, this, this)
-        }
 
         playerSearchViewModel = ViewModelProviders.of(
             this,
@@ -55,10 +53,52 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         )
             .get(PlayerSearchViewModel::class.java)
 
-        playerSearchViewModel.players.observe(this, Observer {
+        selectedPlayerViewModel = ViewModelProviders.of(
+            this,
+            PlayerViewModelFactory(
+            )
+        )
+            .get(PlayerViewModel::class.java)
+
+        playerSearchViewModel.players.observe(viewLifecycleOwner, Observer {
             searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
             renderSearchedOptions(searchedPlayers)
         })
+
+        selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {
+            if (!LoginManager.isLoggedIn(context))
+                saveSelectedPlayerAsLogin(it.name, it.activePlayerID, it.platform)
+        })
+
+        if (SessionManager.isSessionValid(sharedPreferences!!)) {
+            setupUI()
+        } else {
+            SessionManager.createAndSaveSession(sharedPreferences!!, this, this)
+        }
+    }
+
+    private fun setupUI() {
+        if (!LoginManager.isLoggedIn(context)) {
+            setupLogin()
+        } else {
+            val loggedInPlayer = LoginManager.retrievedLoggedInPlayer(context)
+            createHomeUI(loggedInPlayer)
+        }
+    }
+
+    private fun saveSelectedPlayerAsLogin(name: String?, playerID: String?, platform: String?) {
+        val sharedPreferences: SharedPreferences? =
+            activity!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+
+        sharedPreferences!!.edit().putString(Constants.PLAYER_NAME, name)
+            .putString(Constants.PLAYER_ID, playerID)
+            .putString(Constants.PLATFORM, platform)
+            .apply()
+    }
+
+    private fun setUpLoggedInDisplay() {
+        login_page_group.visibility = GONE
+        logged_in_group.visibility = VISIBLE
     }
 
     private fun setupLogin() {
@@ -73,24 +113,24 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         }
 
         login_btn.setOnClickListener {
-                lateinit var platform: Platform
-                val userName: String = user_name_input.text.toString()
+            lateinit var platform: Platform
+            val userName: String = user_name_input.text.toString()
 
-                when (toggle_button_group.checkedButtonId) {
-                    R.id.ps4 -> platform = Platform.PS4
-                    R.id.nin_switch -> platform = Platform.Switch
-                    R.id.xbox -> platform = Platform.Xbox
-                    R.id.pc -> platform = Platform.PC
-                }
-
-                val searchData = MergedPlayerSearchData()
-
-                searchData.playerName = userName
-                searchData.portalID = retrievePortalID(platform)
-                searchData.session = retrieveSessionID(context!!)!!
-
-                playerSearchViewModel.combinedPlayerSearchData.value = searchData
+            when (toggle_button_group.checkedButtonId) {
+                R.id.ps4 -> platform = Platform.PS4
+                R.id.nin_switch -> platform = Platform.Switch
+                R.id.xbox -> platform = Platform.Xbox
+                R.id.pc -> platform = Platform.PC
             }
+
+            val searchData = MergedPlayerSearchData()
+
+            searchData.playerName = userName
+            searchData.portalID = retrievePortalID(platform)
+            searchData.session = retrieveSessionID(context!!)!!
+
+            playerSearchViewModel.combinedPlayerSearchData.value = searchData
+        }
     }
 
     private fun renderSearchedOptions(players: List<Player>) {
@@ -122,7 +162,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
 
     override fun postSessionExecution() {
-        setupLogin()
+        setupUI()
     }
 
     private fun retrieveSelectedPlayerInfo(
@@ -132,23 +172,26 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         val selectedPlayer = item as Player
         alertDialog.dismiss()
         //Create PlayerViewModel from here, have id
-        var selectedPlayerViewModel: PlayerViewModel
-        activity?.let {
-            selectedPlayerViewModel = ViewModelProviders.of(
-                this,
-                PlayerViewModelFactory(
-                    retrieveSessionID(context!!) as String,
-                    selectedPlayer.playerID!!
-                )
-            )
-                .get(PlayerViewModel::class.java)
 
-            selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {
-                login_page_group.visibility = GONE
-            })
-        }
+        createHomeUI(selectedPlayer)
+    }
 
+    private fun createHomeUI(selectedPlayer: Player) {
+        setUpLoggedInDisplay()
 
+        val selectedPlayerData = MergedPlayerSearchData()
+
+        selectedPlayerData.playerID = selectedPlayer.playerID!!
+        selectedPlayerData.session = retrieveSessionID(context!!)!!
+
+        selectedPlayerViewModel.combinedPlayerSearchData.value = selectedPlayerData
+
+        setupHomeViewPager()
+    }
+
+    private fun setupHomeViewPager() {
+        var homePageAdapter = HomeViewPagerAdapter(context)
+        user_view_pager.adapter = homePageAdapter
     }
 
 }
