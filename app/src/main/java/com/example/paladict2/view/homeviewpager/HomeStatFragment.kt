@@ -19,7 +19,6 @@ import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.MatchHistoryViewModel
 import com.example.paladict2.viewmodel.factories.MainViewModelFactory
 import com.example.paladict2.viewmodel.factories.MatchHistoryViewModelFactory
-import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -35,8 +34,8 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     override var title = "HOME"
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
-    private lateinit var mainViewModel : MainViewModel
-    private lateinit var championList : ArrayList<Champion>
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var championList: ArrayList<Champion>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,10 +90,12 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     }
 
     private fun renderRoleChart(matchList: List<Match>? = ArrayList()) {
+        
+        user_class_chart.setNoDataTextColor(context!!.getColor(R.color.colorAccent))
         var roleHashMap = createRoleHashMap(matchList)
         var matchEntries = arrayListOf<PieEntry>()
 
-        roleHashMap.forEach{
+        roleHashMap.forEach {
             matchEntries.add(PieEntry(it.value.toFloat(), it.key))
         }
 
@@ -103,9 +104,12 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         roleDataSet.colors = ColorTemplate.JOYFUL_COLORS.toList()
         roleDataSet.setDrawValues(false)
 
-        chartSetup()
 
-        user_class_chart.data = PieData(roleDataSet)
+
+        if(roleHashMap.isNotEmpty()) {
+            chartSetup()
+            user_class_chart.data = PieData(roleDataSet)
+        }
         user_class_chart.invalidate()
     }
 
@@ -113,7 +117,6 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         user_class_chart.isDrawHoleEnabled = true
         user_class_chart.holeRadius = 85f
         user_class_chart.setHoleColor(Color.TRANSPARENT)
-        user_class_chart.setNoDataTextColor(context!!.getColor(R.color.colorAccent))
         user_class_chart.legend.textColor = Color.WHITE
         user_class_chart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
         user_class_chart.legend.verticalAlignment = Legend.LegendVerticalAlignment.CENTER
@@ -127,10 +130,12 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     private fun createRoleHashMap(matchList: List<Match>? = ArrayList()): HashMap<String, Int> {
         val roleHash = HashMap<String, Int>()
         var championHash = getChampionsForRoles(matchList)
-        championHash.forEach{
-            for(listedChampion in championList){
-                if(it.key == listedChampion.name){
-                    roleHash[listedChampion.roles!!] = it.value
+        if (championHash.isNotEmpty()) {
+            championHash.forEach {
+                for (listedChampion in championList) {
+                    if (it.key == listedChampion.name) {
+                        roleHash[listedChampion.roles!!] = it.value
+                    }
                 }
             }
         }
@@ -140,12 +145,14 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     private fun getChampionsForRoles(matchList: List<Match>? = ArrayList()): HashMap<String, Int> {
         var championHash = HashMap<String, Int>()
         for (match in matchList!!) {
-            if (!championHash.containsKey(match.champion)) {
-                championHash[match.champion!!] = 1
-            } else {
-                var value = championHash[match.champion!!]
-                value = value!!.plus(1)
-                championHash[match.champion!!] = value
+            if (match.champion != null) {
+                if (!championHash.containsKey(match.champion!!)) {
+                    championHash[match.champion!!] = 1
+                } else {
+                    var value = championHash[match.champion!!]
+                    value = value!!.plus(1)
+                    championHash[match.champion!!] = value
+                }
             }
         }
         return championHash
