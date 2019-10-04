@@ -15,5 +15,16 @@ class KotlinUtils {
                 Platform.PS4 -> return Constants.PALADINS_PS4_PORTAL_ID
             }
         }
+
+        fun portalToPlatform(portalID: String?): CharSequence? {
+            when (portalID) {
+                "1" -> return "Hi-Rez"
+                "5" -> return "Steam"
+                "9" -> return "PS4"
+                "10" -> return "Xbox"
+                "22" -> return "Switch"
+            }
+            return "UNKNOWN"
+        }
     }
 }

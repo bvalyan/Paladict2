@@ -13,7 +13,7 @@ import com.example.paladict2.R
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
 import com.example.paladict2.viewmodel.MainViewModel
-import com.example.paladict2.viewmodel.MainViewModelFactory
+import com.example.paladict2.viewmodel.factories.MainViewModelFactory
 import kotlinx.android.synthetic.main.main_menu_champion_page.*
 
 class ChampionPageFragment : Fragment() {
@@ -36,7 +36,11 @@ class ChampionPageFragment : Fragment() {
         activity?.let {
             mainViewModel = ViewModelProviders.of(
                 this,
-                MainViewModelFactory(retrieveSessionID(context!!) as String)
+                MainViewModelFactory(
+                    retrieveSessionID(
+                        context!!
+                    ) as String
+                )
             )
                 .get(MainViewModel::class.java)
             mainViewModel.champions.observe(this, Observer {

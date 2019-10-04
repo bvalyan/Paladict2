@@ -1,36 +1,29 @@
 package com.example.paladict2.view
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.viewpager.widget.PagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.example.paladict2.view.homeviewpager.HomeFragment
+import com.example.paladict2.view.homeviewpager.HomeFriendFragment
+import com.example.paladict2.view.homeviewpager.HomeMatchHistoryFragment
+import com.example.paladict2.view.homeviewpager.HomeStatFragment
 
-class HomeViewPagerAdapter(val context: Context?) : PagerAdapter() {
-
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layoutModelObject = HomePageLayoutModel.values()[position]
-        val layout = LayoutInflater.from(container.context)
-            .inflate(layoutModelObject.layoutResId, container, false)
-        container.addView(layout)
-
-        return layout
-    }
-
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object`
+class HomeViewPagerAdapter(fragmentManager: FragmentManager?) : FragmentPagerAdapter(fragmentManager!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    override fun getItem(position: Int): Fragment {
+        when(position){
+            0 -> return HomeStatFragment()
+            1 -> return HomeFriendFragment()
+            2 -> return HomeMatchHistoryFragment()
+        }
+        return Fragment()
     }
 
     override fun getCount(): Int {
-        return HomePageLayoutModel.values().size
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        val homePagerEnum = HomePageLayoutModel.values()[position]
-        return context?.getString(homePagerEnum.titleResId)
+        return (getItem(position) as HomeFragment).title
     }
 
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
-    }
 }

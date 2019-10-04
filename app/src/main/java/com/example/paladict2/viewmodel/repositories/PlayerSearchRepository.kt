@@ -1,4 +1,4 @@
-package com.example.paladict2.viewmodel
+package com.example.paladict2.viewmodel.repositories
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

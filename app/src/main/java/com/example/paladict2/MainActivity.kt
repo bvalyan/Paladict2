@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.paladict2.networking.SessionManager
+import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
 import com.example.paladict2.view.SessionCallback
 import com.google.android.material.navigation.NavigationView
@@ -16,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     SessionCallback {
-
 
     override fun postSessionExecution() {
         //
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationController = findNavController(R.id.navigationHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navigationController, drawer_layout)
         NavigationUI.setupWithNavController(navigationView, navigationController)
+        navigationView.menu.findItem(R.id.logout_item).isVisible = LoginManager.isLoggedIn(this)
         navigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -71,6 +72,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 findNavController(R.id.navigationHostFragment).navigate(championPage)
                 true
             }
+            R.id.logout_item -> {
+                val sharedPreferences: SharedPreferences? =
+                    getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+                sharedPreferences!!.edit().clear().apply()
+                postLogin(false)
+                restartActivity()
+                true
+            }
             else -> {
                 val championPage =
                     HomeScreenFragmentDirections.actionHomeScreenFragmentToChampionPageFragment()
@@ -80,12 +89,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun restartActivity() {
+        finish()
+        overridePendingTransition(0, 0)
+        startActivity(intent)
+        overridePendingTransition(0, 0)
+    }
+
     override fun onResume() {
         super.onResume()
         val sharedPreferences: SharedPreferences? =
             getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
         if (!SessionManager.isSessionValid(sharedPreferences!!)) {
             SessionManager.createAndSaveSession(sharedPreferences, this, this)
+        }
+    }
+
+    override fun postLogin(isLoggedIn: Boolean) {
+        runOnUiThread {
+            navigationView.menu.findItem(R.id.logout_item).isVisible = isLoggedIn
         }
     }
 }

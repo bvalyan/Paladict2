@@ -1,19 +1,21 @@
-package com.example.paladict2.viewmodel
+package com.example.paladict2.viewmodel.repositories
+
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
 import com.example.paladict2.utils.JavaUtils.createSignature
 import com.example.paladict2.utils.JavaUtils.getDate
-import com.example.paladict2.model.Champion
+import com.example.paladict2.model.Session
 import com.example.paladict2.networking.PaladinsAPIService
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 
-class ChampionRepository {
 
-    private var champions = mutableListOf<Champion>()
-    private var mutableLiveData = MutableLiveData<List<Champion>>()
+class SessionRepository {
+
+    private var session = Session()
+    private var mutableLiveData = MutableLiveData<Session>()
     val completableJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + completableJob)
 
@@ -21,27 +23,20 @@ class ChampionRepository {
         PaladinsAPIService.createCoreService()
     }
 
-    fun getMutableLiveData(session : String) : MutableLiveData<List<Champion>> {
+    fun getMutableLiveData() : MutableLiveData<Session> {
         coroutineScope.launch {
-            val request = thisApiCorService.getChampions(
-                Constants.PALADINS_DEV_ID,
-                createSignature("getchampions"),
-                getDate(),
-                session,
-                "1"
-            )
+            val request = thisApiCorService.createAPISession(Constants.PALADINS_DEV_ID, createSignature("createsession"), getDate())
             withContext(Dispatchers.Main) {
                 try {
                     val response = request.await()
-                    val mChampions = response
-                    champions = mChampions
-                    mutableLiveData.value = champions
+                    val mSession = response
+                    session = mSession
+                    mutableLiveData.value = session
                 } catch (e: HttpException){
                     Log.d("", "")
                 }
             }
         }
-        return mutableLiveData
+       return mutableLiveData
     }
-
 }

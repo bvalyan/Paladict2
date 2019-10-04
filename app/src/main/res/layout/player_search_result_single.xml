@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/margin_small"
         android:id="@+id/text_container"
+        android:padding="@dimen/margin_small"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
 

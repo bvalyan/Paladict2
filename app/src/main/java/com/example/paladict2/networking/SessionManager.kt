@@ -8,7 +8,7 @@ import com.example.paladict2.Constants
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
 import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
 import com.example.paladict2.view.SessionCallback
-import com.example.paladict2.viewmodel.SessionRepository
+import com.example.paladict2.viewmodel.repositories.SessionRepository
 
 class SessionManager {
 

@@ -1,11 +1,17 @@
 package com.example.paladict2.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import com.example.paladict2.model.MergedPlayerSearchData
 import com.example.paladict2.model.Player
+import com.example.paladict2.viewmodel.repositories.PlayerSearchRepository
 
 class PlayerSearchViewModel : ViewModel() {
 
-    private val playerSearchRepository = PlayerSearchRepository()
+    private val playerSearchRepository =
+        PlayerSearchRepository()
 
     val combinedPlayerSearchData = MutableLiveData<MergedPlayerSearchData>()
 
@@ -21,9 +27,3 @@ class PlayerSearchViewModel : ViewModel() {
 
 }
 
-class MergedPlayerSearchData {
-    var playerName = String()
-    var portalID = String()
-    var session = String()
-    var playerID = String()
-}

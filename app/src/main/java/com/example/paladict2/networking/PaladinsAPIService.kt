@@ -2,6 +2,7 @@ package com.example.paladict2.networking
 
 import com.example.paladict2.Constants
 import com.example.paladict2.model.Champion
+import com.example.paladict2.model.Match
 import com.example.paladict2.model.Player
 import com.example.paladict2.model.Session
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -51,6 +52,15 @@ interface PaladinsAPIService {
         @Path("session") session : String,
         @Path("player") player : String
     ) : Deferred<MutableList<Player>>
+
+    @GET("getmatchhistoryjson/{dev_id}/{signature}/{session}/{date}/{player}")
+    fun getMatchHistory(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("player") player : String
+    ) : Deferred<MutableList<Match>>
 
 
     companion object {

@@ -16,14 +16,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paladict2.Constants
-import com.example.paladict2.utils.KotlinUtils.Companion.retrievePortalID
 import com.example.paladict2.R
-import com.example.paladict2.utils.LoginManager
-import com.example.paladict2.model.Platform
+import com.example.paladict2.model.MergedPlayerSearchData
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
-import com.example.paladict2.viewmodel.*
+import com.example.paladict2.utils.LoginManager
+import com.example.paladict2.viewmodel.PlayerSearchViewModel
+import com.example.paladict2.viewmodel.PlayerViewModel
+import com.example.paladict2.viewmodel.factories.PlayerSearchViewModelFactory
+import com.example.paladict2.viewmodel.factories.PlayerViewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import kotlinx.android.synthetic.main.player_search_dialog.view.*
@@ -47,18 +49,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
 
-        playerSearchViewModel = ViewModelProviders.of(
-            this,
-            PlayerSearchViewModelFactory()
-        )
-            .get(PlayerSearchViewModel::class.java)
-
-        selectedPlayerViewModel = ViewModelProviders.of(
-            this,
-            PlayerViewModelFactory(
-            )
-        )
-            .get(PlayerViewModel::class.java)
+        initializeViewModels()
 
         playerSearchViewModel.players.observe(viewLifecycleOwner, Observer {
             searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
@@ -75,6 +66,21 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         } else {
             SessionManager.createAndSaveSession(sharedPreferences!!, this, this)
         }
+    }
+
+    private fun initializeViewModels() {
+        playerSearchViewModel = ViewModelProviders.of(
+            this,
+            PlayerSearchViewModelFactory()
+        )
+            .get(PlayerSearchViewModel::class.java)
+
+        selectedPlayerViewModel = ViewModelProviders.of(
+            this,
+            PlayerViewModelFactory(
+            )
+        )
+            .get(PlayerViewModel::class.java)
     }
 
     private fun setupUI() {
@@ -102,31 +108,18 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     }
 
     private fun setupLogin() {
-        toggle_button_group.addOnButtonCheckedListener { group, _, _ ->
-            login_btn.isEnabled =
-                !user_name_input.text.isNullOrBlank() && group.checkedButtonIds.isNotEmpty()
-        }
 
         user_name_input.addTextChangedListener {
             login_btn.isEnabled =
-                !it.isNullOrBlank() && toggle_button_group.checkedButtonIds.isNotEmpty()
+                !it.isNullOrBlank()
         }
 
         login_btn.setOnClickListener {
-            lateinit var platform: Platform
             val userName: String = user_name_input.text.toString()
-
-            when (toggle_button_group.checkedButtonId) {
-                R.id.ps4 -> platform = Platform.PS4
-                R.id.nin_switch -> platform = Platform.Switch
-                R.id.xbox -> platform = Platform.Xbox
-                R.id.pc -> platform = Platform.PC
-            }
 
             val searchData = MergedPlayerSearchData()
 
             searchData.playerName = userName
-            searchData.portalID = retrievePortalID(platform)
             searchData.session = retrieveSessionID(context!!)!!
 
             playerSearchViewModel.combinedPlayerSearchData.value = searchData
@@ -151,13 +144,13 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
         val dividerItemDecoration = DividerItemDecoration(context, VERTICAL)
 
+        dividerItemDecoration.setDrawable(context!!.getDrawable(R.drawable.divider_drawable)!!)
+
         dialogView.search_result_recycler.layoutManager = LinearLayoutManager(context)
         dialogView.search_result_recycler.adapter = playerSearchResultAdapter
         dialogView.search_result_recycler.addItemDecoration(dividerItemDecoration)
 
         alertDialog.show()
-
-        dialogView.player_search_ok_btn.isEnabled = false
     }
 
 
@@ -171,8 +164,6 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     ) {
         val selectedPlayer = item as Player
         alertDialog.dismiss()
-        //Create PlayerViewModel from here, have id
-
         createHomeUI(selectedPlayer)
     }
 
@@ -186,12 +177,19 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
         selectedPlayerViewModel.combinedPlayerSearchData.value = selectedPlayerData
 
+        (activity as SessionCallback).postLogin(true)
         setupHomeViewPager()
     }
 
     private fun setupHomeViewPager() {
-        var homePageAdapter = HomeViewPagerAdapter(context)
+        val homePageAdapter = HomeViewPagerAdapter(fragmentManager)
         user_view_pager.adapter = homePageAdapter
     }
 
+    override fun postLogin(isLoggedIn: Boolean) {
+        //
+    }
+
 }
+
+
