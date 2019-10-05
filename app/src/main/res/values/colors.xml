@@ -2,13 +2,13 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#202020</color>
-    <color name="colorAccent">#13A856</color>
+    <color name="colorAccent">#095C2F</color>
     <color name="textColorPrimary">#98FFDC</color>
     <color name="white">#ffffff</color>
     <color name="menuPageOneColor">#003C0E</color>
     <color name="menuPageTwoColor">#3A2574</color>
     <color name="textColorPageTwo">#D3D9FD</color>
-    <color name="menuPageThreeColor">#A80039</color>
+    <color name="colorAccentInverse">#7E002A</color>
     <color name="textColorPageThree">#FFA2BD</color>
     <color name="menuPageFourColor">#00597E</color>
     <color name="textColorPageFour">#8FDAFF</color>

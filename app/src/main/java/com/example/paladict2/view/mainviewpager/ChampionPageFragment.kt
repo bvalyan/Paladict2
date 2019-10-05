@@ -9,16 +9,29 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.paladict2.Constants
+import com.example.paladict2.Constants.Companion.SHARED_PREF_NAME
 import com.example.paladict2.R
 import com.example.paladict2.model.Champion
+import com.example.paladict2.networking.SessionManager.Companion.createAndSaveSession
+import com.example.paladict2.networking.SessionManager.Companion.isSessionValid
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
+import com.example.paladict2.view.SessionCallback
 import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.factories.MainViewModelFactory
 import kotlinx.android.synthetic.main.main_menu_champion_page.*
 
-class ChampionPageFragment : Fragment() {
+class ChampionPageFragment : Fragment(), SessionCallback {
+    override fun postLogin(isLoggedIn: Boolean) {
+        //
+    }
+
+    override fun postSessionExecution() {
+        initializeViewModel()
+    }
 
     private var allChampions = ArrayList<Champion>()
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,30 +44,39 @@ class ChampionPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var mainViewModel: MainViewModel
-
-        activity?.let {
-            mainViewModel = ViewModelProviders.of(
-                this,
-                MainViewModelFactory(
-                    retrieveSessionID(
-                        context!!
-                    ) as String
-                )
-            )
-                .get(MainViewModel::class.java)
-            mainViewModel.champions.observe(this, Observer {
-                allChampions = mainViewModel.champions.value as ArrayList<Champion>
-                val recyclerAdapter = PaladinsChampionRecyclerAdapter(allChampions, this)
-                val linearLayoutManager = LinearLayoutManager(context)
-                champion_recycler.layoutManager = linearLayoutManager
-                champion_recycler.adapter = recyclerAdapter
-            })
+        val prefs = context!!.getSharedPreferences(SHARED_PREF_NAME, 0)
+        if (isSessionValid(prefs)) {
+            initializeViewModel()
+        } else {
+            createAndSaveSession(prefs, viewLifecycleOwner, this)
         }
+
+    }
+
+    private fun initializeViewModel() {
+        mainViewModel = ViewModelProviders.of(
+            this,
+            MainViewModelFactory(
+                retrieveSessionID(
+                    context!!
+                ) as String
+            )
+        )
+            .get(MainViewModel::class.java)
+        mainViewModel.champions.observe(this, Observer {
+            allChampions = mainViewModel.champions.value as ArrayList<Champion>
+            val recyclerAdapter = PaladinsChampionRecyclerAdapter(allChampions, this)
+            val linearLayoutManager = LinearLayoutManager(context)
+            champion_recycler.layoutManager = linearLayoutManager
+            champion_recycler.adapter = recyclerAdapter
+        })
     }
 
     fun openChampionDetailFragment(champion: Champion) {
-        val championDetail = ChampionPageFragmentDirections.actionChampionPageFragmentToChampionDetailFragment(champion)
+        val championDetail =
+            ChampionPageFragmentDirections.actionChampionPageFragmentToChampionDetailFragment(
+                champion
+            )
         findNavController().navigate(championDetail)
     }
 }

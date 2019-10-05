@@ -1,7 +1,11 @@
 package com.example.paladict2.utils
 
+import android.graphics.Color
+import android.graphics.Typeface
 import com.example.paladict2.Constants
 import com.example.paladict2.model.Platform
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
 
 class KotlinUtils {
 
@@ -25,6 +29,32 @@ class KotlinUtils {
                 "22" -> return "Switch"
             }
             return "UNKNOWN"
+        }
+
+        fun formatPaladinsRoleName(role: String?): String {
+            return role!!.removePrefix("Paladins").trim()
+        }
+
+        fun pieChartSetup(chartToFormat: PieChart) {
+            chartToFormat.isDrawHoleEnabled = true
+            chartToFormat.holeRadius = 85f
+            chartToFormat.setCenterTextColor(Color.WHITE)
+            chartToFormat.setCenterTextSize(18f)
+            chartToFormat.setCenterTextTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL))
+            chartToFormat.animateX(2000)
+            chartToFormat.animateY(2000)
+            chartToFormat.setTouchEnabled(false)
+            chartToFormat.setHoleColor(Color.TRANSPARENT)
+            chartToFormat.legend.textColor = Color.WHITE
+            chartToFormat.legend.xEntrySpace = 20f
+            chartToFormat.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            chartToFormat.legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+            chartToFormat.setDrawEntryLabels(false)
+            chartToFormat.description.isEnabled = false
+            chartToFormat.legend.form = Legend.LegendForm.CIRCLE
+            chartToFormat.description.textColor = Color.WHITE
+            chartToFormat.legend.isWordWrapEnabled = true
+            chartToFormat.transparentCircleRadius = 50f
         }
     }
 }

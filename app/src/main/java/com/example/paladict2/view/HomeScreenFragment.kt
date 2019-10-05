@@ -182,14 +182,14 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     }
 
     private fun setupHomeViewPager() {
-        val homePageAdapter = HomeViewPagerAdapter(fragmentManager)
+        val homePageAdapter = HomeViewPagerAdapter(childFragmentManager)
         user_view_pager.adapter = homePageAdapter
+        user_view_pager.offscreenPageLimit = 2
     }
 
     override fun postLogin(isLoggedIn: Boolean) {
         //
     }
-
 }
 
 

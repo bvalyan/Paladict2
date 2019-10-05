@@ -20,4 +20,5 @@ class MatchHistoryViewModel : ViewModel() {
     val matches: LiveData<List<Match>> = Transformations.switchMap(mergedMatchHistoryData) {
         matchRepository.getMatchMutableLiveData(it.sessionID, it.playerID)
     }
+
 }

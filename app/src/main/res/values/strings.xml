@@ -38,4 +38,10 @@
     <string name="friends_title">FRIENDS</string>
     <string name="matches_title">MATCHES</string>
     <string name="logout_title">Log Out</string>
+    <string name="roles_played_title">Roles Played</string>
+    <string name="your_role_distribution">Your Role Distribution</string>
+    <string name="center_text_role_string"> %1$d\n%2$s\nMatches</string>
+    <string name="wins">WINS</string>
+    <string name="losses">LOSSES</string>
+    <string name="no_chart_data">No recent match data found.</string>
 </resources>
