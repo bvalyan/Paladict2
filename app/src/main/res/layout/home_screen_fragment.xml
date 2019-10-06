@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/main_gradient">
 
     <TextView
@@ -68,6 +69,7 @@
     android:id="@+id/user_view_pager"
     android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
+    tools:layout="@layout/stat_fragment_layout"
     android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
@@ -80,14 +82,15 @@
         android:id="@+id/login_page_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,user_name_input"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,user_name_input,paladins_logo_img_view"/>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/logged_in_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:constraint_referenced_ids="user_view_pager"
         />
 

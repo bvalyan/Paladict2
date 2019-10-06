@@ -26,8 +26,7 @@ data class Player (
     @SerializedName("Wins")
     var wins: String? = null,
     @SerializedName("Losses")
-    var losses: String? = null,
-    var isChecked: Boolean? = false
+    var losses: String? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -40,8 +39,7 @@ data class Player (
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -56,7 +54,6 @@ data class Player (
         parcel.writeString(activePlayerID)
         parcel.writeString(wins)
         parcel.writeString(losses)
-        parcel.writeValue(isChecked)
     }
 
     override fun describeContents(): Int {

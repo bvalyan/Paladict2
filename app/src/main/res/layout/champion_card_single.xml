@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:textColor="@color/menuPageOneColor"
+                android:textColor="@color/colorTertiary"
                 app:layout_constraintStart_toEndOf="@id/champion_card_view"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="YING" />
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_small"
-                android:textColor="@color/menuPageOneColor"
+                android:textColor="@color/colorTertiary"
                 app:layout_constraintStart_toStartOf="@id/champion_name"
                 app:layout_constraintTop_toBottomOf="@id/champion_name"
                 tools:text="Support" />
@@ -63,6 +63,7 @@
                 android:fontFamily="sans-serif-light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/textSizeNormal"
                 android:layout_margin="@dimen/margin_normal"
                 android:text="@string/learn_more_text"
                 android:textColor="@color/linkBlue"

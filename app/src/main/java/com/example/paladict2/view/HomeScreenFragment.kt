@@ -47,6 +47,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        user_view_pager.offscreenPageLimit = 2
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
 
         initializeViewModels()
@@ -107,7 +108,13 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         logged_in_group.visibility = VISIBLE
     }
 
+    private fun setUpLoginDisplay(){
+        login_page_group.visibility = VISIBLE
+        logged_in_group.visibility = GONE
+    }
+
     private fun setupLogin() {
+        setUpLoginDisplay()
 
         user_name_input.addTextChangedListener {
             login_btn.isEnabled =
@@ -184,7 +191,6 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     private fun setupHomeViewPager() {
         val homePageAdapter = HomeViewPagerAdapter(childFragmentManager)
         user_view_pager.adapter = homePageAdapter
-        user_view_pager.offscreenPageLimit = 2
     }
 
     override fun postLogin(isLoggedIn: Boolean) {

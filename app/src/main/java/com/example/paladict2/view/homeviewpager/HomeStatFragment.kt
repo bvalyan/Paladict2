@@ -60,7 +60,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         initializeViewModels()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.matchHistoryViewModel = matchHistoryViewModel
-        binding.selectedPLayerViewModel = selectedPlayerViewModel
+        binding.selectedPlayerViewModel = selectedPlayerViewModel
         return view
     }
 

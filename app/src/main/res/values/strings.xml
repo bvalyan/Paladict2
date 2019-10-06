@@ -44,4 +44,8 @@
     <string name="wins">WINS</string>
     <string name="losses">LOSSES</string>
     <string name="no_chart_data">No recent match data found.</string>
+    <string name="hundred_ranked_text">/100</string>
+    <string name="level">LEVEL</string>
+    <string name="platform">PLATFORM</string>
+    <string name="mastery">MASTERY</string>
 </resources>

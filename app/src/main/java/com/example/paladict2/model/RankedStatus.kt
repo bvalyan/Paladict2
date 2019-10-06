@@ -6,19 +6,18 @@ import com.google.gson.annotations.SerializedName
 
 data class RankedStatus (
     @SerializedName("Tier")
-    var tier : String? = null,
+    var tier : Int? = 0,
     @SerializedName("Points")
-    var points : String? = null
+    var points : Int? = 0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+        parcel.readInt(),
+        parcel.readInt()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(tier)
-        parcel.writeString(points)
+        parcel.writeValue(tier)
+        parcel.writeValue(points)
     }
 
     override fun describeContents(): Int {

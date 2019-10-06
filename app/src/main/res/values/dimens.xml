@@ -19,4 +19,6 @@
     <dimen name="ability_card_size">325dp</dimen>
     <dimen name="margin_xsmall">4dp</dimen>
     <dimen name="margin_xxlarge">50dp</dimen>
+    <dimen name="bottom_bar_padding">90dp</dimen>
+    <dimen name="card_height">125dp</dimen>
 </resources>
