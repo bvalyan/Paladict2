@@ -235,6 +235,7 @@
                         android:background="@color/colorTertiary">
 
                         <TextView
+                            android:layout_marginTop="@dimen/margin_small"
                             android:id="@+id/level_title_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -274,6 +275,7 @@
                         <TextView
                             android:id="@+id/platform_title_view"
                             android:layout_width="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-thin"
                             android:text="@string/platform"
@@ -312,6 +314,7 @@
                             android:id="@+id/mastery_title_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
                             android:fontFamily="sans-serif-thin"
                             android:text="@string/mastery"
                             android:textSize="@dimen/textSizeButton"

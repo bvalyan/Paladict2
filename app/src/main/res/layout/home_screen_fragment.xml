@@ -83,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,user_name_input,paladins_logo_img_view"/>
 
     <androidx.constraintlayout.widget.Group
@@ -90,7 +91,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible"
         app:constraint_referenced_ids="user_view_pager"
         />
 

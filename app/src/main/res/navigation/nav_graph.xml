@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/championPageFragment"
-        tools:layout="@layout/main_menu_champion_page"
         android:name="com.example.paladict2.view.mainviewpager.ChampionPageFragment"
-        android:label="ChampionPageFragment">
+        android:label="Champions"
+        tools:layout="@layout/main_menu_champion_page">
         <action
             android:id="@+id/action_championPageFragment_to_championDetailFragment"
             app:destination="@id/championDetailFragment"
@@ -18,8 +18,8 @@
     <fragment
         android:id="@+id/championDetailFragment"
         android:name="com.example.paladict2.view.mainviewpager.champions.ChampionDetailFragment"
-        tools:layout="@layout/champion_detail_page"
-        android:label="ChampionDetailFragment" >
+        android:label="Champion Details"
+        tools:layout="@layout/champion_detail_page">
         <argument
             android:name="champion"
             app:argType="com.example.paladict2.model.Champion" />
@@ -27,8 +27,8 @@
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.example.paladict2.view.HomeScreenFragment"
-        tools:layout="@layout/home_screen_fragment"
-        android:label="HomeScreenFragment" >
+        android:label="Home"
+        tools:layout="@layout/home_screen_fragment">
         <action
             android:id="@+id/action_homeScreenFragment_to_championPageFragment"
             app:destination="@id/championPageFragment" />

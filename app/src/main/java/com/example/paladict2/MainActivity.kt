@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     SessionCallback {
 
+    //TODO: Implement Firebase
+
     override fun postSessionExecution() {
         //
     }
