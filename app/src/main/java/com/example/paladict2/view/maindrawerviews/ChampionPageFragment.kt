@@ -1,4 +1,4 @@
-package com.example.paladict2.view.mainviewpager
+package com.example.paladict2.view.maindrawerviews
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.paladict2.Constants
-import com.example.paladict2.Constants.Companion.SHARED_PREF_NAME
 import com.example.paladict2.R
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.SessionManager.Companion.createAndSaveSession
@@ -30,7 +28,7 @@ class ChampionPageFragment : Fragment(), SessionCallback {
         initializeViewModel()
     }
 
-    private var allChampions = ArrayList<Champion>()
+    private var allChampions = listOf<Champion>()
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
@@ -44,32 +42,35 @@ class ChampionPageFragment : Fragment(), SessionCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val prefs = context!!.getSharedPreferences(SHARED_PREF_NAME, 0)
-        if (isSessionValid(prefs)) {
+        if (isSessionValid(context!!)) {
             initializeViewModel()
         } else {
-            createAndSaveSession(prefs, viewLifecycleOwner, this)
+            createAndSaveSession(context!!, viewLifecycleOwner, this)
         }
 
     }
 
     private fun initializeViewModel() {
-        mainViewModel = ViewModelProviders.of(
-            this,
-            MainViewModelFactory(
-                retrieveSessionID(
-                    context!!
-                ) as String
+        activity.let {
+            mainViewModel = ViewModelProviders.of(
+                this,
+                MainViewModelFactory(
+                    retrieveSessionID(
+                        context!!
+                    ) as String, activity!!.application
+                )
             )
-        )
-            .get(MainViewModel::class.java)
-        mainViewModel.champions.observe(this, Observer {
-            allChampions = mainViewModel.champions.value as ArrayList<Champion>
-            val recyclerAdapter = PaladinsChampionRecyclerAdapter(allChampions, this)
-            val linearLayoutManager = LinearLayoutManager(context)
-            champion_recycler.layoutManager = linearLayoutManager
-            champion_recycler.adapter = recyclerAdapter
-        })
+                .get(MainViewModel::class.java)
+
+            //mainViewModel.getAllChampions(retrieveSessionID(context!!)!!)
+
+            mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
+                val recyclerAdapter = PaladinsChampionRecyclerAdapter(it, this)
+                val linearLayoutManager = LinearLayoutManager(context)
+                champion_recycler.layoutManager = linearLayoutManager
+                champion_recycler.adapter = recyclerAdapter
+            })
+        }
     }
 
     fun openChampionDetailFragment(champion: Champion) {

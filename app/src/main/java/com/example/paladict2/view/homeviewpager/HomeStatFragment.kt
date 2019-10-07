@@ -1,6 +1,5 @@
 package com.example.paladict2.view.homeviewpager
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,8 @@ import com.example.paladict2.model.Champion
 import com.example.paladict2.model.Match
 import com.example.paladict2.model.MergedPlayerSearchData
 import com.example.paladict2.model.MergedQueueSearchData
+import com.example.paladict2.networking.SessionManager
+import com.example.paladict2.networking.SessionManager.Companion.isSessionValid
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
 import com.example.paladict2.utils.KotlinUtils.Companion.formatPaladinsRoleName
 import com.example.paladict2.utils.KotlinUtils.Companion.pieChartSetup
@@ -25,8 +26,6 @@ import com.example.paladict2.viewmodel.PlayerViewModel
 import com.example.paladict2.viewmodel.factories.MainViewModelFactory
 import com.example.paladict2.viewmodel.factories.MatchHistoryViewModelFactory
 import com.example.paladict2.viewmodel.factories.PlayerViewModelFactory
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -55,9 +54,18 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<StatFragmentLayoutBinding>(inflater, R.layout.stat_fragment_layout, container, false)
+        val binding = DataBindingUtil.inflate<StatFragmentLayoutBinding>(
+            inflater,
+            R.layout.stat_fragment_layout,
+            container,
+            false
+        )
         val view = binding.root
-        initializeViewModels()
+        if(isSessionValid(context!!)) {
+            initializeViewModels()
+        } else{
+            SessionManager.createAndSaveSession(context!!, viewLifecycleOwner, this)
+        }
         binding.lifecycleOwner = viewLifecycleOwner
         binding.matchHistoryViewModel = matchHistoryViewModel
         binding.selectedPlayerViewModel = selectedPlayerViewModel
@@ -70,34 +78,36 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     }
 
     private fun initializeViewModels() {
-        matchHistoryViewModel = ViewModelProviders.of(
-            this,
-            MatchHistoryViewModelFactory(
+        activity.let {
+            matchHistoryViewModel = ViewModelProviders.of(
+                this,
+                MatchHistoryViewModelFactory(
+                )
             )
-        )
-            .get(MatchHistoryViewModel::class.java)
+                .get(MatchHistoryViewModel::class.java)
 
-        mainViewModel = ViewModelProviders.of(
-            this,
-            MainViewModelFactory(
-                retrieveSessionID(
-                    context!!
-                ) as String
-            )
-        )
-            .get(MainViewModel::class.java)
+            mainViewModel = ViewModelProviders.of(
+                this,
+                MainViewModelFactory(
+                    retrieveSessionID(
+                        context!!
+                    ) as String, activity!!.application
 
-        selectedPlayerViewModel = ViewModelProviders.of(
-            this,
-            PlayerViewModelFactory(
+                )
             )
-        )
-            .get(PlayerViewModel::class.java)
+                .get(MainViewModel::class.java)
+
+            selectedPlayerViewModel = ViewModelProviders.of(
+                this,
+                PlayerViewModelFactory(
+                )
+            )
+                .get(PlayerViewModel::class.java)
+        }
     }
 
-    fun setupObservers(){
-        mainViewModel.champions.observe(viewLifecycleOwner, Observer {
-            championList = it as ArrayList<Champion>
+    private fun setupObservers() {
+        mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
             chartData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
             chartData.sessionID = retrieveSessionID(context!!)!!
 
@@ -183,7 +193,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     }
 
     override fun postSessionExecution() {
-        //TODO: session control
+        initializeViewModels()
     }
 
 }

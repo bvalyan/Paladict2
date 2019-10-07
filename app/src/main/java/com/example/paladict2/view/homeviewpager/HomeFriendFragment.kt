@@ -37,7 +37,6 @@ class HomeFriendFragment : HomeFragment(), SessionCallback {
         val binding: FriendFragmentLayoutBinding =
             DataBindingUtil.inflate(inflater, R.layout.friend_fragment_layout, container, false)
         val myView = binding.root
-        //val selectedChampion = args.champion
         initializeViewModels()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.friendListViewModel = friendListViewModel

@@ -4,28 +4,38 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 
 @Database(entities = [Champion::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class PaladictDatabase : RoomDatabase() {
 
     abstract fun championDao(): ChampionDao
 
-    companion object{
+    companion object {
+
+        @Volatile
         private var INSTANCE: PaladictDatabase? = null
 
-        fun getInstance(context: Context) : PaladictDatabase?{
-            if(INSTANCE == null){
-                synchronized(PaladictDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        PaladictDatabase::class.java, "paladict.db")
-                        .build()
-                }
+        fun getInstance(context: Context): PaladictDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
             }
-            return INSTANCE
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    PaladictDatabase::class.java, "paladict.db"
+                )
+                    .build()
+                INSTANCE = instance
+                return instance
+            }
+
         }
 
-        fun destroyInstance(){
+        fun destroyInstance() {
             INSTANCE = null
         }
     }

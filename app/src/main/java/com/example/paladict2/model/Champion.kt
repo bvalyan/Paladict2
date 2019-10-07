@@ -8,11 +8,10 @@ import java.io.Serializable
 
 @Entity(tableName = "championData")
 data class Champion(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long? = null,
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "champion_id")
     @SerializedName("id")
-    var championID : String? = null,
+    var championID : Int? = null,
     @ColumnInfo(name = "health")
     @SerializedName("Health")
     var health: String? = null,
@@ -55,6 +54,6 @@ data class Champion(
     @ColumnInfo(name = "latest_champion")
     @SerializedName("latestChampion")
     var latestChampion: String? = null
-) {
-    constructor():this(null,"","","","","","","","","",null,null,null,null,null,"")
+) : Serializable {
+    constructor():this(0,"","","","","","","","",null,null,null,null,null,"")
 }

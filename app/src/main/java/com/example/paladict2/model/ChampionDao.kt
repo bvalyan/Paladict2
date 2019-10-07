@@ -9,12 +9,16 @@ import androidx.room.Query
 @Dao
 interface ChampionDao {
 
-    @Query("Select * FROM championData")
+    @Query("Select * FROM championData ORDER BY name" )
     fun getAllChampions() :  LiveData<List<Champion>>
 
-    @Query("SELECT * FROM championData WHERE id = :id")
-    fun getItemByID(id : String)
+    @Query("SELECT * FROM championData WHERE champion_id = :id")
+    fun getChampionByID(id : Int) : LiveData<Champion>
 
     @Insert(onConflict = REPLACE)
     fun insert(championData: Champion)
+
+    @Query("DELETE FROM championData")
+    fun deleteAll()
+
 }
