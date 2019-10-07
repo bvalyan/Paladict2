@@ -1,35 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/player_search_view"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/margin_small"
+            android:layout_height="55dp"
+            app:iconifiedByDefault="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Enter the player you wish to evaluate." />
 
         <TextView
-            android:textColor="@color/textColorPageTwo"
-            android:id="@+id/menu_page_title_text"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            style="@style/TextPrimaryTitleStyle"
-            android:textSize="@dimen/textSizexLarge"
+            android:id="@+id/searched_player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="@dimen/textSizeLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_search_view"
+            tools:text="NoobMaster69" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/win_loss_card"
             android:layout_width="match_parent"
-            tools:text="@string/app_name"
-            android:layout_height="wrap_content"/>
+            android:layout_height="250dp"
+            android:layout_margin="@dimen/margin_small"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@id/searched_player_name">
 
-        <ImageView
-            android:id="@+id/main_menu_image_view"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="@dimen/margin_normal"/>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/win_loss_chart_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/win_loss_chart_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="@string/win_loss_chart"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/textSizeButton" />
+
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/win_loss_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

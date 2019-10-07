@@ -62,6 +62,15 @@ interface PaladinsAPIService {
         @Path("player") player : String
     ) : Deferred<MutableList<Match>>
 
+    @GET("getfriendsjson/{dev_id}/{signature}/{session}/{date}/{player}")
+    fun getFriends(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("player") player : String
+    ) : Deferred<MutableList<Player>>
+
 
     companion object {
         fun createCoreService(): PaladinsAPIService {

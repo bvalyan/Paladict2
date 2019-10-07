@@ -1,4 +1,4 @@
-package com.example.paladict2.view.mainviewpager
+package com.example.paladict2.view.maindrawerviews
 
 import android.view.View
 import android.view.ViewGroup

@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class Player (
-    @SerializedName("Name")
+    @SerializedName("Name", alternate = ["name"])
     var name: String? = null,
     @SerializedName("Level")
     var level: Int? = null,

@@ -102,8 +102,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onResume()
         val sharedPreferences: SharedPreferences? =
             getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
-        if (!SessionManager.isSessionValid(sharedPreferences!!)) {
-            SessionManager.createAndSaveSession(sharedPreferences, this, this)
+        if (!SessionManager.isSessionValid(this)) {
+            SessionManager.createAndSaveSession(this, this, this)
         }
     }
 

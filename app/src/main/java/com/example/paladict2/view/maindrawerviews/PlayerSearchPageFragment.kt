@@ -1,4 +1,4 @@
-package com.example.paladict2.view.mainviewpager
+package com.example.paladict2.view.maindrawerviews
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.paladict2.R
 
-class ItemPageFragment : Fragment() {
+class PlayerSearchPageFragment : Fragment() {
     companion object {
         fun newInstance(title: String): Fragment {
-            val fragment = ItemPageFragment()
+            val fragment = PlayerSearchPageFragment()
             val args = Bundle()
             args.putString("title", title)
             fragment.arguments = args
@@ -23,6 +23,6 @@ class ItemPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return  inflater.inflate(R.layout.main_menu_item_page, container, false)!!
+        return  inflater.inflate(R.layout.main_menu_player_search_page, container, false)!!
     }
 }

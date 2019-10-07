@@ -14,7 +14,8 @@ class SessionManager {
 
     companion object {
 
-        fun isSessionValid(prefs: SharedPreferences): Boolean {
+        fun isSessionValid(context: Context): Boolean {
+            val prefs = context.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
             val obtainedSessionTime = prefs.getLong(PALADINS_SESSION_TIME, 0)
             val obtainedSession = prefs.getString(PALADINS_SESSION_ID, "")
             return !(System.currentTimeMillis() > obtainedSessionTime + 900000 || obtainedSessionTime == 0.toLong() || obtainedSession.isNullOrBlank())
@@ -22,10 +23,11 @@ class SessionManager {
 
 
         fun createAndSaveSession(
-            prefs: SharedPreferences,
+            context: Context,
             lifeCycleOwner: LifecycleOwner,
             sessionCallback: SessionCallback
         ) {
+            val prefs = context.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
             val sessionRepository = SessionRepository()
             val session = sessionRepository.getMutableLiveData()
             session.observe(lifeCycleOwner, Observer { obtainedSession ->

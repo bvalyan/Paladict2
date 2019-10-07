@@ -1,4 +1,4 @@
-package com.example.paladict2.view.mainviewpager.champions
+package com.example.paladict2.view.maindrawerviews.champions
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.SnapHelper
 import com.example.paladict2.R
 import com.example.paladict2.databinding.ChampionDetailPageBinding
 import com.example.paladict2.viewmodel.ChampionViewModel

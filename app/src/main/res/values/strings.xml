@@ -48,4 +48,5 @@
     <string name="level">LEVEL</string>
     <string name="platform">PLATFORM</string>
     <string name="mastery">MASTERY</string>
+    <string name="win_loss_chart">WIN/LOSS CHART</string>
 </resources>

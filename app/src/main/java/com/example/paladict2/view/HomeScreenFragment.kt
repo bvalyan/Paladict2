@@ -62,10 +62,10 @@ class HomeScreenFragment : Fragment(), SessionCallback {
                 saveSelectedPlayerAsLogin(it.name, it.activePlayerID, it.platform)
         })
 
-        if (SessionManager.isSessionValid(sharedPreferences!!)) {
+        if (SessionManager.isSessionValid(context!!)) {
             setupUI()
         } else {
-            SessionManager.createAndSaveSession(sharedPreferences!!, this, this)
+            SessionManager.createAndSaveSession(context!!, this, this)
         }
     }
 

@@ -1,9 +1,8 @@
-package com.example.paladict2.view.mainviewpager.champions
+package com.example.paladict2.view.maindrawerviews.champions
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paladict2.R
 import com.example.paladict2.model.Ability

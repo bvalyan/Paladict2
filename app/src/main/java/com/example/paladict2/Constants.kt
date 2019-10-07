@@ -14,6 +14,7 @@ class Constants {
         const val PALADINS_DEV_ID = "2568"
         const val PALADINS_AUTH_KEY = "660ACC8BED2044B986BE8329F8856B6B"
         const val SHARED_PREF_NAME = "paladict_prefs"
+        val ALT_NAME = "name"
         val ADMOB_KEY = "ca-app-pub-6213612804571704~5555108114"
         val ADMOB_TEST_BANNER = "ca-app-pub-3940256099942544/6300978111"
         val ADMOB_LIVE_BANNER = "ca-app-pub-6213612804571704/7460459994"
