@@ -16,7 +16,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val championRepository: ChampionRepository
     val mChampionsLive = MediatorLiveData<List<Champion>>()
-    val mChampionSearched = MutableLiveData<Champion>()
+
 
 
     init {
@@ -37,12 +37,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val prevDBUpdateTime = prefs.getLong(Constants.DB_UPDATE_TIME, 0)
         val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + 18000000
 
-        val champions = championRepository.championDao.getAllChampions()
+        val champions = Transformations.distinctUntilChanged(championRepository.championDao.getAllChampions())
+
         mChampionsLive.addSource(champions) {
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
                 getApplication<Application>().toast("Database Updated!")
+
             } else {
                 mChampionsLive.removeSource(champions)
                 mChampionsLive.value = it
@@ -50,15 +52,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         return mChampionsLive
     }
-
-    fun getChampion(id: Int, viewLifecycleOwner: LifecycleOwner) {
-        val champion = championRepository.championDao.getChampionByID(id)
-        champion.observe(viewLifecycleOwner, Observer {
-            mChampionSearched.value = it
-        })
-
-    }
-
 
     override fun onCleared() {
         super.onCleared()

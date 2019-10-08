@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paladict2.R
 import com.example.paladict2.model.Champion
 import com.example.paladict2.networking.SessionManager.Companion.createAndSaveSession
 import com.example.paladict2.networking.SessionManager.Companion.isSessionValid
-import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
 import com.example.paladict2.view.SessionCallback
 import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.factories.MainViewModelFactory
@@ -52,15 +51,13 @@ class ChampionPageFragment : Fragment(), SessionCallback {
 
     private fun initializeViewModel() {
         activity.let {
-            mainViewModel = ViewModelProviders.of(
+            mainViewModel = ViewModelProvider(
                 this,
                 MainViewModelFactory(
                     activity!!.application
                 )
             )
                 .get(MainViewModel::class.java)
-
-            //mainViewModel.getAllChampions(retrieveSessionID(context!!)!!)
 
             mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
                 val recyclerAdapter = PaladinsChampionRecyclerAdapter(it, this)

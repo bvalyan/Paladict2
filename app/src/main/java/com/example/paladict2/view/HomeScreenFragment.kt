@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,13 +72,13 @@ class HomeScreenFragment : Fragment(), SessionCallback {
     }
 
     private fun initializeViewModels() {
-        playerSearchViewModel = ViewModelProviders.of(
+        playerSearchViewModel = ViewModelProvider(
             this,
             PlayerSearchViewModelFactory()
         )
             .get(PlayerSearchViewModel::class.java)
 
-        selectedPlayerViewModel = ViewModelProviders.of(
+        selectedPlayerViewModel = ViewModelProvider(
             this,
             PlayerViewModelFactory(
             )

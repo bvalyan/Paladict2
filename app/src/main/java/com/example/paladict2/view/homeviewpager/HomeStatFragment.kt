@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.paladict2.R
 import com.example.paladict2.databinding.StatFragmentLayoutBinding
 import com.example.paladict2.model.Champion
@@ -79,14 +79,14 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun initializeViewModels() {
         activity.let {
-            matchHistoryViewModel = ViewModelProviders.of(
+            matchHistoryViewModel = ViewModelProvider(
                 this,
                 MatchHistoryViewModelFactory(
                 )
             )
                 .get(MatchHistoryViewModel::class.java)
 
-            mainViewModel = ViewModelProviders.of(
+            mainViewModel = ViewModelProvider(
                 this,
                 MainViewModelFactory(
                     activity!!.application
@@ -94,7 +94,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             )
                 .get(MainViewModel::class.java)
 
-            selectedPlayerViewModel = ViewModelProviders.of(
+            selectedPlayerViewModel = ViewModelProvider(
                 this,
                 PlayerViewModelFactory(
                 )
