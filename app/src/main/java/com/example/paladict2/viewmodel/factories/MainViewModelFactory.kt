@@ -1,13 +1,12 @@
 package com.example.paladict2.viewmodel.factories
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.paladict2.viewmodel.MainViewModel
 
-class MainViewModelFactory(private val application: Application, private val context: Context) : ViewModelProvider.Factory {
+class MainViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(application, context) as T
+        return MainViewModel(application) as T
     }
 }

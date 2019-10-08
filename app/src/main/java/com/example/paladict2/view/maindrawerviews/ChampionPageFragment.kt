@@ -55,8 +55,7 @@ class ChampionPageFragment : Fragment(), SessionCallback {
             mainViewModel = ViewModelProviders.of(
                 this,
                 MainViewModelFactory(
-                    activity!!.application,
-                    context!!
+                    activity!!.application
                 )
             )
                 .get(MainViewModel::class.java)

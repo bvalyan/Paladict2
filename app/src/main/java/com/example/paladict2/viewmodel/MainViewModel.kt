@@ -12,7 +12,7 @@ import com.example.paladict2.view.toast
 import com.example.paladict2.viewmodel.repositories.ChampionRepository
 import org.jetbrains.anko.toast
 
-class MainViewModel(application: Application, var context: Context) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val championRepository: ChampionRepository
     val mChampionsLive = MediatorLiveData<List<Champion>>()
@@ -28,12 +28,12 @@ class MainViewModel(application: Application, var context: Context) : AndroidVie
 
 
     private fun updateDBFromApi() {
-        val session = SessionManager.retrieveSessionID(context)
+        val session = SessionManager.retrieveSessionID(getApplication())
         championRepository.updateDBFromApi(session!!)
     }
 
     private fun getAllChampions() : LiveData<List<Champion>> {
-        val prefs = context.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+        val prefs = getApplication<Application>().getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
         val prevDBUpdateTime = prefs.getLong(Constants.DB_UPDATE_TIME, 0)
         val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + 18000000
 
@@ -42,7 +42,7 @@ class MainViewModel(application: Application, var context: Context) : AndroidVie
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
-                context.toast("Database Updated!")
+                getApplication<Application>().toast("Database Updated!")
             } else {
                 mChampionsLive.removeSource(champions)
                 mChampionsLive.value = it
