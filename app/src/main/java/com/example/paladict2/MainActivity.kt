@@ -8,6 +8,11 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
+import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
+import com.example.paladict2.Constants.Companion.PLATFORM
+import com.example.paladict2.Constants.Companion.PLAYER_ID
+import com.example.paladict2.Constants.Companion.PLAYER_NAME
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
@@ -77,7 +82,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.logout_item -> {
                 val sharedPreferences: SharedPreferences? =
                     getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
-                sharedPreferences!!.edit().clear().apply()
+                sharedPreferences!!.edit()
+                    .putString(PALADINS_SESSION_ID, "")
+                    .putLong(PALADINS_SESSION_TIME, 0)
+                    .putString(PLAYER_NAME, "")
+                    .putString(PLAYER_ID, "")
+                    .putString(PLATFORM, "")
+                    .apply()
                 postLogin(false)
                 restartActivity()
                 true
@@ -100,8 +111,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-        val sharedPreferences: SharedPreferences? =
-            getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
         if (!SessionManager.isSessionValid(this)) {
             SessionManager.createAndSaveSession(this, this, this)
         }

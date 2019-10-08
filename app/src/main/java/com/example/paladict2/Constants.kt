@@ -4,6 +4,7 @@ class Constants {
 
     companion object {
 
+        val DB_UPDATE_TIME = "db_update_time"
         @kotlin.jvm.JvmField
 
         //Access Constants

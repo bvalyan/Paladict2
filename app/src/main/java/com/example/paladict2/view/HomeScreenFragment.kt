@@ -53,8 +53,10 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         initializeViewModels()
 
         playerSearchViewModel.players.observe(viewLifecycleOwner, Observer {
-            searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
-            renderSearchedOptions(searchedPlayers)
+            if(!LoginManager.isLoggedIn(context!!)) {
+                searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
+                renderSearchedOptions(searchedPlayers)
+            }
         })
 
         selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {

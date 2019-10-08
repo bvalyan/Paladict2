@@ -89,10 +89,8 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             mainViewModel = ViewModelProviders.of(
                 this,
                 MainViewModelFactory(
-                    retrieveSessionID(
-                        context!!
-                    ) as String, activity!!.application
-
+                    activity!!.application,
+                    context!!
                 )
             )
                 .get(MainViewModel::class.java)
@@ -113,6 +111,8 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
             playerData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
             playerData.session = retrieveSessionID(context!!)!!
+
+            championList = it as ArrayList<Champion>
 
             matchHistoryViewModel.mergedMatchHistoryData.value = chartData
             selectedPlayerViewModel.combinedPlayerSearchData.value = playerData
