@@ -41,6 +41,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         //
     }
 
+
     override var title = "HOME"
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var selectedPlayerViewModel: PlayerViewModel
@@ -61,9 +62,9 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             false
         )
         val view = binding.root
-        if(isSessionValid(context!!)) {
+        if (isSessionValid(context!!)) {
             initializeViewModels()
-        } else{
+        } else {
             SessionManager.createAndSaveSession(context!!, viewLifecycleOwner, this)
         }
         binding.lifecycleOwner = viewLifecycleOwner
@@ -75,6 +76,13 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
+        setupRefreshView()
+    }
+
+    private fun setupRefreshView() {
+        stat_refresh_layout.setOnRefreshListener {
+            updateViewModels()
+        }
     }
 
     private fun initializeViewModels() {
@@ -105,19 +113,13 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun setupObservers() {
         mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
-            chartData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
-            chartData.sessionID = retrieveSessionID(context!!)!!
-
-            playerData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
-            playerData.session = retrieveSessionID(context!!)!!
-
-            championList = it as ArrayList<Champion>
-
-            matchHistoryViewModel.mergedMatchHistoryData.value = chartData
-            selectedPlayerViewModel.combinedPlayerSearchData.value = playerData
+            updateViewModels()
         })
 
         matchHistoryViewModel.matches.observe(viewLifecycleOwner, Observer {
+            if (stat_refresh_layout.isRefreshing) {
+                stat_refresh_layout.isRefreshing = false
+            }
             renderData(it)
         })
 
@@ -193,6 +195,17 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     override fun postSessionExecution() {
         initializeViewModels()
+    }
+
+    private fun updateViewModels() {
+        chartData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
+        chartData.sessionID = retrieveSessionID(context!!)!!
+
+        playerData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
+        playerData.session = retrieveSessionID(context!!)!!
+
+        matchHistoryViewModel.mergedMatchHistoryData.value = chartData
+        selectedPlayerViewModel.combinedPlayerSearchData.value = playerData
     }
 
 }
