@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -17,6 +18,12 @@ import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
 import com.example.paladict2.view.SessionCallback
+import com.example.paladict2.viewmodel.MainViewModel
+import com.example.paladict2.viewmodel.MatchHistoryViewModel
+import com.example.paladict2.viewmodel.PlayerViewModel
+import com.example.paladict2.viewmodel.factories.MainViewModelFactory
+import com.example.paladict2.viewmodel.factories.MatchHistoryViewModelFactory
+import com.example.paladict2.viewmodel.factories.PlayerViewModelFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,13 +36,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //
     }
 
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var championsViewModel: MainViewModel
+    private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var navigationController: NavController
+    private lateinit var selectedPlayerViewModel: PlayerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpFAB()
         setupNavigation()
+        initializeViewModels()
+    }
+
+    private fun initializeViewModels() {
+        matchHistoryViewModel = ViewModelProvider(
+            this,
+            MatchHistoryViewModelFactory()
+        )
+            .get(MatchHistoryViewModel::class.java)
+
+        mainViewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(
+                this.application
+            )
+        )
+            .get(MainViewModel::class.java)
+
+        selectedPlayerViewModel = ViewModelProvider(
+            this,
+            PlayerViewModelFactory(
+            )
+        )
+            .get(PlayerViewModel::class.java)
     }
 
 
@@ -83,8 +118,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val sharedPreferences: SharedPreferences? =
                     getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
                 sharedPreferences!!.edit()
-                    .putString(PALADINS_SESSION_ID, "")
-                    .putLong(PALADINS_SESSION_TIME, 0)
                     .putString(PLAYER_NAME, "")
                     .putString(PLAYER_ID, "")
                     .putString(PLATFORM, "")

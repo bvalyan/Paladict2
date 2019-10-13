@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.RecyclerView
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -38,5 +38,11 @@ fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
 
 fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT): Toast {
     return Toast.makeText(context, this.toString(), duration).apply { show() }
+}
+
+fun RecyclerView.removeAllDecorations() {
+    while (this.itemDecorationCount > 0){
+        this.removeItemDecorationAt(0)
+    }
 }
 

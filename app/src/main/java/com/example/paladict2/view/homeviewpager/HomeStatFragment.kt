@@ -113,6 +113,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun setupObservers() {
         mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
+            championList = it as ArrayList<Champion>
             updateViewModels()
         })
 

@@ -53,6 +53,7 @@ class HomeFriendFragment : HomeFragment(), SessionCallback {
     }
 
     private fun renderFriendList() {
+        //TODO: SharedPreferences not saving fast enough, causing null player ID. Must fix.
         val userData = MergedPlayerSearchData()
         val loggedInUser = LoginManager.retrievedLoggedInPlayer(context!!)
 
