@@ -141,14 +141,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
-
-    override fun onResume() {
-        super.onResume()
-        if (!SessionManager.isSessionValid(this)) {
-            SessionManager.createAndSaveSession(this, this, this)
-        }
-    }
-
+    
     override fun postLogin(isLoggedIn: Boolean) {
         runOnUiThread {
             navigationView.menu.findItem(R.id.logout_item).isVisible = isLoggedIn

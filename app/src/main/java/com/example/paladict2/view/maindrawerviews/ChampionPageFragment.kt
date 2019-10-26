@@ -27,7 +27,6 @@ class ChampionPageFragment : Fragment(), SessionCallback {
         initializeViewModel()
     }
 
-    private var allChampions = listOf<Champion>()
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
