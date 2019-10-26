@@ -7,11 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = [Champion::class], version = 1)
+@Database(entities = [Champion::class, Item::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class PaladictDatabase : RoomDatabase() {
 
     abstract fun championDao(): ChampionDao
+    abstract fun itemDao() : ItemDao
 
     companion object {
 

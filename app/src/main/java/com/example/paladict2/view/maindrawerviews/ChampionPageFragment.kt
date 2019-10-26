@@ -64,6 +64,10 @@ class ChampionPageFragment : Fragment(), SessionCallback {
                 champion_recycler.layoutManager = linearLayoutManager
                 champion_recycler.adapter = recyclerAdapter
             })
+
+            mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {
+                //TODO: observer will have to be implemented on item page to trigger DB update.
+            })
         }
     }
 

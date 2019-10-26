@@ -1,10 +1,7 @@
 package com.example.paladict2.networking
 
 import com.example.paladict2.Constants
-import com.example.paladict2.model.Champion
-import com.example.paladict2.model.Match
-import com.example.paladict2.model.Player
-import com.example.paladict2.model.Session
+import com.example.paladict2.model.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
@@ -33,6 +30,15 @@ interface PaladinsAPIService {
         @Path("session") session : String,
         @Path("langCode") langCode : String
     ) : Deferred<MutableList<Champion>>
+
+    @GET("getitemsjson/{dev_id}/{signature}/{session}/{date}/{langCode}")
+    fun getItems(
+        @Path("dev_id") devID : String,
+        @Path("signature") signature : String,
+        @Path("date") date : String,
+        @Path("session") session : String,
+        @Path("langCode") langCode : String
+    ) : Deferred<MutableList<Item>>
 
     @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getplayer(

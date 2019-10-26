@@ -84,6 +84,8 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             if(mainViewModel.mChampionsLive.value != null) {
                 championList = (mainViewModel.mChampionsLive.value as ArrayList<Champion>?)!!
                 updateViewModels()
+            } else {
+                initializeViewModels()
             }
         }
     }
