@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var championsViewModel: MainViewModel
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var navigationController: NavController
     private lateinit var selectedPlayerViewModel: PlayerViewModel
