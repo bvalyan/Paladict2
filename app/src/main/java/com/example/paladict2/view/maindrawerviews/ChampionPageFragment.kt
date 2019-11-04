@@ -27,7 +27,6 @@ class ChampionPageFragment : Fragment(), SessionCallback {
         initializeViewModel()
     }
 
-    private var allChampions = listOf<Champion>()
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
@@ -64,6 +63,10 @@ class ChampionPageFragment : Fragment(), SessionCallback {
                 val linearLayoutManager = LinearLayoutManager(context)
                 champion_recycler.layoutManager = linearLayoutManager
                 champion_recycler.adapter = recyclerAdapter
+            })
+
+            mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {
+                //TODO: observer will have to be implemented on item page to trigger DB update.
             })
         }
     }

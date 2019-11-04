@@ -81,7 +81,12 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun setupRefreshView() {
         stat_refresh_layout.setOnRefreshListener {
-            updateViewModels()
+            if(mainViewModel.mChampionsLive.value != null) {
+                championList = (mainViewModel.mChampionsLive.value as ArrayList<Champion>?)!!
+                updateViewModels()
+            } else {
+                initializeViewModels()
+            }
         }
     }
 
@@ -174,6 +179,9 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
                     }
                 }
             }
+        }
+        if(stat_refresh_layout.isRefreshing){
+            stat_refresh_layout.isRefreshing = false
         }
         return roleHash
     }

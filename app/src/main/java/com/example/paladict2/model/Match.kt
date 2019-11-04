@@ -33,7 +33,7 @@ data class Match (
     @SerializedName("Champion")
     var champion: String? = null,
     @SerializedName("ChampionId")
-    var championID: String? = null,
+    var championID: Int? = null,
     @SerializedName("Creeps")
     var minionsKilled: Int? = 0,
     @SerializedName("Damage")

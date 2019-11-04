@@ -47,13 +47,13 @@ class HomeScreenFragment : Fragment(), SessionCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        user_view_pager.offscreenPageLimit = 2
+        user_view_pager.offscreenPageLimit = 1
         sharedPreferences = context!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
 
         initializeViewModels()
 
         playerSearchViewModel.players.observe(viewLifecycleOwner, Observer {
-            if(!LoginManager.isLoggedIn(context!!)) {
+            if (!LoginManager.isLoggedIn(context!!)) {
                 searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
                 renderSearchedOptions(searchedPlayers)
             }
@@ -63,7 +63,10 @@ class HomeScreenFragment : Fragment(), SessionCallback {
             if (!LoginManager.isLoggedIn(context))
                 saveSelectedPlayerAsLogin(it.name, it.activePlayerID, it.platform)
         })
+    }
 
+    override fun onResume() {
+        super.onResume()
         if (SessionManager.isSessionValid(context!!)) {
             setupUI()
         } else {
@@ -110,7 +113,7 @@ class HomeScreenFragment : Fragment(), SessionCallback {
         logged_in_group.visibility = VISIBLE
     }
 
-    private fun setUpLoginDisplay(){
+    private fun setUpLoginDisplay() {
         login_page_group.visibility = VISIBLE
         logged_in_group.visibility = GONE
     }
