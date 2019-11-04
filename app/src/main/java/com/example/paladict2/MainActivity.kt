@@ -79,6 +79,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 findNavController(R.id.navigationHostFragment).navigate(championPage)
                 true
             }
+            R.id.items_menu_item -> {
+
+                true
+            }
             R.id.logout_item -> {
                 val sharedPreferences: SharedPreferences? =
                     getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
