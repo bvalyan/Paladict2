@@ -24,8 +24,8 @@ class ItemRepository(
         PaladinsAPIService.createCoreService()
     }
 
-    private fun add(item: Item) {
-        itemDao.insert(item)
+    private fun add(items: List<Item>) {
+        itemDao.insertAll(items)
     }
 
     fun get(id: Int): LiveData<Item> {
@@ -57,9 +57,7 @@ class ItemRepository(
     private fun addItemsToDB(
         items: MutableList<Item>) {
         doAsync {
-            for (item in items) {
-                add(item)
-            }
+            add(items)
         }
     }
 

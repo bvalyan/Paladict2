@@ -50,8 +50,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateChampionDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
-                getApplication<Application>().toast("Champion Database Updated!")
 
+                //getApplication<Application>().toast("Champion Database Updated!")
             } else {
                 mChampionsLive.removeSource(champions)
                 mChampionsLive.value = it
@@ -71,7 +71,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateItemDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
-                getApplication<Application>().toast("Item Database Updated!")
+                //getApplication<Application>().toast("Item Database Updated!")
 
             } else {
                 mItemsLive.removeSource(items)

@@ -24,8 +24,8 @@ class ChampionRepository(
         PaladinsAPIService.createCoreService()
     }
 
-    private fun add(champion: Champion) {
-        championDao.insert(champion)
+    private fun add(champions: List<Champion>) {
+        championDao.insertAll(champions)
     }
 
     fun get(id: Int): LiveData<Champion> {
@@ -57,9 +57,7 @@ class ChampionRepository(
     private fun addChampionsToDB(
         champions: MutableList<Champion>) {
         doAsync {
-            for (champion in champions) {
-                add(champion)
-            }
+            add(champions)
         }
     }
 

@@ -59,10 +59,12 @@ class ChampionPageFragment : Fragment(), SessionCallback {
                 .get(MainViewModel::class.java)
 
             mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
-                val recyclerAdapter = PaladinsChampionRecyclerAdapter(it, this)
-                val linearLayoutManager = LinearLayoutManager(context)
-                champion_recycler.layoutManager = linearLayoutManager
-                champion_recycler.adapter = recyclerAdapter
+                if(it.isNotEmpty()) {
+                    val recyclerAdapter = PaladinsChampionRecyclerAdapter(it, this)
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    champion_recycler.layoutManager = linearLayoutManager
+                    champion_recycler.adapter = recyclerAdapter
+                }
             })
 
             mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {

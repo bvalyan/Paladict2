@@ -3,7 +3,6 @@ package com.example.paladict2.viewmodel.repositories
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.paladict2.Constants
-import com.example.paladict2.model.Champion
 import com.example.paladict2.model.Match
 import com.example.paladict2.networking.PaladinsAPIService
 import com.example.paladict2.utils.JavaUtils

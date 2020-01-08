@@ -18,6 +18,9 @@ interface ChampionDao {
     @Insert(onConflict = REPLACE)
     fun insert(championData: Champion)
 
+    @Insert(onConflict = REPLACE)
+    fun insertAll(championData: List<Champion>)
+
     @Query("DELETE FROM championData")
     fun deleteAll()
 
