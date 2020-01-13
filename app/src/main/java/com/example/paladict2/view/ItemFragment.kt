@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paladict2.R
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.view.homeviewpager.HomeFragment
-import com.example.paladict2.view.maindrawerviews.PaladinsChampionRecyclerAdapter
-import com.example.paladict2.viewmodel.ItemViewModel
 import com.example.paladict2.viewmodel.MainViewModel
 import com.example.paladict2.viewmodel.factories.MainViewModelFactory
-import kotlinx.android.synthetic.main.main_menu_champion_page.*
 import kotlinx.android.synthetic.main.main_menu_item_page.*
 
 class ItemFragment : HomeFragment(), SessionCallback {
@@ -56,7 +53,7 @@ class ItemFragment : HomeFragment(), SessionCallback {
                 .get(MainViewModel::class.java)
 
             mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {
-                val recyclerAdapter = PaladinsItemRecyclerAdapter(it, this)
+                val recyclerAdapter = PaladinsItemRecyclerAdapter(it)
                 val linearLayoutManager = LinearLayoutManager(context)
                 item_recycler.layoutManager = linearLayoutManager
                 item_recycler.adapter = recyclerAdapter

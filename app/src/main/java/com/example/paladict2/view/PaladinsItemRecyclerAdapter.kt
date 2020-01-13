@@ -5,29 +5,33 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.paladict2.R
 import com.example.paladict2.model.Item
-import com.example.paladict2.view.maindrawerviews.PaladinsChampionRecyclerAdapter
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_card_single.view.*
 
-class PaladinsItemRecyclerAdapter(it: List<Item>?, itemFragment: ItemFragment) : RecyclerView.Adapter<PaladinsItemRecyclerAdapter.ViewHolder>() {
+class PaladinsItemRecyclerAdapter(val it: List<Item>?) : RecyclerView.Adapter<PaladinsItemRecyclerAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.bindItemCard(it!![position])
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = parent.inflate(R.layout.item_card_single)
-        return PaladinsItemRecyclerAdapter.ViewHolder(inflatedView)
+        return ViewHolder(inflatedView)
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return it!!.size
     }
 
 
     class ViewHolder(v :View) : RecyclerView.ViewHolder(v) {
         private var view = v
 
-        fun bindItemCard(){
-
+        fun bindItemCard(item : Item){
+            view.item_name.text = item.itemName
+            view.item_description.text = item.itemDescription
+            view.item_price.text = view.context.getString(R.string.price, item.price.toString())
+            Picasso.get().load(item.itemIconURL).into(view.item_image)
         }
     }
 

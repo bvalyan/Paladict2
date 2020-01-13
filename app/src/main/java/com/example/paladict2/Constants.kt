@@ -42,5 +42,8 @@ class Constants {
         const val PALADINS_SWITCH_PORTAL_ID = "22"
         const val PALADINS_PC_PORTAL_ID = "5"
         const val PALADINS_XBOX_PORTAL_ID = "10"
+
+
+        const val EMPTY_STRING = ""
     }
 }

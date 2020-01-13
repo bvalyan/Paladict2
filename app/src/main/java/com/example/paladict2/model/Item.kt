@@ -10,11 +10,23 @@ import java.io.Serializable
 data class Item(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "item_id")
-    @SerializedName("id")
+    @SerializedName("ItemId")
     var id: Int? = 0,
     @ColumnInfo(name = "item_name")
-    @SerializedName("name")
-    var itemName: String? = null
+    @SerializedName("DeviceName")
+    var itemName: String? = null,
+    @ColumnInfo(name = "description")
+    @SerializedName("Description")
+    var itemDescription: String? = null,
+    @ColumnInfo(name = "price")
+    @SerializedName("Price")
+    var price: Int? = 0,
+    @ColumnInfo(name = "item_icon_url")
+    @SerializedName("itemIcon_URL")
+    var itemIconURL: String? = null,
+    @ColumnInfo(name = "item_type")
+    @SerializedName("item_type")
+    var itemType: String? = null
 ) : Serializable {
-    constructor(): this(0,"")
+    constructor(): this(0,"", "", 0, "", "")
 }

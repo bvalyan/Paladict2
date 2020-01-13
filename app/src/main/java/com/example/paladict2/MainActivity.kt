@@ -10,9 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.paladict2.Constants.Companion.EMPTY_STRING
 import com.example.paladict2.Constants.Companion.PLATFORM
 import com.example.paladict2.Constants.Companion.PLAYER_ID
 import com.example.paladict2.Constants.Companion.PLAYER_NAME
+import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
 import com.example.paladict2.view.SessionCallback
@@ -31,10 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //TODO: Implement Firebase
 
-    override fun postSessionExecution() {
-        //
-    }
-
     private lateinit var mainViewModel: MainViewModel
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var navigationController: NavController
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setUpFAB()
         setupNavigation()
-        initializeViewModels()
+        checkSessionForUpdates()
     }
 
     private fun initializeViewModels() {
@@ -121,16 +119,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 true
             }
             R.id.items_menu_item -> {
-
+                val itemPage =
+                    HomeScreenFragmentDirections.actionHomeScreenFragmentToItemFragment()
+                findNavController(R.id.navigationHostFragment).navigate(itemPage)
                 true
             }
             R.id.logout_item -> {
                 val sharedPreferences: SharedPreferences? =
                     getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
                 sharedPreferences!!.edit()
-                    .putString(PLAYER_NAME, "")
-                    .putString(PLAYER_ID, "")
-                    .putString(PLATFORM, "")
+                    .putString(PLAYER_NAME, EMPTY_STRING)
+                    .putString(PLAYER_ID, EMPTY_STRING)
+                    .putString(PLATFORM, EMPTY_STRING)
                     .apply()
                 postLogin(false)
                 restartActivity()
@@ -156,5 +156,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         runOnUiThread {
             navigationView.menu.findItem(R.id.logout_item).isVisible = isLoggedIn
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkSessionForUpdates()
+    }
+
+    private fun checkSessionForUpdates() {
+        if (SessionManager.isSessionValid(this)) {
+            initializeViewModels()
+        } else {
+            SessionManager.createAndSaveSession(this, this, this)
+        }
+    }
+
+    override fun postSessionExecution() {
+        initializeViewModels()
     }
 }

@@ -9,7 +9,7 @@
         android:id="@+id/item_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/champion_card_single"
+        tools:layout="@layout/item_card_single"
         android:layout_marginBottom="?attr/actionBarSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

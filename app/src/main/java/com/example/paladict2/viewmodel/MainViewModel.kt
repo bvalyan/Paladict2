@@ -1,7 +1,10 @@
 package com.example.paladict2.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Transformations
 import com.example.paladict2.Constants
 import com.example.paladict2.model.Champion
 import com.example.paladict2.model.Item
@@ -9,7 +12,6 @@ import com.example.paladict2.model.PaladictDatabase
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.viewmodel.repositories.ChampionRepository
 import com.example.paladict2.viewmodel.repositories.ItemRepository
-import org.jetbrains.anko.toast
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,8 +29,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         getAllItems()
     }
 
-
-
     private fun updateChampionDBFromApi() {
         val session = SessionManager.retrieveSessionID(getApplication())
         championRepository.updateDBFromApi(session!!)
@@ -39,19 +39,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         itemRepository.updateDBFromApi(session!!)
     }
 
-    private fun getAllChampions() : LiveData<List<Champion>> {
-        val prefs = getApplication<Application>().getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+    private fun getAllChampions(): LiveData<List<Champion>> {
+        val prefs =
+            getApplication<Application>().getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
         val prevDBUpdateTime = prefs.getLong(Constants.DB_UPDATE_TIME, 0)
         val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + 18000000
 
-        val champions = Transformations.distinctUntilChanged(championRepository.championDao.getAllChampions())
+        val champions =
+            Transformations.distinctUntilChanged(championRepository.championDao.getAllChampions())
 
         mChampionsLive.addSource(champions) {
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateChampionDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
-
-                //getApplication<Application>().toast("Champion Database Updated!")
             } else {
                 mChampionsLive.removeSource(champions)
                 mChampionsLive.value = it
@@ -60,8 +60,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return mChampionsLive
     }
 
-    private fun getAllItems() : LiveData<List<Item>> {
-        val prefs = getApplication<Application>().getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+    private fun getAllItems(): LiveData<List<Item>> {
+        val prefs =
+            getApplication<Application>().getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
         val prevDBUpdateTime = prefs.getLong(Constants.DB_UPDATE_TIME, 0)
         val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + 18000000
 
@@ -71,8 +72,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateItemDBFromApi()
                 prefs.edit().putLong(Constants.DB_UPDATE_TIME, System.currentTimeMillis()).apply()
-                //getApplication<Application>().toast("Item Database Updated!")
-
             } else {
                 mItemsLive.removeSource(items)
                 mItemsLive.value = it
