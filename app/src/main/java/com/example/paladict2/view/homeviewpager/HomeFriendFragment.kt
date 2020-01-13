@@ -66,7 +66,7 @@ class HomeFriendFragment : HomeFragment(), SessionCallback {
     private fun initializeViewModels() {
         friendListViewModel = ViewModelProvider(
             this,
-            FriendListViewModelFactory()
+            FriendListViewModelFactory(activity!!.application)
         )
             .get(FriendListViewModel::class.java)
     }

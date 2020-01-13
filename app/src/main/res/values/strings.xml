@@ -49,4 +49,6 @@
     <string name="platform">PLATFORM</string>
     <string name="mastery">MASTERY</string>
     <string name="win_loss_chart">WIN/LOSS CHART</string>
+    <string name="champion_db_updated">Champion Database Updated</string>
+    <string name="item_db_updated">Item Database Updated</string>
 </resources>

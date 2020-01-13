@@ -59,16 +59,12 @@ class ChampionPageFragment : Fragment(), SessionCallback {
                 .get(MainViewModel::class.java)
 
             mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
-                if(it.isNotEmpty()) {
+                if (it.isNotEmpty()) {
                     val recyclerAdapter = PaladinsChampionRecyclerAdapter(it, this)
                     val linearLayoutManager = LinearLayoutManager(context)
                     champion_recycler.layoutManager = linearLayoutManager
                     champion_recycler.adapter = recyclerAdapter
                 }
-            })
-
-            mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {
-                //TODO: observer will have to be implemented on item page to trigger DB update.
             })
         }
     }

@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.paladict2.Constants.Companion.PALADINS_SESSION_ID
-import com.example.paladict2.Constants.Companion.PALADINS_SESSION_TIME
 import com.example.paladict2.Constants.Companion.PLATFORM
 import com.example.paladict2.Constants.Companion.PLAYER_ID
 import com.example.paladict2.Constants.Companion.PLAYER_NAME
-import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.utils.LoginManager
 import com.example.paladict2.view.HomeScreenFragmentDirections
 import com.example.paladict2.view.SessionCallback
@@ -26,6 +24,7 @@ import com.example.paladict2.viewmodel.factories.MatchHistoryViewModelFactory
 import com.example.paladict2.viewmodel.factories.PlayerViewModelFactory
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     SessionCallback {
@@ -70,6 +69,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
         )
             .get(PlayerViewModel::class.java)
+
+        mainViewModel.mChampionsLive.observe(this, Observer {
+            this.toast(getString(R.string.champion_db_updated))
+        })
+
+        mainViewModel.mItemsLive.observe(this, Observer {
+            this.toast(getString(R.string.item_db_updated))
+        })
     }
 
 
@@ -144,7 +151,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
-    
+
     override fun postLogin(isLoggedIn: Boolean) {
         runOnUiThread {
             navigationView.menu.findItem(R.id.logout_item).isVisible = isLoggedIn
