@@ -36,7 +36,6 @@ class SessionManager {
                     editor.putString(PALADINS_SESSION_ID, obtainedSession.sessionID)
                     editor.putLong(PALADINS_SESSION_TIME, System.currentTimeMillis())
                     editor.apply()
-                    sessionCallback.postSessionExecution()
                 }
             })
         }

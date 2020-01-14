@@ -114,6 +114,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             )
                 .get(PlayerViewModel::class.java)
         }
+        updateViewModels()
     }
 
     private fun setupObservers() {

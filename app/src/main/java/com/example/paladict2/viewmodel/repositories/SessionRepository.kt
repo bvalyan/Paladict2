@@ -29,9 +29,9 @@ class SessionRepository {
             withContext(Dispatchers.Main) {
                 try {
                     val response = request.await()
-                    val mSession = response
-                    session = mSession
+                    session = response
                     mutableLiveData.value = session
+                    coroutineContext.cancelChildren()
                 } catch (e: HttpException){
                     Log.d("", "")
                 }
