@@ -2,7 +2,6 @@ package com.example.paladict2.view
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -23,21 +22,25 @@ import com.example.paladict2.Constants.Companion.PLAYER_ID
 import com.example.paladict2.Constants.Companion.SHARED_PREF_NAME
 import com.example.paladict2.R
 import com.example.paladict2.model.MergedPlayerSearchData
-import com.example.paladict2.model.PaladictDatabase
 import com.example.paladict2.model.Player
 import com.example.paladict2.networking.SessionManager
 import com.example.paladict2.networking.SessionManager.Companion.retrieveSessionID
 import com.example.paladict2.utils.LoginManager
-import com.example.paladict2.viewmodel.*
-import com.example.paladict2.viewmodel.factories.*
-import com.example.paladict2.viewmodel.repositories.ChampionRepository
-import com.example.paladict2.viewmodel.repositories.ItemRepository
+import com.example.paladict2.viewmodel.MainViewModel
+import com.example.paladict2.viewmodel.MatchHistoryViewModel
+import com.example.paladict2.viewmodel.PlayerSearchViewModel
+import com.example.paladict2.viewmodel.PlayerViewModel
+import com.example.paladict2.viewmodel.factories.MainViewModelFactory
+import com.example.paladict2.viewmodel.factories.MatchHistoryViewModelFactory
+import com.example.paladict2.viewmodel.factories.PlayerSearchViewModelFactory
+import com.example.paladict2.viewmodel.factories.PlayerViewModelFactory
 import com.example.paladict2.viewmodel.repositories.SessionRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import kotlinx.android.synthetic.main.player_search_dialog.view.*
 
-class HomeScreenFragment : Fragment(), SessionCallback, SharedPreferences.OnSharedPreferenceChangeListener {
+class HomeScreenFragment : Fragment(), SessionCallback,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var searchedPlayers = listOf<Player>()
     private lateinit var playerSearchViewModel: PlayerSearchViewModel
@@ -71,7 +74,7 @@ class HomeScreenFragment : Fragment(), SessionCallback, SharedPreferences.OnShar
         val sessionRepository = SessionRepository()
         val session = sessionRepository.getMutableLiveData()
         session.observe(viewLifecycleOwner, Observer {
-            val prefs = context!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+            val prefs = context!!.getSharedPreferences(SHARED_PREF_NAME, 0)
             val editor = prefs.edit()
             editor.putString(Constants.PALADINS_SESSION_ID, it.sessionID)
             editor.putLong(Constants.PALADINS_SESSION_TIME, System.currentTimeMillis())
@@ -150,9 +153,10 @@ class HomeScreenFragment : Fragment(), SessionCallback, SharedPreferences.OnShar
     }
 
     private fun saveSelectedPlayerAsLogin(name: String?, playerID: String?, platform: String?) {
-        activity!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0).registerOnSharedPreferenceChangeListener(this)
+        activity!!.getSharedPreferences(SHARED_PREF_NAME, 0)
+            .registerOnSharedPreferenceChangeListener(this)
         val sharedPreferences: SharedPreferences? =
-            activity!!.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+            activity!!.getSharedPreferences(SHARED_PREF_NAME, 0)
 
         sharedPreferences!!.edit().putString(Constants.PLAYER_NAME, name)
             .putString(PLAYER_ID, playerID)
@@ -241,7 +245,11 @@ class HomeScreenFragment : Fragment(), SessionCallback, SharedPreferences.OnShar
 
         selectedPlayerViewModel.combinedPlayerSearchData.value = selectedPlayerData
 
-        if(activity!!.getSharedPreferences(SHARED_PREF_NAME, 0).getString(PLAYER_ID, EMPTY_STRING) != EMPTY_STRING){
+        if (activity!!.getSharedPreferences(SHARED_PREF_NAME, 0).getString(
+                PLAYER_ID,
+                EMPTY_STRING
+            ) != EMPTY_STRING
+        ) {
             setupHomeViewPager()
         }
     }
@@ -256,7 +264,7 @@ class HomeScreenFragment : Fragment(), SessionCallback, SharedPreferences.OnShar
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if(key == PLAYER_ID){
+        if (key == PLAYER_ID && sharedPreferences!!.getString(key, EMPTY_STRING)!! != EMPTY_STRING) {
             setupHomeViewPager()
         }
     }
