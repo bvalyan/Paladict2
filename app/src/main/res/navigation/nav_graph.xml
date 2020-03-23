@@ -39,6 +39,6 @@
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.paladict2.view.ItemFragment"
-        android:label="ItemFragment"
+        android:label="Items"
         tools:layout="@layout/main_menu_item_page"/>
 </navigation>

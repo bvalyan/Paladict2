@@ -26,7 +26,10 @@ data class Item(
     var itemIconURL: String? = null,
     @ColumnInfo(name = "item_type")
     @SerializedName("item_type")
-    var itemType: String? = null
+    var itemType: String? = null,
+    @ColumnInfo(name = "champion_id")
+    @SerializedName("champion_id")
+    var championID: Int? = 0
 ) : Serializable {
-    constructor(): this(0,"", "", 0, "", "")
+    constructor(): this(0,"", "", 0, "", "", 0)
 }

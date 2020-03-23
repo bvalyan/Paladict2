@@ -9,8 +9,15 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_card_single.view.*
 
 class PaladinsItemRecyclerAdapter(val it: List<Item>?) : RecyclerView.Adapter<PaladinsItemRecyclerAdapter.ViewHolder>() {
+
+    private var shopItems : List<Item>? = null
+
+    init {
+        shopItems = it?.filter { item -> item.championID == 0 }
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItemCard(it!![position])
+        holder.bindItemCard(shopItems!![position])
     }
 
 
@@ -20,7 +27,7 @@ class PaladinsItemRecyclerAdapter(val it: List<Item>?) : RecyclerView.Adapter<Pa
     }
 
     override fun getItemCount(): Int {
-       return it!!.size
+       return shopItems!!.size
     }
 
 

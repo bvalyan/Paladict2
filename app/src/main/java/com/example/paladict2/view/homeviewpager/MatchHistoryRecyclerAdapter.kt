@@ -11,7 +11,10 @@ import com.example.paladict2.model.Match
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_history_single.view.*
 
-class MatchHistoryRecyclerAdapter(private var matches: List<Match>?, private var champions: List<Champion>) :
+class MatchHistoryRecyclerAdapter(
+    private var matches: List<Match>?,
+    private var champions: List<Champion>
+) :
     RecyclerView.Adapter<MatchHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchHolder {
@@ -27,7 +30,10 @@ class MatchHistoryRecyclerAdapter(private var matches: List<Match>?, private var
     }
 
     override fun getItemCount(): Int {
-        return matches!!.size
+        if (matches?.size == 1 && matches!![0].apiMessage?.contains("No Match History")!!) {
+            return 0
+        }
+        return matches?.size!!
     }
 
     override fun onBindViewHolder(holder: MatchHolder, position: Int) {
@@ -36,14 +42,15 @@ class MatchHistoryRecyclerAdapter(private var matches: List<Match>?, private var
 
 }
 
-class MatchHolder(itemView: View, var champions: List<Champion>) : RecyclerView.ViewHolder(itemView) {
+class MatchHolder(itemView: View, var champions: List<Champion>) :
+    RecyclerView.ViewHolder(itemView) {
 
-    fun bind(match : Match){
+    fun bind(match: Match) {
         val usedChampion = getChampion(match)
         itemView.hist_champion_name.text = usedChampion.name
         itemView.hist_win_status.text = match.winStatus
         itemView.hisotry_kda.text = generateMatchKdaString(match)
-        if(match.winStatus!!.toLowerCase() == "win"){
+        if (match.winStatus?.toLowerCase() == "win") {
             itemView.hist_win_status.setTextColor(Color.GREEN)
         } else {
             itemView.hist_win_status.setTextColor(Color.RED)
@@ -53,12 +60,13 @@ class MatchHolder(itemView: View, var champions: List<Champion>) : RecyclerView.
     }
 
     private fun generateMatchKdaString(match: Match): CharSequence? {
+        //TODO: Use formatted string
         return match.kills.toString() + "/" + match.deaths.toString() + "/" + match.assists.toString()
     }
 
     private fun getChampion(match: Match): Champion {
-        for(champion in champions){
-            if(champion.championID == match.championID){
+        for (champion in champions) {
+            if (champion.championID == match.championID) {
                 return champion
             }
         }

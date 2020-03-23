@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="champViewModel"
             type="com.example.paladict2.viewmodel.ChampionViewModel" />
@@ -14,251 +12,253 @@
 
 
     <ScrollView
-        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="?actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:background="#C8021409"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/champion_card_view"
-            style="@style/Widget.MaterialComponents.CardView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/champion_det_card_height"
-            app:cardBackgroundColor="#0D8035"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/profile_card_picture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large"
-                    android:elevation="30dp"
-                    app:cardCornerRadius="50dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="@dimen/circular_photo_dimen"
-                        android:layout_height="@dimen/circular_photo_dimen"
-                        android:scaleType="centerCrop"
-                        app:imageUrl="@{champViewModel.iconURL}"
-                        tools:src="@drawable/andr_screen_bg" />
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/champion_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@{champViewModel.name}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSizexLarge"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_card_picture"
-                    tools:text="Androxus" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/TextSubtitleStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@{champViewModel.role}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/champion_name"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="Flanker" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#C8021409">
 
-            android:layout_marginTop="@dimen/margin_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/champion_card_view">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/champion_card_view"
+                style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_normal"
-                android:id="@+id/champion_detail_info_container">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/health_title_view"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@string/health_detail_title"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    app:layout_constraintTop_toBottomOf="@id/health_title_view"
-                    app:layout_constraintStart_toStartOf="@id/health_title_view"
-                    app:layout_constraintEnd_toEndOf="@id/health_title_view"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/health_amount"
-                    android:text="@{champViewModel.health}"
-                    tools:text="100"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/speed_title_view"
-                    app:layout_constraintStart_toEndOf="@id/health_title_view"
-                    app:layout_constraintEnd_toStartOf="@id/rotation_title_view"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@string/speed_detail_title"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    app:layout_constraintTop_toBottomOf="@id/speed_title_view"
-                    app:layout_constraintStart_toStartOf="@id/speed_title_view"
-                    app:layout_constraintEnd_toEndOf="@id/speed_title_view"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/speed_amount"
-                    android:text="@{champViewModel.speed}"
-                    tools:text="100"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/rotation_title_view"
-                    app:layout_constraintStart_toEndOf="@id/speed_title_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@string/rotation_detail_title"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    app:layout_constraintTop_toBottomOf="@id/rotation_title_view"
-                    app:layout_constraintStart_toStartOf="@id/rotation_title_view"
-                    app:layout_constraintEnd_toEndOf="@id/rotation_title_view"
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/textSizeLarge"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rotation_status"
-                    android:text="@{champViewModel.rotationText}"
-                    tools:text="FREE"/>
-
-                <View
-                    android:id="@+id/champ_det_div_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/div_height"
-                    app:layout_constraintTop_toBottomOf="@id/health_amount"
-                    android:background="@color/transparent_div_gray"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    app:layout_constraintStart_toStartOf="parent"/>
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/abilities_title_view"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizexLarge"
-                    android:fontFamily="sans-serif-thin"
-                    app:layout_constraintTop_toBottomOf="@id/champ_det_div_1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/abilities_title_text"/>
+                android:layout_height="@dimen/champion_det_card_height"
+                app:cardBackgroundColor="#0D8035"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/ability_container"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    app:layout_constraintTop_toBottomOf="@id/abilities_title_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:id="@+id/champion_ability_recycler"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/profile_card_picture"
                         android:layout_width="wrap_content"
-                        app:data="@{champViewModel.abilities}"
-                        android:layout_marginBottom="@dimen/margin_normal"
-                        android:layout_height="@dimen/ability_card_size"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:elevation="30dp"
+                        app:cardCornerRadius="50dp"
+                        app:cardPreventCornerOverlap="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="@dimen/circular_photo_dimen"
+                            android:layout_height="@dimen/circular_photo_dimen"
+                            android:scaleType="centerCrop"
+                            app:imageUrl="@{champViewModel.iconURL}"
+                            tools:src="@drawable/andr_screen_bg" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/champion_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@{champViewModel.name}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textSizexLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/profile_card_picture"
+                        tools:text="Androxus" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextSubtitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@{champViewModel.role}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/champion_name"
+                        tools:text="Flanker" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/champ_det_div_2"
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/champion_card_view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/champion_detail_info_container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/div_height"
-                    app:layout_constraintTop_toBottomOf="@id/ability_container"
-                    android:background="@color/transparent_div_gray"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin_normal">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/lore_title_view"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/textSizexLarge"
-                    android:fontFamily="sans-serif-thin"
-                    app:layout_constraintTop_toBottomOf="@id/champ_det_div_2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/lore_title_text"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/health_title_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/health_detail_title"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/champion_title_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/lore_title_view"
-                    android:textAlignment="center"
-                    android:fontFamily="sans-serif-light"
-                    android:textStyle="italic"
-                    android:textSize="@dimen/textSizeLarge"
-                    tools:text="The Godslayer"
-                    android:layout_marginTop="@dimen/margin_xsmall"
-                    android:text="@{champViewModel.title}"
-                    />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/health_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{champViewModel.health}"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintEnd_toEndOf="@id/health_title_view"
+                        app:layout_constraintStart_toStartOf="@id/health_title_view"
+                        app:layout_constraintTop_toBottomOf="@id/health_title_view"
+                        tools:text="100" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/lore_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="@dimen/margin_xxlarge"
-                    android:textAlignment="center"
-                    android:fontFamily="sans-serif-thin"
-                    android:layout_marginTop="@dimen/margin_large"
-                    android:textSize="@dimen/textSizeButton"
-                    android:text="@{champViewModel.lore}"
-                    app:layout_constraintTop_toBottomOf="@id/champion_title_view"
-                    />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/speed_title_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/speed_detail_title"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintEnd_toStartOf="@id/rotation_title_view"
+                        app:layout_constraintStart_toEndOf="@id/health_title_view"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/speed_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{champViewModel.speed}"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintEnd_toEndOf="@id/speed_title_view"
+                        app:layout_constraintStart_toStartOf="@id/speed_title_view"
+                        app:layout_constraintTop_toBottomOf="@id/speed_title_view"
+                        tools:text="100" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rotation_title_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/rotation_detail_title"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/speed_title_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/rotation_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{champViewModel.rotationText}"
+                        android:textSize="@dimen/textSizeLarge"
+                        app:layout_constraintEnd_toEndOf="@id/rotation_title_view"
+                        app:layout_constraintStart_toStartOf="@id/rotation_title_view"
+                        app:layout_constraintTop_toBottomOf="@id/rotation_title_view"
+                        tools:text="FREE" />
+
+                    <View
+                        android:id="@+id/champ_det_div_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/div_height"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:background="@color/transparent_div_gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/health_amount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/abilities_title_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/abilities_title_text"
+                        android:textSize="@dimen/textSizexLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/champ_det_div_1" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ability_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        app:layout_constraintTop_toBottomOf="@id/abilities_title_view">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/champion_ability_recycler"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/ability_card_size"
+                            android:layout_marginBottom="@dimen/margin_normal"
+                            app:data="@{champViewModel.abilities}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/champ_det_div_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/div_height"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:background="@color/transparent_div_gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ability_container" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lore_title_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@string/lore_title_text"
+                        android:textSize="@dimen/textSizexLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/champ_det_div_2" />
+
+                    <TextView
+                        android:id="@+id/champion_title_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@{champViewModel.title}"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/textSizeLarge"
+                        android:textStyle="italic"
+                        app:layout_constraintTop_toBottomOf="@id/lore_title_view"
+                        tools:text="The Godslayer" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lore_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_large"
+                        android:layout_marginBottom="@dimen/margin_xxlarge"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="@{champViewModel.lore}"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/textSizeButton"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/champion_title_view" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 </layout>

@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         NavigationUI.navigateUp(findNavController(R.id.navigationHostFragment), drawer_layout)
 
     private fun setupNavigation() {
+        //TODO: Fix log out button. Not recognizing that user is logged in to log out.
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

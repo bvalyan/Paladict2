@@ -9,7 +9,10 @@ import com.example.paladict2.utils.KotlinUtils.Companion.portalToPlatform
 import com.google.android.material.radiobutton.MaterialRadioButton
 import kotlinx.android.synthetic.main.player_search_result_single.view.*
 
-class PlayerSearchResultAdapter(private var players: List<Player>, private val radioButtonClick : (Any) -> Unit) :
+class PlayerSearchResultAdapter(
+    private var players: List<Player>,
+    private val radioButtonClick: (Any) -> Unit
+) :
 
     RecyclerView.Adapter<PlayerSearchResultAdapter.ViewHolder>() {
 
@@ -39,13 +42,7 @@ class PlayerSearchResultAdapter(private var players: List<Player>, private val r
             view.select_player_btn.setOnClickListener {
                 radioButtonClick(player)
             }
-
         }
-
-        private fun notifyOKButton() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
     }
 
 
