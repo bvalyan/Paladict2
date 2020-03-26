@@ -35,10 +35,18 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_playerSearchPageFragment"
+            app:destination="@id/playerSearchPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemFragment"
         android:name="com.example.paladict2.view.ItemFragment"
         android:label="Items"
         tools:layout="@layout/main_menu_item_page"/>
+    <fragment
+        android:id="@+id/playerSearchPageFragment"
+        android:name="com.example.paladict2.view.maindrawerviews.PlayerSearchPageFragment"
+        android:label="PlayerSearchPageFragment"
+        tools:layout="@layout/main_menu_player_search_page"/>
 </navigation>

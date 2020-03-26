@@ -10,8 +10,8 @@ import com.google.android.material.radiobutton.MaterialRadioButton
 import kotlinx.android.synthetic.main.player_search_result_single.view.*
 
 class PlayerSearchResultAdapter(
-    private var players: List<Player>,
-    private val radioButtonClick: (Any) -> Unit
+    private var players: List<Player?>,
+    private val radioButtonClick: (Any?) -> Unit
 ) :
 
     RecyclerView.Adapter<PlayerSearchResultAdapter.ViewHolder>() {
@@ -34,11 +34,11 @@ class PlayerSearchResultAdapter(
         private var view: View = v
 
         fun bindSearchResult(
-            player: Player,
-            radioButtonClick: (Any) -> Unit
+            player: Player?,
+            radioButtonClick: (Any?) -> Unit
         ) {
-            view.name_text_view.text = player.name
-            view.player_platform.text = portalToPlatform(player.portalID)
+            view.name_text_view.text = player?.name
+            view.player_platform.text = portalToPlatform(player?.portalID)
             view.select_player_btn.setOnClickListener {
                 radioButtonClick(player)
             }

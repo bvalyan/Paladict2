@@ -42,21 +42,21 @@ interface PaladinsAPIService {
 
     @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getplayer(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("player") player : String
+        @Path("dev_id") devID : String?,
+        @Path("signature") signature : String?,
+        @Path("date") date : String?,
+        @Path("session") session : String?,
+        @Path("player") player : String?
     ) : Deferred<MutableList<Player>>
 
 
     @GET("searchplayersjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun searchPlayers(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("player") player : String
+        @Path("dev_id") devID : String?,
+        @Path("signature") signature : String?,
+        @Path("date") date : String?,
+        @Path("session") session : String?,
+        @Path("player") player : String?
     ) : Deferred<MutableList<Player>>
 
     @GET("getmatchhistoryjson/{dev_id}/{signature}/{session}/{date}/{player}")
@@ -70,11 +70,11 @@ interface PaladinsAPIService {
 
     @GET("getfriendsjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getFriends(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("player") player : String
+        @Path("dev_id") devID : String?,
+        @Path("signature") signature : String?,
+        @Path("date") date : String?,
+        @Path("session") session : String?,
+        @Path("player") player : String?
     ) : Deferred<MutableList<Player>>
 
 

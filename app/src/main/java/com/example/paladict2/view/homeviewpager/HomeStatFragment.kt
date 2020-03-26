@@ -46,7 +46,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var selectedPlayerViewModel: PlayerViewModel
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var championList: ArrayList<Champion>
+    private  var championList = arrayListOf<Champion>()
     private val chartData = MergedQueueSearchData()
     private val playerData = MergedPlayerSearchData()
 

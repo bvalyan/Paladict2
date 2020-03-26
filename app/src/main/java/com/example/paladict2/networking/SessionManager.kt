@@ -40,9 +40,9 @@ class SessionManager {
             })
         }
 
-        fun retrieveSessionID(context: Context): String? {
-            val sharedPrefs = context.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
-            return sharedPrefs.getString(PALADINS_SESSION_ID, "")
+        fun retrieveSessionID(context: Context?): String? {
+            val sharedPrefs = context?.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
+            return sharedPrefs?.getString(PALADINS_SESSION_ID, "")
         }
     }
 }

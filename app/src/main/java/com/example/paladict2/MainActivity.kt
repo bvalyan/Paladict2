@@ -82,6 +82,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 findNavController(R.id.navigationHostFragment).navigate(itemPage)
                 true
             }
+            R.id.players_menu_item -> {
+                val playerSearchPage = HomeScreenFragmentDirections.actionHomeScreenFragmentToPlayerSearchPageFragment()
+                findNavController(R.id.navigationHostFragment).navigate(playerSearchPage)
+                true
+            }
             R.id.logout_item -> {
                 val sharedPreferences: SharedPreferences? =
                     getSharedPreferences(Constants.SHARED_PREF_NAME, 0)

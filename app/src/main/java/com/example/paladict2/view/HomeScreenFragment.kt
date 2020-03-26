@@ -43,10 +43,10 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var searchedPlayers = listOf<Player>()
-    private lateinit var playerSearchViewModel: PlayerSearchViewModel
-    private lateinit var selectedPlayerViewModel: PlayerViewModel
+    private var playerSearchViewModel = PlayerSearchViewModel()
+    private var selectedPlayerViewModel = PlayerViewModel()
+    private var matchHistoryViewModel = MatchHistoryViewModel()
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var matchHistoryViewModel: MatchHistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -227,7 +227,7 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     private fun retrieveSelectedPlayerInfo(
-        item: Any,
+        item: Any?,
         alertDialog: AlertDialog
     ) {
         val selectedPlayer = item as Player
@@ -240,12 +240,12 @@ class HomeScreenFragment : Fragment(), SessionCallback,
 
         val selectedPlayerData = MergedPlayerSearchData()
 
-        selectedPlayerData.playerID = selectedPlayer.playerID!!
-        selectedPlayerData.session = retrieveSessionID(context!!)!!
+        selectedPlayerData.playerID = selectedPlayer.playerID
+        selectedPlayerData.session = retrieveSessionID(context)
 
         selectedPlayerViewModel.combinedPlayerSearchData.value = selectedPlayerData
 
-        if (activity!!.getSharedPreferences(SHARED_PREF_NAME, 0).getString(
+        if (activity?.getSharedPreferences(SHARED_PREF_NAME, 0)?.getString(
                 PLAYER_ID,
                 EMPTY_STRING
             ) != EMPTY_STRING
@@ -264,7 +264,11 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == PLAYER_ID && sharedPreferences!!.getString(key, EMPTY_STRING)!! != EMPTY_STRING) {
+        if (key == PLAYER_ID && sharedPreferences?.getString(
+                key,
+                EMPTY_STRING
+            )!! != EMPTY_STRING
+        ) {
             setupHomeViewPager()
         }
     }

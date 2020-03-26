@@ -22,7 +22,7 @@ class PlayerRepository {
         PaladinsAPIService.createCoreService()
     }
 
-    fun getMutableLiveData(session: String, playerID: String): MutableLiveData<Player> {
+    fun getMutableLiveData(session: String?, playerID: String?): MutableLiveData<Player> {
         coroutineScope.launch {
             val request = thisApiCoreService.getplayer(
                 Constants.PALADINS_DEV_ID,

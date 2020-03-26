@@ -7,65 +7,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/player_search_view"
-            android:background="@color/colorPrimaryDark"
+        <LinearLayout
+            android:weightSum="1"
+            android:baselineAligned="false"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/margin_small"
-            android:layout_height="55dp"
-            app:iconifiedByDefault="false"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="Enter the player you wish to evaluate." />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/searched_player_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="@dimen/textSizeLarge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_search_view"
-            tools:text="NoobMaster69" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/win_loss_card"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_margin="@dimen/margin_small"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/searched_player_name">
-
-            <LinearLayout
-                android:id="@+id/win_loss_chart_layout"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@color/colorTertiary"
+                android:layout_weight=".3"
+                android:layout_height="0dp">
 
-                <TextView
-                    android:id="@+id/win_loss_chart_title"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/search_card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:fontFamily="sans-serif-thin"
-                    android:text="@string/win_loss_chart"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/textSizeButton" />
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/margin_normal"
+                    app:cardElevation="@dimen/cardview_default_elevation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/player_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:padding="@dimen/margin_small"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:queryHint="Player Name Here." />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/win_loss_chart"
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_weight=".7"
+                android:layout_height="0dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/player_search_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"/>
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

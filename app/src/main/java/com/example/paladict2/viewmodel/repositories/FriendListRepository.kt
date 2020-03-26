@@ -21,7 +21,7 @@ class FriendListRepository {
         PaladinsAPIService.createCoreService()
     }
 
-    fun getFriendMutableLiveData(session : String, playerID : String) : MutableLiveData<List<Player>> {
+    fun getFriendMutableLiveData(session : String?, playerID : String?) : MutableLiveData<List<Player>> {
         coroutineScope.launch {
             val request = thisApiCoreService.getFriends(
                 Constants.PALADINS_DEV_ID,
