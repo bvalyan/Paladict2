@@ -5,6 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="?actionBarSize"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -14,16 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:background="@color/colorTertiary"
-                android:layout_weight=".3"
-                android:layout_height="0dp">
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/search_card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_normal"
                     app:cardElevation="@dimen/cardview_default_elevation"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -38,15 +35,12 @@
                         android:padding="@dimen/margin_small"
                         app:layout_constraintTop_toTopOf="parent"
                         app:queryHint="Player Name Here." />
-
                 </com.google.android.material.card.MaterialCardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_weight=".7"
-                android:layout_height="0dp">
-
+                android:layout_height="match_parent">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/player_search_recycler"
                     android:layout_width="match_parent"
