@@ -46,7 +46,7 @@
         tools:layout="@layout/main_menu_item_page"/>
     <fragment
         android:id="@+id/playerSearchPageFragment"
-        android:name="com.example.paladict2.view.maindrawerviews.PlayerSearchPageFragment"
+        android:name="com.example.paladict2.view.maindrawerviews.playersearch.PlayerSearchPageFragment"
         android:label="PlayerSearchPageFragment"
         tools:layout="@layout/main_menu_player_search_page"/>
 </navigation>

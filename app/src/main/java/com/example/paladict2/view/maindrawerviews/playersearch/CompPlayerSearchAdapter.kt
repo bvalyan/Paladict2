@@ -1,4 +1,4 @@
-package com.example.paladict2.view.maindrawerviews
+package com.example.paladict2.view.maindrawerviews.playersearch
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,10 @@ class CompPlayerSearchAdapter(private var players: MutableList<Player?>) : Recyc
     override fun onBindViewHolder(holder: PlayerSearchViewHolder, position: Int) {
         holder.itemView.player_name.text = players[position]?.name ?: ""
         holder.itemView.platform_name.text = KotlinUtils.portalToPlatform(players[position]?.portalID?: "Unknown")
+        holder.itemView.player_layout_container.setOnClickListener {
+            val playerResultFragment =  PlayerResultFragment(players[position])
+            it.context
+        }
     }
 }
 

@@ -11,7 +11,7 @@ class Constants {
         val PALADINS_SELECTED_CHAMPION = "selectedChampion"
         val REDIRECT_URI = "https://optimalotaku.com/paladict/"
         val RESPONSE_TYPE = "?response_type=code"
-        const val PALADINS_API_URI = "http://api.paladins.com/paladinsapi.svc/"
+        const val PALADINS_API_URI = "https://api.paladins.com/paladinsapi.svc/"
         const val PALADINS_DEV_ID = "2568"
         const val PALADINS_AUTH_KEY = "660ACC8BED2044B986BE8329F8856B6B"
         const val SHARED_PREF_NAME = "paladict_prefs"

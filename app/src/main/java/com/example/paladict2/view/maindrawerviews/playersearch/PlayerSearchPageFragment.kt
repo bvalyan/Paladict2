@@ -1,4 +1,4 @@
-package com.example.paladict2.view.maindrawerviews
+package com.example.paladict2.view.maindrawerviews.playersearch
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.paladict2.R
 import com.example.paladict2.model.MergedPlayerSearchData
 import com.example.paladict2.model.Player
