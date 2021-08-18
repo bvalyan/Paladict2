@@ -30,7 +30,7 @@ class SessionManager {
             val prefs = context.getSharedPreferences(Constants.SHARED_PREF_NAME, 0)
             val sessionRepository = SessionRepository()
             val session = sessionRepository.getMutableLiveData()
-            session.observe(lifeCycleOwner, Observer { obtainedSession ->
+            session.observe(lifeCycleOwner, { obtainedSession ->
                 run {
                     val editor = prefs.edit()
                     editor.putString(PALADINS_SESSION_ID, obtainedSession.sessionID)

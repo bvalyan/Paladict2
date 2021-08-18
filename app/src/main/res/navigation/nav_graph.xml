@@ -48,5 +48,17 @@
         android:id="@+id/playerSearchPageFragment"
         android:name="com.example.paladict2.view.maindrawerviews.playersearch.PlayerSearchPageFragment"
         android:label="PlayerSearchPageFragment"
-        tools:layout="@layout/main_menu_player_search_page"/>
+        tools:layout="@layout/main_menu_player_search_page">
+        <action
+            android:id="@+id/action_playerSearchPageFragment_to_playerResultFragment"
+            app:destination="@id/playerResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerResultFragment"
+        android:name="com.example.paladict2.view.maindrawerviews.playersearch.PlayerResultFragment"
+        android:label="PlayerResultFragment" >
+        <argument
+            android:name="playerID"
+            app:argType="string" />
+    </fragment>
 </navigation>
