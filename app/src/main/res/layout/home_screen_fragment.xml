@@ -71,7 +71,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
-            app:tabBackground="@color/cardview_dark_background"
+            app:tabBackground="@color/m3_sys_color_dark_surface"
             android:layout_height="wrap_content" />
 
     </androidx.viewpager.widget.ViewPager>

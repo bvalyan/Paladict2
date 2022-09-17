@@ -14,7 +14,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?actionBarSize"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +23,9 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/champion_card_view"
-                style="@style/Widget.MaterialComponents.CardView"
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
+                app:cardCornerRadius="0dp"
                 android:layout_height="@dimen/champion_det_card_height"
                 app:cardBackgroundColor="#0D8035"
                 app:layout_constraintTop_toTopOf="parent">
