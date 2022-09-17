@@ -23,65 +23,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
-
-
-        <com.google.android.material.circularreveal.CircularRevealRelativeLayout
-            android:id="@+id/main_fab_sheet"
-            android:layout_marginTop="?actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:transitionName="@string/transition_circular_layout"
-            android:visibility="invisible"
-            app:layout_behavior="com.google.android.material.transformation.FabTransformationSheetBehavior">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/fab_close_btn"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_margin="@dimen/margin_normal"
-                android:text="@string/close_text"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSizeLarge"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="@string/app_name" />
-
-
-        </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/main_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:transitionName="@string/transition_bottom_bar"
-            app:backgroundTint="@color/colorPrimaryDark"
-            app:fabAlignmentMode="center"
-            app:menu="@menu/bottom_navigation_menu"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/paladins_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/menu_paladins_icon"
-            android:transitionName="@string/transition_fab"
-            app:backgroundTint="@color/colorAccent"
-            app:layout_anchor="@id/main_app_bar"
-            app:tint="@null" />
+            android:theme="@style/ThemeOverlay.Material3.Dark" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

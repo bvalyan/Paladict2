@@ -1,12 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">#2C2C2C</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorSurface">@color/colorPrimaryDark</item>
+        <item name="colorSurface">@color/cardview_dark_background</item>
     </style>
 
     <style name="TextPrimaryStyle">

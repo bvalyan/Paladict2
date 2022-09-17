@@ -32,21 +32,24 @@ class ItemRepository(
         return itemDao.getItemByID(id)
     }
 
-
-    fun updateDBFromApi(session: String) {
+    fun updateDBFromApi(session: String?) {
         coroutineScope.launch {
-            val request = thisApiCorService.getItems(
-                Constants.PALADINS_DEV_ID,
-                createSignature("getitems"),
-                getDate(),
-                session,
-                "1"
-            )
+            val request = session?.let {
+                thisApiCorService.getItems(
+                    Constants.PALADINS_DEV_ID,
+                    createSignature("getitems"),
+                    getDate(),
+                    it,
+                    "1"
+                )
+            }
             withContext(Dispatchers.Main) {
                 try {
-                    val response = request.await()
-                    items = response
-                    addItemsToDB(items)
+                    val response = request?.await()
+                    if (response != null) {
+                        items = response
+                        addItemsToDB(items)
+                    }
                 } catch (e: HttpException) {
                     Log.d("", "")
                 }
@@ -55,10 +58,10 @@ class ItemRepository(
     }
 
     private fun addItemsToDB(
-        items: MutableList<Item>) {
+        items: MutableList<Item>
+    ) {
         doAsync {
             add(items)
         }
     }
-
 }

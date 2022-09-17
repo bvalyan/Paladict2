@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-data class RankedStatus (
+data class RankedStatus(
     @SerializedName("Tier")
-    var tier : Int? = 0,
+    var tier: Int? = 0,
     @SerializedName("Points")
-    var points : Int? = 0
+    var points: Int? = 0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

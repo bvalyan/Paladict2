@@ -5,6 +5,21 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/friend_fragment_layout.xml" value="0.3314814814814815" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/home_screen_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/item_card_single.xml" value="0.33" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/main_menu_item_page.xml" value="0.1" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/matches_fragment_layout.xml" value="0.3314814814814815" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/player_search_dialog.xml" value="0.4395833333333333" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/layout/stat_fragment_layout.xml" value="0.2936046511627907" />
+        <entry key="..\:/Users/bvaly/Downloads/Github/Paladict2/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3314814814814815" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

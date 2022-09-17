@@ -41,12 +41,11 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         //
     }
 
-
     override var title = "HOME"
     private lateinit var matchHistoryViewModel: MatchHistoryViewModel
     private lateinit var selectedPlayerViewModel: PlayerViewModel
     private lateinit var mainViewModel: MainViewModel
-    private  var championList = arrayListOf<Champion>()
+    private var championList = arrayListOf<Champion>()
     private val chartData = MergedQueueSearchData()
     private val playerData = MergedPlayerSearchData()
 
@@ -62,10 +61,10 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             false
         )
         val view = binding.root
-        if (isSessionValid(context!!)) {
+        if (isSessionValid(requireContext())) {
             initializeViewModels()
         } else {
-            SessionManager.createAndSaveSession(context!!, viewLifecycleOwner, this)
+            SessionManager.createAndSaveSession(requireContext(), viewLifecycleOwner, this)
         }
         binding.lifecycleOwner = viewLifecycleOwner
         binding.matchHistoryViewModel = matchHistoryViewModel
@@ -81,7 +80,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun setupRefreshView() {
         stat_refresh_layout.setOnRefreshListener {
-            if(mainViewModel.mChampionsLive.value != null) {
+            if (mainViewModel.mChampionsLive.value != null) {
                 championList = (mainViewModel.mChampionsLive.value as ArrayList<Champion>?)!!
                 updateViewModels()
             } else {
@@ -94,23 +93,21 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
         activity.let {
             matchHistoryViewModel = ViewModelProvider(
                 this,
-                MatchHistoryViewModelFactory(
-                )
+                MatchHistoryViewModelFactory()
             )
                 .get(MatchHistoryViewModel::class.java)
 
             mainViewModel = ViewModelProvider(
                 this,
                 MainViewModelFactory(
-                    activity!!.application
+                    requireActivity().application
                 )
             )
                 .get(MainViewModel::class.java)
 
             selectedPlayerViewModel = ViewModelProvider(
                 this,
-                PlayerViewModelFactory(
-                )
+                PlayerViewModelFactory()
             )
                 .get(PlayerViewModel::class.java)
         }
@@ -118,21 +115,29 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     }
 
     private fun setupObservers() {
-        mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
-            championList = it as ArrayList<Champion>
-            updateViewModels()
-        })
-
-        matchHistoryViewModel.matches.observe(viewLifecycleOwner, Observer {
-            if (stat_refresh_layout.isRefreshing) {
-                stat_refresh_layout.isRefreshing = false
+        mainViewModel.mChampionsLive.observe(
+            viewLifecycleOwner,
+            Observer {
+                championList = it as ArrayList<Champion>
+                updateViewModels()
             }
-            renderData(it)
-        })
+        )
 
-        selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {
+        matchHistoryViewModel.matches.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (stat_refresh_layout.isRefreshing) {
+                    stat_refresh_layout.isRefreshing = false
+                }
+                renderData(it)
+            }
+        )
 
-        })
+        selectedPlayerViewModel.player.observe(
+            viewLifecycleOwner,
+            Observer {
+            }
+        )
     }
 
     private fun renderData(matchList: List<Match>? = ArrayList()) {
@@ -140,8 +145,8 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
     }
 
     private fun renderRoleChart(matchList: List<Match>? = ArrayList()) {
-        user_class_chart.setNoDataTextColor(context!!.getColor(R.color.colorPrimary))
-        user_class_chart.setNoDataText(context!!.getString(R.string.no_chart_data))
+        user_class_chart.setNoDataTextColor(requireContext().getColor(R.color.colorPrimary))
+        user_class_chart.setNoDataText(requireContext().getString(R.string.no_chart_data))
         val roleHashMap = createRoleHashMap(matchList)
         val matchEntries = arrayListOf<PieEntry>()
 
@@ -160,7 +165,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
             roleHashMap.forEach {
                 if (it.value == max) {
                     user_class_chart.centerText =
-                        context!!.getString(R.string.center_text_role_string, max, it.key)
+                        requireContext().getString(R.string.center_text_role_string, max, it.key)
                 }
             }
             user_class_chart.data = PieData(roleDataSet)
@@ -181,7 +186,7 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
                 }
             }
         }
-        if(stat_refresh_layout.isRefreshing){
+        if (stat_refresh_layout.isRefreshing) {
             stat_refresh_layout.isRefreshing = false
         }
         return roleHash
@@ -209,13 +214,12 @@ class HomeStatFragment : HomeFragment(), SessionCallback {
 
     private fun updateViewModels() {
         chartData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
-        chartData.sessionID = retrieveSessionID(context!!)!!
+        chartData.sessionID = retrieveSessionID(requireContext()).orEmpty()
 
         playerData.playerID = LoginManager.retrievedLoggedInPlayer(context).playerID!!
-        playerData.session = retrieveSessionID(context!!)!!
+        playerData.session = retrieveSessionID(requireContext()).orEmpty()
 
         matchHistoryViewModel.mergedMatchHistoryData.value = chartData
         selectedPlayerViewModel.combinedPlayerSearchData.value = playerData
     }
-
 }

@@ -33,12 +33,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun updateChampionDBFromApi() {
         val session = SessionManager.retrieveSessionID(getApplication())
-        championRepository.updateDBFromApi(session!!)
+        championRepository.updateDBFromApi(session)
     }
 
     private fun updateItemDBFromApi() {
         val session = SessionManager.retrieveSessionID(getApplication())
-        itemRepository.updateDBFromApi(session!!)
+        itemRepository.updateDBFromApi(session)
     }
 
     private fun getAllChampions(): LiveData<List<Champion>> {
@@ -49,7 +49,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         mChampionsLive.addSource(champions) {
             val prevDBUpdateTime = prefs.getLong(Constants.DB_UPDATE_TIME, 0)
-            val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + 18000000
+            val timeToUpdate = System.currentTimeMillis() > prevDBUpdateTime + Constants.DB_UPDATE_VALUE
             if (it == null || it.isEmpty() || timeToUpdate) {
                 updateChampionDBFromApi()
                 toast(getApplication()).setText(getApplication<Application>().getString(R.string.champion_db_updated))

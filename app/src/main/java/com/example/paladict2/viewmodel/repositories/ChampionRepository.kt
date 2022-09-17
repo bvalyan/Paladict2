@@ -32,21 +32,24 @@ class ChampionRepository(
         return championDao.getChampionByID(id)
     }
 
-
-    fun updateDBFromApi(session: String) {
+    fun updateDBFromApi(session: String?) {
         coroutineScope.launch {
-            val request = thisApiCorService.getChampions(
-                Constants.PALADINS_DEV_ID,
-                createSignature("getchampions"),
-                getDate(),
-                session,
-                "1"
-            )
+            val request = session?.let {
+                thisApiCorService.getChampions(
+                    Constants.PALADINS_DEV_ID,
+                    createSignature("getchampions"),
+                    getDate(),
+                    it,
+                    "1"
+                )
+            }
             withContext(Dispatchers.Main) {
                 try {
-                    val response = request.await()
-                    champions = response
-                    addChampionsToDB(champions)
+                    val response = request?.await()
+                    if (response != null) {
+                        champions = response
+                        addChampionsToDB(champions)
+                    }
                 } catch (e: HttpException) {
                     Log.d("", "")
                 }
@@ -55,10 +58,10 @@ class ChampionRepository(
     }
 
     private fun addChampionsToDB(
-        champions: MutableList<Champion>) {
+        champions: MutableList<Champion>
+    ) {
         doAsync {
             add(champions)
         }
     }
-
 }

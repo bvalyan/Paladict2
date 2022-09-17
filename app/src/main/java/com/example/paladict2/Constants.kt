@@ -5,9 +5,9 @@ class Constants {
     companion object {
 
         val DB_UPDATE_TIME = "db_update_time"
-        @kotlin.jvm.JvmField
+        val DB_UPDATE_VALUE = 18000000
 
-        //Access Constants
+        // Access Constants
         val PALADINS_SELECTED_CHAMPION = "selectedChampion"
         val REDIRECT_URI = "https://optimalotaku.com/paladict/"
         val RESPONSE_TYPE = "?response_type=code"
@@ -24,11 +24,11 @@ class Constants {
         val PALADINS_SESSION_TIME = "session_time"
 
         val PLAYER_NAME = "player_name"
-        val PLAYER_ID =  "player_id"
+        val PLAYER_ID = "player_id"
         val PLATFORM = "player_platform"
         val ROLES = "Roles"
 
-        //Paladins Queues
+        // Paladins Queues
 
         val PALADINS_ONSLAUGHT_QUEUE_ID = "452"
         val PALADINS_SIEGE_QUEUE_ID = "465"
@@ -36,13 +36,12 @@ class Constants {
         val PALADINS_TEAM_DM_QUEUE_ID = "469"
         val PALADINS_CASUAL_QUEUE_ID = "424"
 
-        //Paladins Portals
+        // Paladins Portals
 
         const val PALADINS_PS4_PORTAL_ID = "9"
         const val PALADINS_SWITCH_PORTAL_ID = "22"
         const val PALADINS_PC_PORTAL_ID = "5"
         const val PALADINS_XBOX_PORTAL_ID = "10"
-
 
         const val EMPTY_STRING = ""
     }

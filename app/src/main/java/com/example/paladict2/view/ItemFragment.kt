@@ -19,11 +19,11 @@ class ItemFragment : HomeFragment(), SessionCallback {
     private lateinit var mainViewModel: MainViewModel
 
     override fun postLogin(isLoggedIn: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun postSessionExecution() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onCreateView(
@@ -35,10 +35,10 @@ class ItemFragment : HomeFragment(), SessionCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (SessionManager.isSessionValid(context!!)) {
+        if (SessionManager.isSessionValid(requireContext())) {
             initializeViewModel()
         } else {
-            SessionManager.createAndSaveSession(context!!, viewLifecycleOwner, this)
+            SessionManager.createAndSaveSession(requireContext(), viewLifecycleOwner, this)
         }
     }
 
@@ -47,17 +47,19 @@ class ItemFragment : HomeFragment(), SessionCallback {
             mainViewModel = ViewModelProvider(
                 this,
                 MainViewModelFactory(
-                    activity!!.application
+                    requireActivity().application
                 )
-            )
-                .get(MainViewModel::class.java)
+            )[MainViewModel::class.java]
 
-            mainViewModel.mItemsLive.observe(viewLifecycleOwner, Observer {
-                val recyclerAdapter = PaladinsItemRecyclerAdapter(it)
-                val linearLayoutManager = LinearLayoutManager(context)
-                item_recycler.layoutManager = linearLayoutManager
-                item_recycler.adapter = recyclerAdapter
-            })
+            mainViewModel.mItemsLive.observe(
+                viewLifecycleOwner,
+                Observer {
+                    val recyclerAdapter = PaladinsItemRecyclerAdapter(it)
+                    val linearLayoutManager = LinearLayoutManager(context)
+                    item_recycler.layoutManager = linearLayoutManager
+                    item_recycler.adapter = recyclerAdapter
+                }
+            )
         }
     }
 }

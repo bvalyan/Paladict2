@@ -3,6 +3,7 @@ package com.example.paladict2
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -28,18 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setUpFAB()
         setupNavigation()
-    }
-
-
-
-
-    private fun setUpFAB() {
-        fab_close_btn.setOnClickListener { paladins_fab.isExpanded = !paladins_fab.isExpanded }
-        paladins_fab.setOnClickListener {
-            paladins_fab.isExpanded = !paladins_fab.isExpanded
-        }
     }
 
     override fun onSupportNavigateUp() =
@@ -57,12 +47,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
     }
 
-    override fun onBackPressed() {
+    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
+
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
         }
+        return super.getOnBackInvokedDispatcher()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

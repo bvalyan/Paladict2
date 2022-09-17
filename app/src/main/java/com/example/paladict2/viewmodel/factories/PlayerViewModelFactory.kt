@@ -6,7 +6,7 @@ import com.example.paladict2.viewmodel.PlayerViewModel
 
 class PlayerViewModelFactory :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return PlayerViewModel() as T
     }
 }

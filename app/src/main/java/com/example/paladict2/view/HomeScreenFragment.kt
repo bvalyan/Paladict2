@@ -39,7 +39,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import kotlinx.android.synthetic.main.player_search_dialog.view.*
 
-class HomeScreenFragment : Fragment(), SessionCallback,
+class HomeScreenFragment :
+    Fragment(),
+    SessionCallback,
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var searchedPlayers = listOf<Player>()
@@ -63,7 +65,7 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     private fun checkSession() {
-        if (SessionManager.isSessionValid(context!!)) {
+        if (SessionManager.isSessionValid(requireContext())) {
             initializeViewModels()
         } else {
             updateSessionFragment()
@@ -73,30 +75,29 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     private fun updateSessionFragment() {
         val sessionRepository = SessionRepository()
         val session = sessionRepository.getMutableLiveData()
-        session.observe(viewLifecycleOwner, Observer {
-            val prefs = context!!.getSharedPreferences(SHARED_PREF_NAME, 0)
-            val editor = prefs.edit()
-            editor.putString(Constants.PALADINS_SESSION_ID, it.sessionID)
-            editor.putLong(Constants.PALADINS_SESSION_TIME, System.currentTimeMillis())
-            editor.apply()
-            initializeViewModels()
-        })
-
+        session.observe(
+            viewLifecycleOwner,
+            Observer {
+                val prefs = requireContext().getSharedPreferences(SHARED_PREF_NAME, 0)
+                val editor = prefs.edit()
+                editor.putString(Constants.PALADINS_SESSION_ID, it.sessionID)
+                editor.putLong(Constants.PALADINS_SESSION_TIME, System.currentTimeMillis())
+                editor.apply()
+                initializeViewModels()
+            }
+        )
     }
 
     private fun initializeViewModels() {
         activity.let {
-
             playerSearchViewModel = ViewModelProvider(
                 this,
                 PlayerSearchViewModelFactory()
-            )
-                .get(PlayerSearchViewModel::class.java)
+            )[PlayerSearchViewModel::class.java]
 
             selectedPlayerViewModel = ViewModelProvider(
                 this,
-                PlayerViewModelFactory(
-                )
+                PlayerViewModelFactory()
             )
                 .get(PlayerViewModel::class.java)
 
@@ -109,15 +110,14 @@ class HomeScreenFragment : Fragment(), SessionCallback,
             mainViewModel = ViewModelProvider(
                 this,
                 MainViewModelFactory(
-                    activity!!.application
+                    requireActivity().application
                 )
             )
                 .get(MainViewModel::class.java)
 
             selectedPlayerViewModel = ViewModelProvider(
                 this,
-                PlayerViewModelFactory(
-                )
+                PlayerViewModelFactory()
             )
                 .get(PlayerViewModel::class.java)
 
@@ -126,21 +126,31 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     private fun setupObservers() {
-        mainViewModel.mChampionsLive.observe(viewLifecycleOwner, Observer {
-            setupUI()
-        })
-
-        playerSearchViewModel.players.observe(viewLifecycleOwner, Observer {
-            if (!LoginManager.isLoggedIn(context!!)) {
-                searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
-                renderSearchedOptions(searchedPlayers)
+        mainViewModel.mChampionsLive.observe(
+            viewLifecycleOwner,
+            Observer {
+                setupUI()
             }
-        })
+        )
 
-        selectedPlayerViewModel.player.observe(viewLifecycleOwner, Observer {
-            if (!LoginManager.isLoggedIn(context))
-                saveSelectedPlayerAsLogin(it.name, it.activePlayerID, it.platform)
-        })
+        playerSearchViewModel.players.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (!LoginManager.isLoggedIn(requireContext())) {
+                    searchedPlayers = playerSearchViewModel.players.value as ArrayList<Player>
+                    renderSearchedOptions(searchedPlayers)
+                }
+            }
+        )
+
+        selectedPlayerViewModel.player.observe(
+            viewLifecycleOwner,
+            Observer {
+                if (!LoginManager.isLoggedIn(context)) {
+                    saveSelectedPlayerAsLogin(it.name, it.activePlayerID, it.platform)
+                }
+            }
+        )
     }
 
     private fun setupUI() {
@@ -153,10 +163,10 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     private fun saveSelectedPlayerAsLogin(name: String?, playerID: String?, platform: String?) {
-        activity!!.getSharedPreferences(SHARED_PREF_NAME, 0)
+        requireActivity().getSharedPreferences(SHARED_PREF_NAME, 0)
             .registerOnSharedPreferenceChangeListener(this)
         val sharedPreferences: SharedPreferences? =
-            activity!!.getSharedPreferences(SHARED_PREF_NAME, 0)
+            requireActivity().getSharedPreferences(SHARED_PREF_NAME, 0)
 
         sharedPreferences!!.edit().putString(Constants.PLAYER_NAME, name)
             .putString(PLAYER_ID, playerID)
@@ -188,42 +198,43 @@ class HomeScreenFragment : Fragment(), SessionCallback,
             val searchData = MergedPlayerSearchData()
 
             searchData.playerName = userName
-            searchData.session = retrieveSessionID(context!!)!!
+            searchData.session = retrieveSessionID(requireContext())
 
             playerSearchViewModel.combinedPlayerSearchData.value = searchData
         }
     }
 
     private fun renderSearchedOptions(players: List<Player>) {
-        val builder = MaterialAlertDialogBuilder(context)
+        val builder = context?.let { MaterialAlertDialogBuilder(it) }
         val dialogView = layoutInflater.inflate(R.layout.player_search_dialog, null)
 
-        builder.setView(dialogView)
+        builder?.setView(dialogView)
 
-        val alertDialog = builder.create()
+        val alertDialog = builder?.create()
 
         val playerSearchResultAdapter =
             PlayerSearchResultAdapter(players) { item ->
-                retrieveSelectedPlayerInfo(
-                    item,
-                    alertDialog
-                )
+                alertDialog?.let {
+                    retrieveSelectedPlayerInfo(
+                        item,
+                        it
+                    )
+                }
             }
 
         val dividerItemDecoration = DividerItemDecoration(context, VERTICAL)
 
-        dividerItemDecoration.setDrawable(context!!.getDrawable(R.drawable.divider_drawable)!!)
+        dividerItemDecoration.setDrawable(requireContext().getDrawable(R.drawable.divider_drawable)!!)
 
         dialogView.search_result_recycler.layoutManager = LinearLayoutManager(context)
         dialogView.search_result_recycler.adapter = playerSearchResultAdapter
         dialogView.search_result_recycler.addItemDecoration(dividerItemDecoration)
 
-        alertDialog.show()
+        alertDialog?.show()
     }
 
-
     override fun postSessionExecution() {
-        //NO-OP
+        // NO-OP
     }
 
     private fun retrieveSelectedPlayerInfo(
@@ -260,7 +271,7 @@ class HomeScreenFragment : Fragment(), SessionCallback,
     }
 
     override fun postLogin(isLoggedIn: Boolean) {
-        //NO-OP
+        // NO-OP
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -273,5 +284,3 @@ class HomeScreenFragment : Fragment(), SessionCallback,
         }
     }
 }
-
-

@@ -12,75 +12,71 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.util.concurrent.TimeUnit
 
-
 interface PaladinsAPIService {
 
     @GET("createsessionjson/{dev_id}/{signature}/{date}")
     fun createAPISession(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String
-    ) : Deferred<Session>
+        @Path("dev_id") devID: String,
+        @Path("signature") signature: String,
+        @Path("date") date: String
+    ): Deferred<Session>
 
     @GET("getchampionsjson/{dev_id}/{signature}/{session}/{date}/{langCode}")
     fun getChampions(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("langCode") langCode : String
-    ) : Deferred<MutableList<Champion>>
+        @Path("dev_id") devID: String,
+        @Path("signature") signature: String,
+        @Path("date") date: String,
+        @Path("session") session: String,
+        @Path("langCode") langCode: String
+    ): Deferred<MutableList<Champion>>
 
     @GET("getitemsjson/{dev_id}/{signature}/{session}/{date}/{langCode}")
     fun getItems(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("langCode") langCode : String
-    ) : Deferred<MutableList<Item>>
+        @Path("dev_id") devID: String,
+        @Path("signature") signature: String,
+        @Path("date") date: String,
+        @Path("session") session: String,
+        @Path("langCode") langCode: String
+    ): Deferred<MutableList<Item>>
 
     @GET("getplayerjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getplayer(
-        @Path("dev_id") devID : String?,
-        @Path("signature") signature : String?,
-        @Path("date") date : String?,
-        @Path("session") session : String?,
-        @Path("player") player : String?
-    ) : Deferred<MutableList<Player>>
-
+        @Path("dev_id") devID: String?,
+        @Path("signature") signature: String?,
+        @Path("date") date: String?,
+        @Path("session") session: String?,
+        @Path("player") player: String?
+    ): Deferred<MutableList<Player>>
 
     @GET("searchplayersjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun searchPlayers(
-        @Path("dev_id") devID : String?,
-        @Path("signature") signature : String?,
-        @Path("date") date : String?,
-        @Path("session") session : String?,
-        @Path("player") player : String?
-    ) : Deferred<MutableList<Player>>
+        @Path("dev_id") devID: String?,
+        @Path("signature") signature: String?,
+        @Path("date") date: String?,
+        @Path("session") session: String?,
+        @Path("player") player: String?
+    ): Deferred<MutableList<Player>>
 
     @GET("getmatchhistoryjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getMatchHistory(
-        @Path("dev_id") devID : String,
-        @Path("signature") signature : String,
-        @Path("date") date : String,
-        @Path("session") session : String,
-        @Path("player") player : String
-    ) : Deferred<MutableList<Match>>
+        @Path("dev_id") devID: String,
+        @Path("signature") signature: String,
+        @Path("date") date: String,
+        @Path("session") session: String,
+        @Path("player") player: String
+    ): Deferred<MutableList<Match>>
 
     @GET("getfriendsjson/{dev_id}/{signature}/{session}/{date}/{player}")
     fun getFriends(
-        @Path("dev_id") devID : String?,
-        @Path("signature") signature : String?,
-        @Path("date") date : String?,
-        @Path("session") session : String?,
-        @Path("player") player : String?
-    ) : Deferred<MutableList<Player>>
-
+        @Path("dev_id") devID: String?,
+        @Path("signature") signature: String?,
+        @Path("date") date: String?,
+        @Path("session") session: String?,
+        @Path("player") player: String?
+    ): Deferred<MutableList<Player>>
 
     companion object {
         fun createCoreService(): PaladinsAPIService {
-
             val logging = HttpLoggingInterceptor()
 // set your desired log level
             logging.level = HttpLoggingInterceptor.Level.BODY
@@ -100,5 +96,4 @@ interface PaladinsAPIService {
                 .build().create(PaladinsAPIService::class.java)
         }
     }
-
 }

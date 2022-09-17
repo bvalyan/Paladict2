@@ -23,8 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_marginBottom="@dimen/bottom_bar_padding" />
+                android:layout_marginEnd="@dimen/margin_small" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryDark">
+    >
 
     <TextView
         android:id="@+id/login_entry"
@@ -33,65 +33,62 @@
         android:id="@+id/paladins_logo_img_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        app:layout_constraintTop_toBottomOf="@id/subtitle_view"
-        app:layout_constraintBottom_toTopOf="@id/user_name_input"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/menu_paladins_icon"
+        app:layout_constraintBottom_toTopOf="@id/user_name_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subtitle_view"
 
         />
 
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/user_name_input"
+        style="@style/Widget.AppCompat.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
-        style="@style/Widget.AppCompat.EditText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subtitle_view" />
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
         android:enabled="false"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="@string/log_in"
-        app:layout_constraintTop_toBottomOf="@id/user_name_input"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_small"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_name_input" />
 
-<androidx.viewpager.widget.ViewPager
-    android:id="@+id/user_view_pager"
-    android:background="@color/colorPrimaryDark"
-    android:layout_width="match_parent"
-    tools:layout="@layout/stat_fragment_layout"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.tabs.TabLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/user_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        tools:layout="@layout/stat_fragment_layout">
 
-</androidx.viewpager.widget.ViewPager>
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            app:tabBackground="@color/cardview_dark_background"
+            android:layout_height="wrap_content" />
+
+    </androidx.viewpager.widget.ViewPager>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/login_page_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible"
-        app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,user_name_input,paladins_logo_img_view"/>
+        app:constraint_referenced_ids="login_btn,login_entry,subtitle_view,user_name_input,paladins_logo_img_view"
+        tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/logged_in_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="user_view_pager"
-        />
+        app:constraint_referenced_ids="user_view_pager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

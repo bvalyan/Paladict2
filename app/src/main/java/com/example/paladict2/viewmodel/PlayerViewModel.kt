@@ -1,20 +1,19 @@
 package com.example.paladict2.viewmodel
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import androidx.databinding.adapters.Converters.convertColorToDrawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.paladict2.R
 import com.example.paladict2.model.MergedPlayerSearchData
 import com.example.paladict2.model.Player
 import com.example.paladict2.viewmodel.repositories.PlayerRepository
 
-class PlayerViewModel : ViewModel(){
+class PlayerViewModel : ViewModel() {
 
-    //TODO: Cleanup hard coded strings in this class!
+    // TODO: Cleanup hard coded strings in this class!
 
     private val playerRepository = PlayerRepository()
 
@@ -24,36 +23,36 @@ class PlayerViewModel : ViewModel(){
         playerRepository.getMutableLiveData(it.session, it.playerID)
     }
 
-    val rankedBackground: LiveData<Int> = Transformations.map(player){
-            tierToBackground(player)
+    val rankedBackground: LiveData<Int> = Transformations.map(player) {
+        tierToBackground(player)
     }
 
-    val tierText : LiveData<String> = Transformations.map(player){
+    val tierText: LiveData<String> = Transformations.map(player) {
         tierToString(player)
     }
 
-    val toNextTier : LiveData<String> = Transformations.map(player){
+    val toNextTier: LiveData<String> = Transformations.map(player) {
         retrieveTierProgress(player)
     }
 
-    val level : LiveData<String> = Transformations.map(player){
+    val level: LiveData<String> = Transformations.map(player) {
         player.value!!.level.toString()
     }
 
-    val masteryLevel : LiveData<String> = Transformations.map(player){
+    val masteryLevel: LiveData<String> = Transformations.map(player) {
         player.value!!.masteryLevel.toString()
     }
 
     private fun retrieveTierProgress(player: LiveData<Player>): String? {
-        return if(player.value!!.rankedInfo!!.points!! < 100 || player.value!!.rankedInfo!!.tier!! <= 25){
+        return if (player.value!!.rankedInfo!!.points!! < 100 || player.value!!.rankedInfo!!.tier!! <= 25) {
             player.value!!.rankedInfo!!.points!!.toString() + "/100"
-        } else{
+        } else {
             ""
         }
     }
 
     private fun tierToString(player: LiveData<Player>): String? {
-        when(player.value!!.rankedInfo!!.tier){
+        when (player.value!!.rankedInfo!!.tier) {
             0 -> return "Unranked"
             1 -> return "Bronze V"
             2 -> return "Bronze IV"
@@ -92,8 +91,8 @@ class PlayerViewModel : ViewModel(){
     }
 
     private fun tierToBackground(player: LiveData<Player>): Int {
-        when(player.value!!.rankedInfo!!.tier){
-            0 -> return Color.parseColor("#1c2e2e")
+        when (player.value?.rankedInfo?.tier) {
+            0 -> return Color.parseColor("#FF424242")
             in 1..5 -> return Color.parseColor("#132e0d")
             in 6..10 -> return Color.parseColor("#0a1429")
             in 10..15 -> return Color.parseColor("#470004")
